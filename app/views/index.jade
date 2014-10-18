@@ -1,0 +1,32 @@
+extends layout
+
+block content
+    h1 Q
+    p Welcome to Q
+
+    // Wrapper
+    #wrapper
+        // ADD USER
+        h2 Add Yourself to Q
+        #addUser
+            fieldset
+                input#inputUserName(type='text', placeholder='Name')
+                input#inputUserAndrewId(type='text', placeholder='AndrewId')
+                br
+                button#btnAddUser Add User
+        // /ADD USER
+        br
+
+        // USER LIST
+        h2 User List
+        #userList
+            table
+                thead
+                    th UserName
+                    th Email
+                    th Delete?
+                tbody
+        // /USER LIST
+
+
+    // /WRAPPER
