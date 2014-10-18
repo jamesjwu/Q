@@ -71,7 +71,7 @@ function populateTable() {
         userListData = data;
         $.each(data, function() {
             tableContent += '<tr>';
-            tableContent += '<td><a href="#" class="linkshowuser" rel="' + this.username + '" title="Show Details">' + this.name + '</a></td>';
+            tableContent += '<td>' + this.name + '</td>';
             tableContent += '<td>' + this.andrewId + '</td>';
             tableContent += '<td><a href="#" class="linkdeleteuser" rel="' + this._id + '">delete</a></td>';
             tableContent += '</tr>';
