@@ -1,6 +1,6 @@
 body {
-  padding: 30px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  margin: 0 0 0 0;
 }
 
 h2 {
@@ -9,6 +9,18 @@ h2 {
 
 a {
   color: #00B7FF;
+}
+
+fieldset input, button {
+    margin: 1%;
+    padding: 1%;
+
+}
+
+#top {
+    height: 50%;
+    margin-top: -1.5%;
+    background-color: #009688;
 }
 
 #wrapper {

@@ -1,9 +1,12 @@
 extends layout
 
 block content
-    h1 Q
-    p Welcome to Q
-
+    //top div bar
+    #top
+        h1 Q
+        p
+    p
+    br
     // Wrapper
     #wrapper
         // ADD USER
@@ -12,8 +15,7 @@ block content
             fieldset
                 input#inputUserName(type='text', placeholder='Name')
                 input#inputUserAndrewId(type='text', placeholder='AndrewId')
-                br
-                button#btnAddUser Add User
+                button#btnAddUser Join the Qs
         // /ADD USER
         br
 
@@ -22,8 +24,8 @@ block content
         #userList
             table
                 thead
-                    th UserName
-                    th Email
+                    th Name
+                    th Andrew
                     th Delete?
                 tbody
         // /USER LIST

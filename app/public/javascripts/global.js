@@ -3,15 +3,21 @@ var userListData = [];
 
 $(document).ready(function() {
     $('#btnAddUser').on('click', addUser);
+    $('#addUser input').on('change', resetInput);
     $('#userList table tbody').on('click', 'td a.linkdeleteuser', deleteUser);
     populateTable();
 });
+
+function resetInput(event) {
+    event.preventDefault();
+    $(this).css("border-color", "initial")
+}
 
 function deleteUser(event) {
     event.preventDefault();
 
     var confirmation = confirm('Are you sure you want to delete?');
-    
+        
     if (confirmation === true) {
         $.ajax({
             type: "DELETE",
@@ -35,7 +41,10 @@ function addUser(event) {
 
     var errorCount = 0;
     $('#addUser input').each(function(index, val) {
-        if ($(this).val() === '') {errorCount++};
+        if ($(this).val() === '') {
+            $(this).css("border-color", "#ff5722")
+            errorCount++
+        };
     });
 
     if (errorCount === 0) {
@@ -58,7 +67,6 @@ function addUser(event) {
             }
         });
     } else {
-        alert("Please fill in all fields.");
         return false;
     }
 }
