@@ -54,6 +54,8 @@ if (app.get('env') === 'development') {
         });
     });
 }
+//on app restart, we reset help times
+
 
 // production error handler
 // no stacktraces leaked to user
