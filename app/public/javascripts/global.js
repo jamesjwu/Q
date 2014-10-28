@@ -1,39 +1,65 @@
 // TODO: Global vairable is bad
 var userListData = []; 
 
+
 $(document).ready(function() {
+    populateTable();
+
     $('#btnAddUser').on('click', addUser);
     $('#addUser input').on('change', resetInput);
     $('#userList table tbody').on('click', 'td a.linkdeleteuser', deleteUser);
-    populateTable();
+    
 });
+
+//sets the help time div to the correct number
+function setAverageHelpTime() {
+    console.log(getAverageHelpTime())
+    $('#averageHelpTime h3').html(Math.round(getAverageHelpTime()) + " minute(s)")
+}
 
 function resetInput(event) {
     event.preventDefault();
     $(this).css("border-color", "initial")
 }
 
+// calculate teh amount of time it took the person to get helped
+function getTimeHelped(time) {
+    // in minutes
+    return (new Date().getTime() - time) / 1000 / 60;
+}
+
+
+// calculate average help time
+function getAverageHelpTime() {
+    var helptimes = localStorage.helpTimes.trim().split("\n");
+    var sum = 0.0
+    for(var i = 0; i < helptimes.length; i++) {
+        sum += parseFloat(helptimes[i])
+    }
+    return sum/helptimes.length * userListData.length;  
+
+}
+
 function deleteUser(event) {
     event.preventDefault();
+    var time = $(this).attr('time')
+    console.log("This person took " + getTimeHelped(time) + " minutes to get helped");
+    if(getTimeHelped(time) >= 1.0) {
+        localStorage.helpTimes += getTimeHelped(time)  + "\n"
+    }   
 
-    var confirmation = confirm('Are you sure you want to delete?');
-        
-    if (confirmation === true) {
-        $.ajax({
-            type: "DELETE",
-            url: "/users/deleteuser/"+$(this).attr('rel')
-        }).done(function(response) {
-            if (response.msg === '') {
-            } else {
-                alert('Error: ' + response.msg);
-            }
-            //update table
-            populateTable();
-        });
-    } else {
-        // If they said no to the confirm, do nothing
-        return false;
-    }
+    $.ajax({
+        type: "DELETE",
+        url: "/users/deleteuser/"+$(this).attr('rel')
+    }).done(function(response) {
+        if (response.msg === '') {
+        } else {
+            alert('Error: ' + response.msg);
+        }
+        //update table
+        populateTable();
+    });
+
 }
 
 function addUser(event) {
@@ -52,6 +78,7 @@ function addUser(event) {
             'name': $('#addUser fieldset input#inputUserName').val(),
             'andrewId': $('#addUser fieldset input#inputUserAndrewId').val(),
             'problem': $('#addUser fieldset input#inputUserProblem').val(),
+            'timestamp': new Date().getTime()
         }
         $.ajax({
             type: "POST",
@@ -77,15 +104,16 @@ function populateTable() {
     // jQuery AJAX call for JSON
     $.getJSON('/users/userlist', function(data) {
         userListData = data;
+        
         $.each(data, function() {
             tableContent += '<tr>';
             tableContent += '<td>' + this.name + '</td>';
             tableContent += '<td>' + this.andrewId + '</td>';
             tableContent += '<td>' + this.problem + '</td>';
-            tableContent += '<td><a href="#" class="linkdeleteuser" rel="' + this._id + '">delete</a></td>';
+            tableContent += '<td><a href="#" class="linkdeleteuser" time='+ this.timestamp + ' rel="' + this._id + '">Done</a></td>';
             tableContent += '</tr>';
         });
-
+        setAverageHelpTime()
         $('#userList table tbody').html(tableContent);
     });
 }

@@ -26,7 +26,9 @@ router.post('/adduser', function(req, res) {
 
     // Get our form values. These rely on the "name" attributes
     var andrewId = req.body.andrewId;
-    var problem = req.body.problem
+    var problem = req.body.problem;
+    var timestamp = req.body.timestamp;
+
     console.log("andewId is ----------- " + andrewId);
 
     // Set our collection
@@ -34,8 +36,9 @@ router.post('/adduser', function(req, res) {
 
     // Submit to the DB
     collection.insert({
-        "problem" : problem
-        "andrewId" : andrewId
+        "problem" : problem,
+        "andrewId" : andrewId,
+        "timestamp": timestamp,
     }, function (err, doc) {
         if (err) {
             // If it failed, return error

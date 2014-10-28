@@ -11,6 +11,10 @@ block content
     #wrapper
         // ADD USER
         h2 Add Yourself to Q
+        
+        h3 Current Average help Time: 
+        #averageHelpTime
+            h3
         #addUser
             fieldset
                 input#inputUserName(type='text', placeholder='Name')
@@ -24,12 +28,12 @@ block content
         // USER LIST
         h2 User List
         #userList
-            table
+            table#queue
                 thead
                     th Name
-                    th Andrew
+                    th andrewid
                     th Problem
-                    th Delete?
+                    th Done?
                 tbody
         // /USER LIST
 
