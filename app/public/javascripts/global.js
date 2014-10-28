@@ -50,7 +50,8 @@ function addUser(event) {
     if (errorCount === 0) {
         var newUser = {
             'name': $('#addUser fieldset input#inputUserName').val(),
-            'andrewId': $('#addUser fieldset input#inputUserAndrewId').val()
+            'andrewId': $('#addUser fieldset input#inputUserAndrewId').val(),
+            'problem': $('#addUser fieldset input#inputUserProblem').val(),
         }
         $.ajax({
             type: "POST",
@@ -59,8 +60,7 @@ function addUser(event) {
             dataType: 'JSON'
         }).done(function(response) {
             if (response.msg === '') {
-                $('#addUser fieldset input').val('');
-
+                $('#addUser fieldset input#inputUserProblem').val('')               
                 populateTable();
             } else {
                 alert('Error: ' + response.msg);
@@ -81,6 +81,7 @@ function populateTable() {
             tableContent += '<tr>';
             tableContent += '<td>' + this.name + '</td>';
             tableContent += '<td>' + this.andrewId + '</td>';
+            tableContent += '<td>' + this.problem + '</td>';
             tableContent += '<td><a href="#" class="linkdeleteuser" rel="' + this._id + '">delete</a></td>';
             tableContent += '</tr>';
         });
