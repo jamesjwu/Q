@@ -10,15 +10,18 @@ h2 {
 a {
   color: #00B7FF;
 }
-
-fieldset input, button {
+fieldset input {
     margin: 1%;
     padding: 1%;
 
 }
+ fieldset a {
+    display: inline-block !important;
+    align: right;
+ }
 
 fieldset input#inputUserProblem {
-    width: 27%;
+    width: 38%;
 }
 
 #top {
@@ -70,5 +73,6 @@ fieldset input#inputUserProblem {
 
 fieldset {
     border:0;
-    padding:0; margin:0;
+    padding:0;
+    margin-left: -.5%;
 }

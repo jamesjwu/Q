@@ -5,7 +5,7 @@ $(document).ready(function() {
     populateTable();
     $('#btnAddUser').on('click', addUser);
     $('#addUser input').on('change', resetInput);
-    $('#userList table tbody').on('click', 'td a.linkdeleteuser', deleteUser);
+    $('#userList').on('click', 'a.linkdeleteuser', deleteUser);
     
 });
 
@@ -32,7 +32,7 @@ function setAverageHelpTime() {
         }
         // average help time = average time per entry * (number of entries + 1)
         var time = sum/data.length*(userListData.length+1)
-        $('#averageHelpTime').html( Math.round(time) + " minute(s)")
+        $('#averageHelpTime').html("<font color='black'> Average Help Time: </font>" + Math.round(time) + " minute(s)")
 
         if(time > 30) {
             $('#averageHelpTime').css("color", "red")
@@ -82,6 +82,7 @@ function trackTime(newTime) {
 }
 
 function addUser(event) {
+    $(this).css('outline', 'none')
     event.preventDefault();
 
     var errorCount = 0;
@@ -129,15 +130,15 @@ function populateTable() {
         userListData = data;
 
         $.each(data, function() {
-            tableContent += '<tr>';
-            tableContent += '<td>' + this.name + '</td>';
-            tableContent += '<td>' + this.andrewId + '</td>';
-            tableContent += '<td>' + this.problem + '</td>';
-            tableContent += '<td><a href="#" class="linkdeleteuser" time='+ this.timestamp + ' rel="' + this._id + '">Done</a></td>';
-            tableContent += '</tr>';
+            tableContent += '<div class="row">';
+            tableContent += '<div class = "col s3">' + this.name + '</div>';
+            tableContent += '<div class = "col s3">' + this.andrewId + '</div>';
+            tableContent += '<div class = "col s3">' + this.problem + '</div>';
+            tableContent += '<div class = "col s3"> <a href="#" class="linkdeleteuser" time='+ this.timestamp + ' rel="' + this._id + '">Done </a></div>';
+            tableContent += '</div><br>';
         });
         //every time we repopulate the table, we recalculate average help time
         setAverageHelpTime()
-        $('#userList table tbody').html(tableContent);
+        $('#userList').html(tableContent);
     });
 }

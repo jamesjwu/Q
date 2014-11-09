@@ -11,8 +11,7 @@ block content
                     a(href = "#") Metrics
 
                 li
-                    b  
-                        a(href = "#" id="averageHelpTime")
+                    a(href = "#" id="averageHelpTime")
                  
         
             
@@ -22,23 +21,30 @@ block content
     br
     br
     .row
-        .col.s9.offset-s1
+        .col.s10.offset-s1
             #addUser
                 fieldset
                     input#inputUserName(type='text', placeholder='Name')
                     input#inputUserAndrewId(type='text', placeholder='AndrewId')
-                    input#inputUserProblem(type='text', placeholder='What would you like help with?')
-                    button#btnAddUser(class="waves-effect button raised") Queue
+                    input#inputUserProblem(type='text', placeholder='What would you like help with?') 
+                    a#btnAddUser(class="button floating") +
             // /ADD USER
+    .row
+        .col.s10.offset-s1
+            .row
+                .col.s3 
+                    h5 Name
+                .col.s3 
+                    h5 Andrewid
+                .col.s3 
+                    h5 Problem
+                .col.s3 
+                    h5 Done
             #userList
-                table#queue
-                    thead
-                        th Name
-                        th andrewid
-                        th Problem
-                        th Done?
-                    tbody
-            // /USER LIST
+                
+
+
+
 
 
 // /WRAPPER
