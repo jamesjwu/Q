@@ -32,16 +32,16 @@ function setAverageHelpTime() {
         }
         // average help time = average time per entry * (number of entries + 1)
         var time = sum/data.length*(userListData.length+1)
-        $('#averageHelpTime h3').html(Math.round(time) + " minute(s)")
+        $('#averageHelpTime').html( Math.round(time) + " minute(s)")
 
         if(time > 30) {
-            $('#averageHelpTime h3').css("color", "red")
+            $('#averageHelpTime').css("color", "red")
         }  
         else if(time > 15) {
-            $('#averageHelpTime h3').css("color", "orange")
+            $('#averageHelpTime').css("color", "orange")
         }
         else {
-            $('#averageHelpTime h3').css("color", "green")   
+            $('#averageHelpTime').css("color", "green")   
         }
     })
 
@@ -108,6 +108,7 @@ function addUser(event) {
             if (response.msg === '') {
                 $('#addUser fieldset input#inputUserProblem').val('')               
                 populateTable();
+                toast("Entered the queue!", 750)
             } else {
                 alert('Error: ' + response.msg);
             }

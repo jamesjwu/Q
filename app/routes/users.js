@@ -42,12 +42,6 @@ router.post('/tracktime', function(req, res) {
             );
     });
 });
-// calculate the amount of time it took the person to get helped
-function getTimeHelped(time) {
-    // in minutes
-    return (new Date().getTime() - time) / 1000 / 60;
-}
-
 
 router.delete('/deleteuser/:id', function(req, res) {
     var db = req.db;

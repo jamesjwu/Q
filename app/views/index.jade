@@ -1,41 +1,44 @@
 extends layout
 
 block content
-    //top div bar
-    #top
-        h1 Q
-        p
-    p
-    br
-    // Wrapper
-    #wrapper
-        // ADD USER
-        h2 Add Yourself to Q
+    nav
+        .col.s9
+            a(href = "#" class="brand-logo") 15122 Office Hours    
+            ul
+                li 
+                    a(href = "#") Queue
+                li 
+                    a(href = "#") Metrics
+
+                li
+                    b  
+                        a(href = "#" id="averageHelpTime")
+                 
         
-        h3 Current Average help Time: 
-        #averageHelpTime
-            h3
-        #addUser
-            fieldset
-                input#inputUserName(type='text', placeholder='Name')
-                input#inputUserAndrewId(type='text', placeholder='AndrewId')
-                br
-                input#inputUserProblem(type='text', placeholder='What would you like help with?')
-                button#btnAddUser Join the Qs
-        // /ADD USER
-        br
+            
+                    
+               
 
-        // USER LIST
-        h2 User List
-        #userList
-            table#queue
-                thead
-                    th Name
-                    th andrewid
-                    th Problem
-                    th Done?
-                tbody
-        // /USER LIST
+    br
+    br
+    .row
+        .col.s9.offset-s1
+            #addUser
+                fieldset
+                    input#inputUserName(type='text', placeholder='Name')
+                    input#inputUserAndrewId(type='text', placeholder='AndrewId')
+                    input#inputUserProblem(type='text', placeholder='What would you like help with?')
+                    button#btnAddUser(class="waves-effect button raised") Queue
+            // /ADD USER
+            #userList
+                table#queue
+                    thead
+                        th Name
+                        th andrewid
+                        th Problem
+                        th Done?
+                    tbody
+            // /USER LIST
 
 
-    // /WRAPPER
+// /WRAPPER
