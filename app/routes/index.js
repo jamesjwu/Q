@@ -29,7 +29,7 @@ router.post('/adduser', function(req, res) {
     var problem = req.body.problem;
     var timestamp = req.body.timestamp;
 
-    console.log("andewId is ----------- " + andrewId);
+    console.log("andrewId is ----------- " + andrewId);
 
     // Set our collection
     var collection = db.get('usercollection');

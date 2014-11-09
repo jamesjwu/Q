@@ -1,7 +1,6 @@
 // TODO: Global vairable is bad
 var userListData = []; 
 
-
 $(document).ready(function() {
     populateTable();
     $('#btnAddUser').on('click', addUser);
@@ -10,11 +9,6 @@ $(document).ready(function() {
     
 });
 
-//sets the help time div to the correct number
-function setAverageHelpTime() {
-    console.log(getAverageHelpTime())
-    $('#averageHelpTime h3').html(Math.round(getAverageHelpTime()) + " minute(s)")
-}
 
 function resetInput(event) {
     event.preventDefault();
@@ -29,19 +23,30 @@ function getTimeHelped(time) {
 
 
 // calculate average help time
-function getAverageHelpTime() {
-    // get all the help times stored in localStorage
-    var helptimes = localStorage.helpTimes.trim().split("\n");
-    var sum = 0.0
-
-    for(var i = 0; i < helptimes.length; i++) {
-        if(helptimes[i] != "") {
-            sum += parseFloat(helptimes[i])
+function setAverageHelpTime() {
+    // get all the help times by JSON
+    return $.getJSON('/users/gettimes', function(data) {
+        var sum = 0.0
+        for(var i = 0; i < data.length; i++) {
+            sum += parseInt(data[i].time)
         }
-    }
+        // average help time = average time per entry * (number of entries + 1)
+        var time = sum/data.length*(userListData.length+1)
+        $('#averageHelpTime h3').html(Math.round(time) + " minute(s)")
+
+        if(time > 30) {
+            $('#averageHelpTime h3').css("color", "red")
+        }  
+        else if(time > 15) {
+            $('#averageHelpTime h3').css("color", "orange")
+        }
+        else {
+            $('#averageHelpTime h3').css("color", "green")   
+        }
+    })
 
     //take the average help time length, and multiply by how many people are in the queue
-    return sum/(helptimes.length) * userListData.length;  
+    
 
 }
 
@@ -50,11 +55,8 @@ function deleteUser(event) {
     event.preventDefault();
     var time = $(this).attr('time')
     console.log("This person took " + getTimeHelped(time) + " minutes to get helped");
-    // only consider cases when time took more than one minute
-    if(getTimeHelped(time) >= 1.0) {
-        localStorage.helpTimes += getTimeHelped(time)  + "\n"
-    }   
-
+    trackTime({time: getTimeHelped(time)})
+    // only consider cases when time took more than one minute 
     $.ajax({
         type: "DELETE",
         url: "/users/deleteuser/"+$(this).attr('rel')
@@ -67,6 +69,16 @@ function deleteUser(event) {
         populateTable();
     });
 
+}
+function trackTime(newTime) {
+    $.ajax({
+            type: "POST",
+            data: newTime,
+            url: '/users/tracktime',
+            dataType: 'JSON'
+        }).done(function(response) {
+            console.log(response.msg)
+        });
 }
 
 function addUser(event) {
@@ -104,6 +116,9 @@ function addUser(event) {
         return false;
     }
 }
+
+
+
 
 function populateTable() {
     var tableContent = '';

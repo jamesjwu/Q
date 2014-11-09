@@ -13,6 +13,8 @@ router.get('/userlist', function(req, res) {
     });
 });
 
+
+
 router.post('/adduser', function(req, res) {
     var db = req.db;
     db.collection('userlist').insert(req.body, function(err, result) {
@@ -22,6 +24,30 @@ router.post('/adduser', function(req, res) {
             );
     });
 });
+
+
+router.get('/gettimes', function(req, res) {
+    var db = req.db;
+    db.collection('times').find().toArray(function (err, items) {
+        res.json(items);
+    });
+});
+
+
+router.post('/tracktime', function(req, res) {
+    var db = req.db;
+    db.collection('times').insert(req.body, function(err, result) {
+        res.send(
+            (err === null) ? {msg: ''} : {msg: err}
+            );
+    });
+});
+// calculate the amount of time it took the person to get helped
+function getTimeHelped(time) {
+    // in minutes
+    return (new Date().getTime() - time) / 1000 / 60;
+}
+
 
 router.delete('/deleteuser/:id', function(req, res) {
     var db = req.db;
