@@ -2,26 +2,35 @@ extends layout
 
 block content
     nav
-        .col.s9
+        .col.s12
             a(href = "#" class="brand-logo") 15122 Office Hours    
+        
             ul
+                li
+                    
+                 
                 li 
                     a(href = "#") Queue
                 li 
                     a(href = "#") Metrics
 
-                li
-                    a(href = "#" id="averageHelpTime")
-                 
+                
         
             
                     
                
 
-    br
-    br
+    
     .row
-        .col.s10.offset-s1
+        .col.s12
+            center
+                h4 
+                    #averageHelpTime
+    .row
+
+
+        .col.s12.offset-s1
+
             #addUser
                 fieldset
                     input#inputUserName(type='text', placeholder='Name')
@@ -30,7 +39,7 @@ block content
                     a#btnAddUser(class="button floating") +
             // /ADD USER
     .row
-        .col.s10.offset-s1
+        .col.s12.offset-s1
             .row
                 .col.s3 
                     h5 Name
