@@ -2239,6 +2239,8 @@ a {
       .row .col.s12 {
         width: 100%;
         margin-left: 0; }
+      .row .col.offset-s05 {
+        margin-left: 4%; }
       .row .col.offset-s1 {
         margin-left: 8.33333%; }
       .row .col.offset-s2 {

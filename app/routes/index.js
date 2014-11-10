@@ -6,6 +6,10 @@ router.get('/', function(req, res) {
   res.render('index', { title: 'CmuQ' });
 });
 
+router.get('/login', function(req, res) {
+    res.render('login', {});
+});
+
 /* GET Userlist page. */
 /*
 router.get('/userlist', function(req, res) {

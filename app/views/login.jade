@@ -1,0 +1,25 @@
+extends layout
+
+block content
+    #login-container
+    .row
+        .col.s12
+            center
+                h4 Log in as a TA
+
+    .row
+        .col.s12.offset-s5
+
+            #loginBox
+                fieldset
+                    input#inputUserName(type='text', placeholder='Your AndrewId')
+                    .row
+                        input#inputUserAndrewId(type='text', placeholder='Course Password')
+                    .row
+                        .col.offset-s05
+                            button(type="submit")#btn-login.btn.btn-primary
+                                            i.icon-lock.icon-white
+                                            | Sign in
+
+
+    script(src='/javascripts/login.js')

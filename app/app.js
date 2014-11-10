@@ -4,6 +4,8 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var passport = require('passport');
+var session = require('express-session'); 
 
 //Database
 var mongo = require('mongoskin');
@@ -25,6 +27,11 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+// required for passport
+//app.use(session({ secret: 'iloveQQQ' })); // session secret
+//app.use(passport.initialize());
+//app.use(passport.session()); // persistent login sessions
 
 // Make our db accessible to our router
 app.use(function(req, res, next) {
