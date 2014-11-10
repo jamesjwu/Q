@@ -9,7 +9,7 @@ function loginReady() {
     console.log("IsLoggedIn = ", isLoggedIn())
 
     if(isLoggedIn()) {
-        $('#LoginLogout').html("<a href='#'> Logout from jingzew </a>");
+        $('#LoginLogout').html("<a href='#'> Logout </a>");
         $('#LoginLogout').on('click', logout)
     }
     else {

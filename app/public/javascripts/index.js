@@ -10,6 +10,7 @@ $(document).ready(function() {
 
 });
 
+var timeout = setInterval(populateTable, 10000)
 
 
 function close_modal(modal_id){
@@ -112,6 +113,19 @@ function addUser(event) {
             'problem': $('#addUser fieldset input#inputUserProblem').val(),
             'timestamp': new Date().getTime()
         }
+        for (var i = 0; i < userListData.length; i++) {
+            if(localStorage.lastAdd) {
+                    if(new Date().getTime() - localStorage.lastAdd < 10000) {
+                        toast("You can't add yourself so quickly since your last add", 10000);
+                        return;
+                    }
+            }
+            if(userListData[i].andrewId == newUser.andrewId) {
+
+                toast("You can't add yourself twice while still in queue!", 750);
+                return;
+            } 
+        }
         $.ajax({
             type: "POST",
             data: newUser,
@@ -125,6 +139,7 @@ function addUser(event) {
             } else {
                 alert('Error: ' + response.msg);
             }
+            localStorage.lastAdd = new Date().getTime()
         });
     } else {
         return false;
@@ -142,7 +157,7 @@ function isLoggedIn() {
 
 function populateTable() {
     var tableContent = '';
-
+    console.log("populating")
     // jQuery AJAX call for JSON
     $.getJSON('/users/userlist', function(data) {
         userListData = data;
