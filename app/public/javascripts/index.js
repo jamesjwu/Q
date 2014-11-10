@@ -1,13 +1,16 @@
 // TODO: Global vairable is bad
+var loggedIn = false
 var userListData = []; 
 
 $(document).ready(function() {
     populateTable();
     $('#btnAddUser').on('click', addUser);
     $('#addUser input').on('change', resetInput);
-    $('#userList').on('click', 'a.linkdeleteuser', deleteUser);
-    $('.modal-trigger').leanModal();
+    $('#userList').on('click', 'a.linkdeleteuser', deleteUser);  
+
 });
+
+
 
 function close_modal(modal_id){
     $("#lean_overlay").fadeOut(200);
@@ -128,6 +131,15 @@ function addUser(event) {
     }
 }
 
+function isLoggedIn() {
+    return $.ajax( {
+        type: "POST",
+        url: "/check",
+        dataType: 'JSON',
+        async: false,
+    }).responseJSON.msg;
+}
+
 function populateTable() {
     var tableContent = '';
 
@@ -140,7 +152,12 @@ function populateTable() {
             tableContent += '<div class = "col s3">' + this.name + '</div>';
             tableContent += '<div class = "col s3">' + this.andrewId + '</div>';
             tableContent += '<div class = "col s3">' + this.problem + '</div>';
-            tableContent += '<div class = "col s3"> <a href="#" class="linkdeleteuser" time='+ this.timestamp + ' rel="' + this._id + '">Done </a></div>';
+            if(isLoggedIn()) {
+                tableContent += '<div class = "col s3"> <a href="#" class="linkdeleteuser" time='+ this.timestamp + ' rel="' + this._id + '">Done </a></div>';
+            }
+            else {
+                tableContent += '<div class = "col s3"> </div>'
+            }
             tableContent += '</div><br>';
         });
         //every time we repopulate the table, we recalculate average help time

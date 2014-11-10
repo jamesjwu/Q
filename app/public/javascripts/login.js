@@ -1,11 +1,22 @@
-// TODO: Global vairable is bad
 
 $(document).ready(function() {
     $('#btnLogin').on('click', login);
     $('input').on('change', resetInput);
-    $('.modal-trigger').leanModal();
+    loginReady()
 
 });
+function loginReady() {
+    console.log("IsLoggedIn = ", isLoggedIn())
+
+    if(isLoggedIn()) {
+        $('#LoginLogout').html("<a href='#'> Logout from jingzew </a>");
+        $('#LoginLogout').on('click', logout)
+    }
+    else {
+        $('#LoginLogout').html("<a href='#login' class='modal-trigger'> TA Login </a>")
+        $('.modal-trigger').leanModal();
+    }
+}
 
 function close_modal(modal_id){
 
@@ -26,14 +37,17 @@ function resetInput(event) {
 
 
 function logout(event) {   
+    console.log("Hi")
     event.preventDefault();
     $.ajax({
         type: "POST",
-        data: loginInfo,
         url: '/logout',
         dataType: 'JSON'
     }).done(function(response) {
-        toast("Logged out")
+        toast("Logged out", 750)
+        console.log(response.msg)
+        loginReady()
+        populateTable()
     });
 }
 
@@ -50,7 +64,7 @@ function login(event) {
     }).done(function(response) {
         console.log(response.msg)
         if(response.msg !="Welcome") {
-            toast("Incorrect andrewID or password!", 2000);
+            toast("Incorrect andrewID or password!", 750);
             $('input#inputTAAndrewId').css("border-color", "red");
             $('input#inputCoursePassword').css("border-color", "red");
         }
@@ -58,7 +72,9 @@ function login(event) {
             $('input#inputTAAndrewId').val('');
             $('input#inputCoursePassword').val('');
             close_modal('#login')
-            toast("Logged in!", 2000);
+            toast("Logged in!", 750);
+            populateTable()
+            loginReady()
             
 
         }
