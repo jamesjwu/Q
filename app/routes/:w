@@ -11,17 +11,13 @@ router.get('/login', function(req, res) {
 });
 
 router.post('/authenticate', function(req, res) {
-    // TODO: remove the hard coded list from code later, put them in a
-    // seperate file
-    var TAs = ['kmao', 'jingzew', 'lchoung', 'yuanj'];
+    var TAs = ['kmao'];
     var coursePass = 'hey122';
     if (req.body.andrewId == TAs[0] && req.body.pass === coursePass) {
         res.send({msg: 'Welcome'});
-        req.session.loggedIn = true;
     } else {
         res.send({msg: 'Incorrect andrewId or password'});
     }
-    console.log(req.session.loggedIn);
 });
 
 /* GET Userlist page. */
