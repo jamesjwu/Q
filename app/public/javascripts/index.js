@@ -160,6 +160,7 @@ function populateTable() {
     console.log("populating")
     // jQuery AJAX call for JSON
     $.getJSON('/users/userlist', function(data) {
+        oldlength = userListData.length
         userListData = data;
 
         $.each(data, function() {
@@ -175,8 +176,9 @@ function populateTable() {
             }
             tableContent += '</div><br>';
         });
-        //every time we repopulate the table, we recalculate average help time
-        setAverageHelpTime()
+   
+        setAverageHelpTime()   
+
         $('#userList').html(tableContent);
     });
 }

@@ -10,7 +10,7 @@ router.get('/', function(req, res) {
 router.post('/authenticate', function(req, res) {
     // TODO: remove the hard coded list from code later, put them in a
     // seperate file
-    var TAs = ['kmao', 'jingzew', 'lchoung', 'yuanj'];
+    var TAs = ['kmao', 'jingzew', 'lchoung', 'yuanj', 'niveditc'];
     var coursePass = 'hey122';
     if ((TAs.indexOf(req.body.andrewId) >= 0)) {
         if(req.body.pass === coursePass) {
