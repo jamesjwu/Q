@@ -6,9 +6,18 @@ $(document).ready(function() {
     $('#btnAddUser').on('click', addUser);
     $('#addUser input').on('change', resetInput);
     $('#userList').on('click', 'a.linkdeleteuser', deleteUser);
-    
+    $('.modal-trigger').leanModal();
 });
 
+function close_modal(modal_id){
+    $("#lean_overlay").fadeOut(200);
+    $(modal_id).fadeOut(200, function() {
+        $(this).css('top', 0);
+    });
+    
+    // $(modal_id).css({ 'display' : 'none' });
+
+}
 
 function resetInput(event) {
     event.preventDefault();
@@ -65,7 +74,7 @@ function deleteUser(event) {
             //update table
             populateTable();
         } else {
-            alert(response.msg);
+            toast(response.msg, 1000);
         }
     });
 

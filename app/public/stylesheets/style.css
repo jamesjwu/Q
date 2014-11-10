@@ -10,6 +10,9 @@ h2 {
 a {
   color: #00B7FF;
 }
+button {
+    outline:none;
+}
 fieldset input {
     margin: 1%;
     padding: 1%;
@@ -18,12 +21,19 @@ fieldset input {
  fieldset a {
     display: inline-block !important;
     align: right;
+
  }
 
 fieldset input#inputUserProblem {
     width: 38%;
 }
 
+
+#loginInput input{
+    margin-bottom: 2%;
+    margin-top: 2%;
+    padding: 4%;
+}
 #top {
     height: 50%;
     margin-top: -1.5%;

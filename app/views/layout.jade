@@ -7,6 +7,7 @@ html
     script(src='http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js')
     script(src='/javascripts/materialize.js')
 
+
   body
     nav
         .col.s12
@@ -14,18 +15,39 @@ html
 
             ul
                 li
-
-
-                li
                     a(href = "/") Queue
                 li
                     a(href = "#") Metrics
                 li
-                    a(href = "/login") TA Login
+                    #LoginLogout
+                        a(href = "#login" class="modal-trigger") TA Login
 
 
 
+    .modal#login
+        .row
+            .col.s12
+                center
+                    h4 Log in as a TA
 
+        .row
+            .col.s12
+                    fieldset
+                        center
+                            p
+                            .row#loginInput
+                                input#inputTAAndrewId(type='text', placeholder='Your AndrewId')
+
+                            .row#loginInput
+                                input#inputCoursePassword(type='password',placeholder='Course Password')
+                            p
+                            .row
+
+                                button(type="submit" class = "waves-effect waves-light button raised")#btnLogin
+                                                i.icon-lock.icon-white
+                                                | Sign in
+
+        script(src='/javascripts/login.js')
 
 
 
