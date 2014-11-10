@@ -16,7 +16,6 @@ function login(event) {
         dataType: 'JSON'
     }).done(function(response) {
         console.log(response.msg);
-        //$('login-container').append("<div class='.row'>"+response.msg+"<div>");
         $('input#inputTAAndrewId').val('');
         $('input#inputCoursePassword').val('');
     });
