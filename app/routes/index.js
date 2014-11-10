@@ -10,6 +10,24 @@ router.get('/login', function(req, res) {
     res.render('login', {});
 });
 
+router.post('/authenticate', function(req, res) {
+    // TODO: remove the hard coded list from code later, put them in a
+    // seperate file
+    var TAs = ['kmao', 'jingzew', 'lchoung', 'yuanj'];
+    var coursePass = 'hey122';
+    if ((req.body.andrewId == TAs[0] ||
+         req.body.andrewId == TAs[1] ||
+         req.body.andrewId == TAs[2] ||
+         req.body.andrewId == TAs[3])
+        && req.body.pass === coursePass) {
+        res.send({msg: 'Welcome'});
+        req.session.loggedIn = true;
+    } else {
+        res.send({msg: 'Incorrect andrewId or password'});
+    }
+    console.log(req.session.loggedIn);
+});
+
 /* GET Userlist page. */
 /*
 router.get('/userlist', function(req, res) {

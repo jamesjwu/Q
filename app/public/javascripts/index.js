@@ -62,11 +62,11 @@ function deleteUser(event) {
         url: "/users/deleteuser/"+$(this).attr('rel')
     }).done(function(response) {
         if (response.msg === '') {
+            //update table
+            populateTable();
         } else {
-            alert('Error: ' + response.msg);
+            alert(response.msg);
         }
-        //update table
-        populateTable();
     });
 
 }
@@ -118,9 +118,6 @@ function addUser(event) {
         return false;
     }
 }
-
-
-
 
 function populateTable() {
     var tableContent = '';
