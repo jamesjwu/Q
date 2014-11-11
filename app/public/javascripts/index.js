@@ -41,10 +41,12 @@ function setAverageHelpTime() {
     return $.getJSON('/users/gettimes', function(data) {
         var sum = 0.0
         for(var i = 0; i < data.length; i++) {
-            sum += parseInt(data[i].time)
+            sum += parseFloat(data[i].time)
         }
         // average help time = average time per entry * (number of entries + 1)
-        var time = sum/data.length*(userListData.length+1)
+        var time = (sum/data.length)*(userListData.length+1)
+        
+
         $('#averageHelpTime').html("<font color='black'> Average Help Time: </font>" + Math.round(time) + " minute(s)")
 
         if(time > 30) {
@@ -67,7 +69,6 @@ function setAverageHelpTime() {
 function deleteUser(event) {
     event.preventDefault();
     var time = $(this).attr('time')
-    console.log("This person took " + getTimeHelped(time) + " minutes to get helped");
     trackTime({time: getTimeHelped(time)})
     // only consider cases when time took more than one minute 
     $.ajax({
@@ -152,7 +153,6 @@ function isLoggedIn() {
 
 function populateTable() {
     var tableContent = '';
-    console.log("populating")
     // jQuery AJAX call for JSON
     $.getJSON('/users/userlist', function(data) {
         oldlength = userListData.length

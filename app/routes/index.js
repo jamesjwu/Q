@@ -27,7 +27,6 @@ router.post('/authenticate', function(req, res) {
     else {
         res.send({msg: "Wrong andrewID"});
     }
-    console.log(req.session.loggedIn);
 });
 
 

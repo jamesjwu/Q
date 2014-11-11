@@ -6,15 +6,34 @@ $(document).ready(function() {
 
 });
 function loginReady() {
-    console.log("IsLoggedIn = ", isLoggedIn())
 
     if(isLoggedIn()) {
         $('#LoginLogout').html("<a href='#'> Logout </a>");
         $('#LoginLogout').on('click', logout)
+        $('#averageHelpButton').html("<a href='#'>Reset times</a>")
+        $('#averageHelpButton').on('click', cleartimes)
     }
     else {
         $('#LoginLogout').html("<a href='#login' class='modal-trigger'> TA Login </a>")
         $('.modal-trigger').leanModal();
+        $('#LoginLogout').off('click')
+        $('#averageHelpButton').html("")
+    }
+}
+
+function cleartimes() {
+    var yes = confirm("Really clear all average queue times?")
+    if(yes){
+        $.ajax({
+            type: "GET",
+            url: '/users/cleartimes',
+            dataType: 'JSON'
+        });
+        populateTable()
+        loginReady()
+        toast("Cleared Times", 750)
+
+
     }
 }
 
@@ -37,7 +56,6 @@ function resetInput(event) {
 
 
 function logout(event) {   
-    console.log("Hi")
     event.preventDefault();
     $.ajax({
         type: "POST",
@@ -45,7 +63,6 @@ function logout(event) {
         dataType: 'JSON'
     }).done(function(response) {
         toast("Logged out", 750)
-        console.log(response.msg)
         loginReady()
         populateTable()
     });

@@ -36,6 +36,15 @@ router.post('/adduser', function(req, res) {
 });
 
 
+router.get('/cleartimes', function(req, res) {
+    if(req.session.loggedIn === true) {
+        var db = req.db
+        db.collection('times').drop()
+        res.send({msg:"Done"})
+    }
+
+})
+
 router.get('/gettimes', function(req, res) {
     var db = req.db;
     db.collection('times').find().toArray(function (err, items) {
@@ -46,11 +55,13 @@ router.get('/gettimes', function(req, res) {
 
 router.post('/tracktime', function(req, res) {
     var db = req.db;
+    db.collection('archives').insert(req.body, function(err, result){});
     db.collection('times').insert(req.body, function(err, result) {
         res.send(
             (err === null) ? {msg: ''} : {msg: err}
             );
     });
+    
 });
 
 router.delete('/deleteuser/:id', function(req, res) {
