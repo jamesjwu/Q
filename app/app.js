@@ -6,6 +6,8 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var passport = require('passport');
 var session = require('express-session'); 
+var hash = require('object-hash');
+
 
 //Database
 var mongo = require('mongoskin');

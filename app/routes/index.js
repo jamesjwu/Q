@@ -1,5 +1,9 @@
 var express = require('express');
 var router = express.Router();
+var hash = require('object-hash');
+var fs = require('fs')
+var coursePass = fs.readFileSync('coursePass.txt').toString()
+var TAs = fs.readFileSync('TAAndrewIDs.txt').toString().split('\n')
 
 /* GET home page. */
 router.get('/', function(req, res) {
@@ -10,19 +14,18 @@ router.get('/', function(req, res) {
 router.post('/authenticate', function(req, res) {
     // TODO: remove the hard coded list from code later, put them in a
     // seperate file
-    var TAs = ['kmao', 'jingzew', 'lchoung', 'yuanj', 'niveditc'];
-    var coursePass = 'hey122';
+    
     if ((TAs.indexOf(req.body.andrewId) >= 0)) {
-        if(req.body.pass === coursePass) {
+        if(hash.MD5(req.body.pass) == coursePass) {
             res.send({msg: 'Welcome'});
             req.session.loggedIn = true;
         } 
         else {
-            res.send({msg:'incorrect password'})
+            res.send({msg:"Wrong password"})
         }
     }   
     else {
-        res.send({msg: 'Incorrect andrewId'});
+        res.send({msg: "Wrong andrewID"});
     }
     console.log(req.session.loggedIn);
 });
@@ -55,7 +58,7 @@ router.post('/adduser', function(req, res) {
 
 
     // Set our collection
- 
+
     // Submit to the DB
     collection.insert({
         "problem" : problem,
