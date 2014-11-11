@@ -9,7 +9,7 @@ var session = require('express-session');
 
 //Database
 var mongo = require('mongoskin');
-var db = mongo.db("mongodb://localhost:27017/test2", {native_parser:true});
+var db = mongo.db("mongodb://root:15122@proximus.modulusmongo.net:27017/aranut7I", {native_parser:true});
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
@@ -41,6 +41,7 @@ app.use(function(req, res, next) {
 });
 app.use('/', routes);
 app.use('/users', users);
+app.listen(process.env.PORT)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

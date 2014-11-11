@@ -17,12 +17,22 @@ router.get('/userlist', function(req, res) {
 
 router.post('/adduser', function(req, res) {
     var db = req.db;
-    db.collection('userlist').insert(req.body, function(err, result) {
-        
-        res.send(
-            (err === null) ? {msg: ''} : {msg: err}
-            );
-    });
+    var andrewId = req.body.andrewId
+    var cursor = db.collection('userlist').find({"andrewId" : andrewId}).toArray(function (err, items) {
+        if(items.length > 0) {
+            res.send({msg: "You can't add yourself twice in a row to the queue!"});
+            return;
+        }
+        else {
+            db.collection('userlist').insert(req.body, function(err, result) {
+                res.send(
+                    (err === null) ? {msg: ''} : {msg: err}
+                    );
+            });
+        }
+    })
+
+
 });
 
 

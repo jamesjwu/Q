@@ -53,9 +53,9 @@ router.post('/adduser', function(req, res) {
 
     console.log("andrewId is ----------- " + andrewId);
 
-    // Set our collection
-    var collection = db.get('usercollection');
 
+    // Set our collection
+ 
     // Submit to the DB
     collection.insert({
         "problem" : problem,

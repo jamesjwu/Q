@@ -120,11 +120,6 @@ function addUser(event) {
                         return;
                     }
             }
-            if(userListData[i].andrewId == newUser.andrewId) {
-
-                toast("You can't add yourself twice while still in queue!", 750);
-                return;
-            } 
         }
         $.ajax({
             type: "POST",
@@ -137,7 +132,7 @@ function addUser(event) {
                 populateTable();
                 toast("Entered the queue!", 750)
             } else {
-                alert('Error: ' + response.msg);
+                toast(response.msg, 750);
             }
             localStorage.lastAdd = new Date().getTime()
         });
