@@ -25,8 +25,7 @@ function loginReady() {
 }
 
 function cleartimes() {
-    var yes = confirm("Really clear all average queue times?")
-    if(yes){
+    if(confirm("Really clear all average queue times?")){
         $.ajax({
             type: "GET",
             url: '/users/cleartimes',

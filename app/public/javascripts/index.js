@@ -45,6 +45,8 @@ function setAverageHelpTime() {
         }
         // average help time = average time per entry * (number of entries + 1)
         var time = (sum/data.length)*(userListData.length+1)
+        if(data.length == 0)
+            time = 0
         
 
         $('#averageHelpTime').html("<font color='black'> Average Help Time: </font>" + Math.round(time) + " minute(s)")
@@ -117,7 +119,7 @@ function addUser(event) {
         for (var i = 0; i < userListData.length; i++) {
             if(localStorage.lastAdd) {
                     if(new Date().getTime() - localStorage.lastAdd < 10000) {
-                        toast("You can't add yourself so quickly since your last add", 10000);
+                        toast("You can't add yourself so quickly since your last add", 750);
                         return;
                     }
             }
