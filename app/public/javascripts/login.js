@@ -12,12 +12,15 @@ function loginReady() {
         $('#LoginLogout').on('click', logout)
         $('#averageHelpButton').html("<a href='#'>Reset times</a>")
         $('#averageHelpButton').on('click', cleartimes)
+        $('#metrics').html("<a href = '#'> Metrics </a>")
     }
     else {
         $('#LoginLogout').html("<a href='#login' class='modal-trigger'> TA Login </a>")
         $('.modal-trigger').leanModal();
         $('#LoginLogout').off('click')
         $('#averageHelpButton').html("")
+        $('#metrics').html("")
+
     }
 }
 
