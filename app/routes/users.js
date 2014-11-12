@@ -1,5 +1,7 @@
 var express = require('express');
 var router = express.Router();
+var fs = require('fs');
+var students = fs.readFileSync('studentIDs.txt').toString().split('\n')
 
 /* GET users listing. */
 router.get('/', function(req, res) {
@@ -18,6 +20,10 @@ router.get('/userlist', function(req, res) {
 router.post('/adduser', function(req, res) {
     var db = req.db;
     var andrewId = req.body.andrewId
+    if(students.indexOf(andrewId) < 0) {
+        res.send({msg: "Your andrewID isn't associated with 15122!"})
+        return
+    }
     var cursor = db.collection('userlist').find({"andrewId" : andrewId}).toArray(function (err, items) {
         if(items.length > 0) {
             res.send({msg: "You can't add yourself twice in a row to the queue!"});
@@ -37,6 +43,7 @@ router.post('/adduser', function(req, res) {
 
 
 router.get('/cleartimes', function(req, res) {
+    
     if(req.session.loggedIn === true) {
         var db = req.db
         db.collection('times').drop()
