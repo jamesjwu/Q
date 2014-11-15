@@ -134,6 +134,9 @@ function addUser(event) {
                 $('#addUser fieldset input#inputUserProblem').val('')               
                 populateTable();
                 toast("Entered the queue!", 750)
+                if (localStorage.getItem(newUser.andrewId) == null) {
+                    localStorage.setItem(newUser.andrewId, newUser.andrewId);
+                }
             } else {
                 toast(response.msg, 750);
             }
@@ -146,7 +149,7 @@ function addUser(event) {
 
 function isLoggedIn() {
     return $.ajax( {
-        type: "POST",
+        type: "GET",
         url: "/check",
         dataType: 'JSON',
         async: false,
@@ -169,7 +172,12 @@ function populateTable() {
                 tableContent += '<div class = "col s3"> <a href="#" class="linkdeleteuser" time='+ this.timestamp + ' rel="' + this._id + '">Done </a></div>';
             }
             else {
-                tableContent += '<div class = "col s3"> </div>'
+                var andrewId = this.andrewId;
+                if (localStorage.getItem(this.andrewId) != null) {
+                    tableContent += '<div class = "col s3"> <a href="#" class="linkdeleteuser" time='+ this.timestamp + ' rel="' + this._id + '">Done </a></div>';
+                } else {
+                    tableContent += '<div class = "col s3"> </div>'
+                }
             }
             tableContent += '</div><br>';
         });

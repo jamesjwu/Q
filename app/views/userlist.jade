@@ -1,14 +1,3 @@
 extends layout
 
 block content
-    h1.
-        Queue
-
-    form#formAddUser(name="adduser",method="post",action="/adduser")
-        input#inputUserAndrewId(type="text", placeholder="andrewId", name="andrewId")
-        button#btnSubmit(type="submit") submit
-
-    ul
-        each user, i in userlist
-            li
-                a(href="malito:#{user.andrewId}")=user.andrewId

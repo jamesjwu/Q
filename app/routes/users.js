@@ -72,16 +72,13 @@ router.post('/tracktime', function(req, res) {
 });
 
 router.delete('/deleteuser/:id', function(req, res) {
-    console.log(req.session.loggedIn);
-    if (req.session.loggedIn === true) {
-        var db = req.db;
-        var userToDelete = req.params.id;
-        db.collection('userlist').removeById(userToDelete, function(err, result) {
-            res.send((result === 1) ? {msg: ''} : {msg:'error: ' + err});
-        });
-    } else {
-        res.send({msg: 'You cannot delete because you have not logged in as a TA'});
-    }
+    // No need to check TA or anything here, because we only show "delete"
+    // buttton for qualified users
+    var db = req.db;
+    var userToDelete = req.params.id;
+    db.collection('userlist').removeById(userToDelete, function(err, result) {
+        res.send((result === 1) ? {msg: ''} : {msg:'error: ' + err});
+    });
 });
 
 module.exports = router;

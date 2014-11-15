@@ -34,7 +34,7 @@ router.post('/logout', function(req, res) {
 });
 
 
-router.post('/check', function(req, res) {
+router.get('/check', function(req, res) {
     res.send({msg: req.session.loggedIn})
 });
 
@@ -50,8 +50,6 @@ router.post('/adduser', function(req, res) {
     var andrewId = req.body.andrewId;
     var problem = req.body.problem;
     var timestamp = req.body.timestamp;
-
-    console.log("andrewId is ----------- " + andrewId);
 
 
     // Set our collection
