@@ -10,7 +10,7 @@ Here's the instructions to set up the project:
 6. Type "mkdir data" (you're in app folder now, just to remind you).
 7. Type "mongod --dbpath data". This sets the database path to the folder you
    just created. It also starts mongodb backend.
-8. Go to browswer and visit localhost:3000. Da-da, you should see our Q app~
+8. Go to browswer and visit localhost:8080. Da-da, you should see our Q app~
 
 IMPORTANT
 I've run into this issue several so learn lesson from me... When you end the

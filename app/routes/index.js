@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var hash = require('object-hash');
 var fs = require('fs')
+
 var coursePass = fs.readFileSync('coursePass.txt').toString()
 var TAs = fs.readFileSync('TAAndrewIDs.txt').toString().split('\n')
 var students = fs.readFileSync('studentIDs.txt').toString().split('\n')
@@ -10,7 +11,6 @@ var students = fs.readFileSync('studentIDs.txt').toString().split('\n')
 router.get('/', function(req, res) {
   res.render('index', { title: 'CmuQ' });
 });
-
 
 router.post('/authenticate', function(req, res) {
     if ((TAs.indexOf(req.body.andrewId) >= 0)) {

@@ -1,17 +1,21 @@
 // TODO: Global vairable is bad
 var loggedIn = false
 var userListData = []; 
+var socket = io();
 
 $(document).ready(function() {
     populateTable();
     $('#btnAddUser').on('click', addUser);
     $('#addUser input').on('change', resetInput);
     $('#userList').on('click', 'a.linkdeleteuser', deleteUser);  
-
+    socket.on('update', function(data) {
+        populateTable();
+    });
 });
 
-var timeout = setInterval(populateTable, 10000)
-
+// Replaced by SocketIO, but just in case socketIo does not work I left this
+// line here
+//var timeout = setInterval(populateTable, 10000)
 
 function close_modal(modal_id){
     $("#lean_overlay").fadeOut(200);
@@ -20,7 +24,6 @@ function close_modal(modal_id){
     });
     
     // $(modal_id).css({ 'display' : 'none' });
-
 }
 
 function resetInput(event) {
@@ -119,6 +122,7 @@ function addUser(event) {
         for (var i = 0; i < userListData.length; i++) {
             if(localStorage.lastAdd) {
                     if(new Date().getTime() - localStorage.lastAdd < 10000) {
+                        console.log("enter");
                         toast("You can't add yourself so quickly since your last add", 750);
                         return;
                     }
@@ -133,6 +137,7 @@ function addUser(event) {
             if (response.msg === '') {
                 $('#addUser fieldset input#inputUserProblem').val('')               
                 populateTable();
+                socket.emit('update', "add an user");
                 toast("Entered the queue!", 750)
                 if (localStorage.getItem(newUser.andrewId) == null) {
                     localStorage.setItem(newUser.andrewId, newUser.andrewId);
