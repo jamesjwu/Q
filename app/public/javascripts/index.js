@@ -82,6 +82,7 @@ function deleteUser(event) {
     }).done(function(response) {
         if (response.msg === '') {
             //update table
+            socket.emit('update', "add an user");
             populateTable();
         } else {
             toast(response.msg, 1000);
@@ -135,9 +136,9 @@ function addUser(event) {
             dataType: 'JSON'
         }).done(function(response) {
             if (response.msg === '') {
-                $('#addUser fieldset input#inputUserProblem').val('')               
-                populateTable();
+                $('#addUser fieldset input#inputUserProblem').val('');
                 socket.emit('update', "add an user");
+                populateTable();
                 toast("Entered the queue!", 750)
                 if (localStorage.getItem(newUser.andrewId) == null) {
                     localStorage.setItem(newUser.andrewId, newUser.andrewId);
