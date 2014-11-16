@@ -27,3 +27,6 @@ you can try "rm data/mongod.lock". Perhaps it will work for you.
 Let me know if you have any question~ (Coco).
 This is the link to the tutorial I basically follow (I did both this link and
 the sequal to the original post): http://cwbuecheler.com/web/tutorials/2013/node-express-mongo/
+
+About socket IO:
+http://socket.io/docs/
