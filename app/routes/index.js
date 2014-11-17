@@ -38,6 +38,10 @@ router.get('/check', function(req, res) {
     res.send({msg: req.session.loggedIn})
 });
 
+/* Route to /admin for the dashboard */
+router.get('/admin', function(req, res){
+    res.render('admin', {title:'CmuQ'});
+});
 
 
 /* POST to Add User Service */

@@ -1,8 +1,9 @@
-// TODO: Global vairable is bad
+// TODO: Fix global variables later if possible
 var loggedIn = false
 var userListData = []; 
 var socket = io();
 
+/* Initialize and bind targets to buttons */
 $(document).ready(function() {
     populateTable();
     $('#btnAddUser').on('click', addUser);
@@ -13,45 +14,42 @@ $(document).ready(function() {
     });
 });
 
-// Replaced by SocketIO, but just in case socketIo does not work I left this
-// line here
-//var timeout = setInterval(populateTable, 10000)
-
+/* close_modal - Modal closer */
 function close_modal(modal_id){
     $("#lean_overlay").fadeOut(200);
     $(modal_id).fadeOut(200, function() {
         $(this).css('top', 0);
     });
-    
-    // $(modal_id).css({ 'display' : 'none' });
 }
 
+/* resetInput - Makes input box color change back to neutral */
 function resetInput(event) {
     event.preventDefault();
     $(this).css("border-color", "initial")
 }
 
-// calculate the amount of time it took the person to get helped
+/* getTimeHelped - Takes time boject, calculates the amount of time 
+                    in minutes it took the person to get helped
+*/
 function getTimeHelped(time) {
-    // in minutes
     return (new Date().getTime() - time) / 1000 / 60;
 }
 
 
-// calculate average help time
+/* setAverageHelpTime - calculates average help time for next person
+    to enter the queue */
 function setAverageHelpTime() {
-    // get all the help times by JSON
+    // Get all the help times by JSON call
     return $.getJSON('/users/gettimes', function(data) {
         var sum = 0.0
         for(var i = 0; i < data.length; i++) {
             sum += parseFloat(data[i].time)
         }
-        // average help time = average time per entry * (number of entries + 1)
+        // Average help time = average time per entry * (number of entries + 1)
         var time = (sum/data.length)*(userListData.length+1)
         if(data.length == 0)
             time = 0
         
-
         $('#averageHelpTime').html("<font color='black'> Average Help Time: </font>" + Math.round(time) + " minute(s)")
 
         if(time > 30) {
@@ -65,23 +63,24 @@ function setAverageHelpTime() {
         }
     })
 
-    //take the average help time length, and multiply by how many people are in the queue
+    /* TO DO */
+    //Take the average help time length, and multiply by how many people are in the queue
     
 
 }
 
-//on the event of a delete, we calculate how long it took the person to get helped
+/* deleteUser - Delete user, keep track of new average time */
 function deleteUser(event) {
     event.preventDefault();
     var time = $(this).attr('time')
     trackTime({time: getTimeHelped(time)})
-    // only consider cases when time took more than one minute 
+    // Only consider cases when time took more than one minute 
     $.ajax({
         type: "DELETE",
         url: "/users/deleteuser/"+$(this).attr('rel')
     }).done(function(response) {
         if (response.msg === '') {
-            //update table
+            //Update table
             socket.emit('update', "add an user");
             populateTable();
         } else {
@@ -90,6 +89,8 @@ function deleteUser(event) {
     });
 
 }
+
+/* trackTime- Tell the server the new time */
 function trackTime(newTime) {
     $.ajax({
             type: "POST",
@@ -101,6 +102,7 @@ function trackTime(newTime) {
         });
 }
 
+/* addUser - Add a user to the queue, with spam check */
 function addUser(event) {
     $(this).css('outline', 'none')
     event.preventDefault();
@@ -120,6 +122,7 @@ function addUser(event) {
             'problem': $('#addUser fieldset input#inputUserProblem').val(),
             'timestamp': new Date().getTime()
         }
+        /* Check the user hasn't added in the last 10 seconds since last call */ 
         for (var i = 0; i < userListData.length; i++) {
             if(localStorage.lastAdd) {
                     if(new Date().getTime() - localStorage.lastAdd < 10000) {
@@ -129,6 +132,7 @@ function addUser(event) {
                     }
             }
         }
+        /* Send to server */
         $.ajax({
             type: "POST",
             data: newUser,
@@ -144,6 +148,7 @@ function addUser(event) {
                     localStorage.setItem(newUser.andrewId, newUser.andrewId);
                 }
             } else {
+                /* Tell user they have been added */
                 toast(response.msg, 750);
             }
             localStorage.lastAdd = new Date().getTime()
@@ -153,6 +158,7 @@ function addUser(event) {
     }
 }
 
+/* isLoggedIn */
 function isLoggedIn() {
     return $.ajax( {
         type: "GET",
@@ -162,6 +168,7 @@ function isLoggedIn() {
     }).responseJSON.msg;
 }
 
+/* populateTable - similar to updating table view */
 function populateTable() {
     var tableContent = '';
     // jQuery AJAX call for JSON
@@ -169,7 +176,7 @@ function populateTable() {
         oldlength = userListData.length
         userListData = data;
 
-        $.each(data, function() {
+        $.each(data, function() { /* For each user in the list of users add rows to the table */
             tableContent += '<div class="row">';
             tableContent += '<div class = "col s3">' + this.name + '</div>';
             tableContent += '<div class = "col s3">' + this.andrewId + '</div>';

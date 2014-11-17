@@ -1,7 +1,7 @@
-
 $(document).ready(function() {
     $('#btnLogin').on('click', login);
     $('input').on('change', resetInput);
+    $('#btnResetQueue').on('click', clearTimes);
     loginReady()
 
 });
@@ -9,19 +9,22 @@ function loginReady() {
 
     if(isLoggedIn()) {
         $('#LoginLogout').html("<a href='#'> Logout </a>");
-        $('#LoginLogout').on('click', logout)
-        $('#averageHelpButton').html("<a href='#'>Reset times</a>")
-        $('#averageHelpButton').on('click', cleartimes)
-        $('#metrics').html("<a href = '#'> Metrics </a>")
+        $('#LoginLogout').on('click', logout);
+        $("#admin").html("<a href = '/admin'> Admin </a>");
+        $('#metrics').html("<a href = '#'> Metrics </a>");
     }
     else {
-        $('#LoginLogout').html("<a href='#login' class='modal-trigger'> TA Login </a>")
+        $('#LoginLogout').html("<a href='#login' class='modal-trigger'> TA Login </a>");
         $('.modal-trigger').leanModal();
-        $('#LoginLogout').off('click')
-        $('#averageHelpButton').html("")
-        $('#metrics').html("")
+        $('#LoginLogout').off('click');
+        $("#admin").html("");
+        $('#metrics').html("");
 
     }
+}
+
+function clearTimes(event){
+    cleartimes();
 }
 
 function cleartimes() {
@@ -31,9 +34,9 @@ function cleartimes() {
             url: '/users/cleartimes',
             dataType: 'JSON'
         });
-        populateTable()
-        loginReady()
-        toast("Cleared Times", 750)
+        populateTable();
+        loginReady();
+        toast("Cleared Times", 750);
 
 
     }
@@ -67,6 +70,7 @@ function logout(event) {
         toast("Logged out", 750)
         loginReady()
         populateTable()
+        window.location.href = '/' /* Redirect to main queue */
     });
 }
 
