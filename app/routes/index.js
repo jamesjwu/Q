@@ -7,10 +7,31 @@ var coursePass = fs.readFileSync('coursePass.txt').toString()
 var TAs = fs.readFileSync('TAAndrewIDs.txt').toString().split('\n')
 var students = fs.readFileSync('studentIDs.txt').toString().split('\n')
 
+var courseTitle = "CMUQ"
+var queueFrozen = false
+
 /* GET home page. */
 router.get('/', function(req, res) {
   res.render('index', { title: 'CmuQ' });
 });
+
+
+router.get('/getname', function(req, res) {
+
+    res.send({msg:courseTitle})
+
+})
+
+
+router.post('/setname', function(req, res) {
+    if(req.session.loggedIn) {
+        courseTitle = req.body.name
+        res.send({msg:'Name changed!'}) 
+    }
+    else {
+        res.send({msg:'Nice try'})
+    }
+})
 
 router.post('/authenticate', function(req, res) {
     if ((TAs.indexOf(req.body.andrewId) >= 0)) {
