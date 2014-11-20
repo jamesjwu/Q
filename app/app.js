@@ -7,8 +7,6 @@ var bodyParser = require('body-parser');
 var passport = require('passport');
 var session = require('express-session'); 
 var hash = require('object-hash');
-var port = 8080
-
 //Database
 var mongo = require('mongoskin');
 var db = mongo.db("mongodb://root:15122@proximus.modulusmongo.net:27017/aranut7I", {native_parser:true});
@@ -19,15 +17,16 @@ var users = require('./routes/users');
 var app = express();
 // Socket IO for broadcasting update
 var server = require('http').Server(app);
-server.listen(port);
+
+server.listen(3001);
+
 io = require('socket.io')(server);
 io.sockets.on('connection', function(socket) {
-    console.log('a user connected!');
     // Once heard from any client of update, broadcast to all clients
     socket.on('update', function (data) {
     // in our case, the information sent is not really important, the point is
     // to "wake up" all clients
-    io.sockets.emit('update', "re-populate table");
+    io.sockets.emit('update', data);
   });
 });
 
@@ -56,7 +55,6 @@ app.use(function(req, res, next) {
 });
 app.use('/', routes);
 app.use('/users', users);
-//app.listen(env.PORT)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

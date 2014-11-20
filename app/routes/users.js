@@ -20,6 +20,7 @@ router.get('/userlist', function(req, res) {
 router.post('/adduser', function(req, res) {
     var db = req.db;
     var andrewId = req.body.andrewId
+
     if(students.indexOf(andrewId) < 0) {
         res.send({msg: "Your andrewID isn't associated with 15122!"})
         return
@@ -30,6 +31,8 @@ router.post('/adduser', function(req, res) {
             return;
         }
         else {
+            // insert the data into our metrics database
+            db.collection('metrics').insert(req.body, function(err, result) {})
             db.collection('userlist').insert(req.body, function(err, result) {
                 res.send(
                     (err === null) ? {msg: ''} : {msg: err}
@@ -62,7 +65,7 @@ router.get('/gettimes', function(req, res) {
 
 router.post('/tracktime', function(req, res) {
     var db = req.db;
-    db.collection('archives').insert(req.body, function(err, result){});
+    db.collection('archive').insert(req.body, function(err, result){});
     db.collection('times').insert(req.body, function(err, result) {
         res.send(
             (err === null) ? {msg: ''} : {msg: err}

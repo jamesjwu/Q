@@ -46,7 +46,7 @@ function setAverageHelpTime() {
             sum += parseFloat(data[i].time)
         }
         // Average help time = average time per entry * (number of entries + 1)
-        var time = (sum/data.length)*(userListData.length+1)
+        var time = (sum/data.length)
         if(data.length == 0)
             time = 0
         
@@ -81,8 +81,8 @@ function deleteUser(event) {
     }).done(function(response) {
         if (response.msg === '') {
             //Update table
-            socket.emit('update', "add an user");
-            populateTable();
+            socket.emit('update', {command:'delete', user:$(this).attr('rel')});
+            updateTable({command:'delete', user:$(this).attr('rel')});
         } else {
             toast(response.msg, 1000);
         }
@@ -141,12 +141,9 @@ function addUser(event) {
         }).done(function(response) {
             if (response.msg === '') {
                 $('#addUser fieldset input#inputUserProblem').val('');
-                socket.emit('update', "add an user");
+                socket.emit('update', {command:'add', user: newUser});
                 populateTable();
-                toast("Entered the queue!", 750)
-                if (localStorage.getItem(newUser.andrewId) == null) {
-                    localStorage.setItem(newUser.andrewId, newUser.andrewId);
-                }
+                toast("Entered the queue!", 750);
             } else {
                 /* Tell user they have been added */
                 toast(response.msg, 750);
@@ -158,6 +155,7 @@ function addUser(event) {
     }
 }
 
+
 /* isLoggedIn */
 function isLoggedIn() {
     return $.ajax( {
@@ -168,6 +166,17 @@ function isLoggedIn() {
     }).responseJSON.msg;
 }
 
+
+function updateTable(update) {
+    if(update.command == 'delete') {
+        var tableContent = $('#userList').children()
+
+
+    }
+    else {
+        populateTable()
+    }
+}
 /* populateTable - similar to updating table view */
 function populateTable() {
     var tableContent = '';
@@ -175,23 +184,17 @@ function populateTable() {
     $.getJSON('/users/userlist', function(data) {
         oldlength = userListData.length
         userListData = data;
+        var loggedin = isLoggedIn();
 
         $.each(data, function() { /* For each user in the list of users add rows to the table */
             tableContent += '<div class="row">';
             tableContent += '<div class = "col s3">' + this.name + '</div>';
             tableContent += '<div class = "col s3">' + this.andrewId + '</div>';
             tableContent += '<div class = "col s3">' + this.problem + '</div>';
-            if(isLoggedIn()) {
+            if(loggedin) {
                 tableContent += '<div class = "col s3"> <a href="#" class="linkdeleteuser" time='+ this.timestamp + ' rel="' + this._id + '">Done </a></div>';
             }
-            else {
-                var andrewId = this.andrewId;
-                if (localStorage.getItem(this.andrewId) != null) {
-                    tableContent += '<div class = "col s3"> <a href="#" class="linkdeleteuser" time='+ this.timestamp + ' rel="' + this._id + '">Done </a></div>';
-                } else {
-                    tableContent += '<div class = "col s3"> </div>'
-                }
-            }
+            
             tableContent += '</div><br>';
         });
    

@@ -28,6 +28,8 @@ router.post('/authenticate', function(req, res) {
 });
 
 
+
+
 router.post('/logout', function(req, res) {
     req.session.loggedIn = false;
     res.send({msg: req.session.loggedIn})
