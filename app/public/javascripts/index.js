@@ -1,5 +1,4 @@
 // TODO: Fix global variables later if possible
-var loggedIn = false
 var userListData = []; 
 var socket = io();
 
@@ -12,30 +11,8 @@ $(document).ready(function() {
     socket.on('update', function(data) {
         populateTable();
     });
-    $('#name').html(get_name())
 });
 
-function get_name() {
-    return "<a href='#' class= 'brand-logo'>" + $.ajax( {
-        type: "GET",
-        url: "/getname",
-        dataType: 'JSON',
-        async: false,
-    }).responseJSON.msg + "</a>"
-}
-
-
-function set_name(name) {
-    $.ajax({
-        type: "POST",
-        url: "/setname",
-        data: {'name': name},
-        dataType: 'JSON',
-    }).done(function(response) {
-        toast(response.msg, 1000)
-        $('#name').html(get_name())
-    });
-}
 
 /* close_modal - Modal closer */
 function close_modal(modal_id){
@@ -179,15 +156,6 @@ function addUser(event) {
 }
 
 
-/* isLoggedIn */
-function isLoggedIn() {
-    return $.ajax( {
-        type: "GET",
-        url: "/check",
-        dataType: 'JSON',
-        async: false,
-    }).responseJSON.msg;
-}
 
 
 function updateTable(update) {
@@ -199,34 +167,4 @@ function updateTable(update) {
     else {
         populateTable()
     }
-}
-/* populateTable - similar to updating table view */
-function populateTable() {
-    var tableContent = '';
-    // jQuery AJAX call for JSON
-    $.getJSON('/users/userlist', function(data) {
-        oldlength = userListData.length
-        userListData = data;
-        var loggedin = isLoggedIn();
-
-        $.each(data, function() { /* For each user in the list of users add rows to the table */
-            tableContent += '<div class="row">';
-            tableContent += '<div class = "col s2">' + this.name + '</div>';
-            tableContent += '<div class = "col s2">' + this.andrewId + '</div>';
-            if(loggedin) {
-                tableContent += '<div class = "col s4">' + this.problem + '</div>';
-
-                tableContent += '<div class = "col s2"> <a href="#" class="linkdeleteuser" time='+ this.timestamp + ' rel="' + this._id + '">Done </a></div>';
-            }
-            else {
-                 tableContent += '<div class = "col s6">' + this.problem + '</div>';
-            }
-            
-            tableContent += '</div><br>';
-        });
-   
-        setAverageHelpTime()   
-
-        $('#userList').html(tableContent);
-    });
 }

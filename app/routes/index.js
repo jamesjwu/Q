@@ -8,7 +8,6 @@ var TAs = fs.readFileSync('TAAndrewIDs.txt').toString().split('\n')
 var students = fs.readFileSync('studentIDs.txt').toString().split('\n')
 
 var courseTitle = "CMUQ"
-var queueFrozen = false
 
 /* GET home page. */
 router.get('/', function(req, res) {
@@ -22,6 +21,14 @@ router.get('/getname', function(req, res) {
 
 })
 
+function get_name() {
+    return "<a href='#' class= 'brand-logo'>" + $.ajax( {
+        type: "GET",
+        url: "/getname",
+        dataType: 'JSON',
+        async: false,
+    }).responseJSON.msg + "</a>"
+}
 
 router.post('/setname', function(req, res) {
     if(req.session.loggedIn) {

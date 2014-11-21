@@ -1,9 +1,7 @@
 $(document).ready(function() {
     $('#btnLogin').on('click', login);
     $('input').on('change', resetInput);
-    $('#btnResetQueue').on('click', clearTimes);
     loginReady()
-
 });
 function loginReady() {
 
@@ -23,24 +21,6 @@ function loginReady() {
     }
 }
 
-function clearTimes(event){
-    cleartimes();
-}
-
-function cleartimes() {
-    if(confirm("Really clear all average queue times?")){
-        $.ajax({
-            type: "GET",
-            url: '/users/cleartimes',
-            dataType: 'JSON'
-        });
-        populateTable();
-        loginReady();
-        toast("Cleared Times", 750);
-
-
-    }
-}
 
 function close_modal(modal_id){
 
@@ -67,10 +47,10 @@ function logout(event) {
         url: '/logout',
         dataType: 'JSON'
     }).done(function(response) {
-        toast("Logged out", 750)
-        loginReady()
-        populateTable()
+   
         window.location.href = '/' /* Redirect to main queue */
+        
+        loginReady()
     });
 }
 
@@ -96,8 +76,8 @@ function login(event) {
             $('input#inputCoursePassword').val('');
             close_modal('#login')
             toast("Logged in!", 750);
-            populateTable()
             loginReady()
+            populateTable()
             
 
         }

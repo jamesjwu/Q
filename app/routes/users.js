@@ -2,22 +2,50 @@ var express = require('express');
 var router = express.Router();
 var fs = require('fs');
 var students = fs.readFileSync('studentIDs.txt').toString().split('\n')
+var queueFrozen = false
+
 
 /* GET users listing. */
 router.get('/', function(req, res) {
       res.send('respond with a resource');
 });
 
+
+
 router.get('/userlist', function(req, res) {
     var db = req.db;
     db.collection('userlist').find().toArray(function (err, items) {
+        items.sort(function(a,b) {
+            return a.timestamp - b.timestamp
+        });
         res.json(items);
     });
 });
 
 
+router.post('/freezequeue', function(req, res) {
+    if(req.session.loggedIn) {
+        queueFrozen = !queueFrozen
+        if(queueFrozen) {
+            res.send({msg: 'Queue frozen'})
+        }
+        else {
+            res.send({msg: 'Queue unfrozen'})
+        }
+    }
+
+    else {
+        res.send({msg: 'Nice try'});
+    }
+})
+
+
 
 router.post('/adduser', function(req, res) {
+    if(queueFrozen) {
+        res.send({msg: 'Sorry, the TAs have frozen the queue!'})
+        return
+    }
     var db = req.db;
     var andrewId = req.body.andrewId
 
