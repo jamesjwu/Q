@@ -3,15 +3,25 @@ extends layout
 block content
     .row
             center
-                h4 
+                h5 
                     .col.s12
                         a#btnResetQueue(class="waves-effect waves-light button raised" style="width: 30%; color:#F08080; background-color:#FFFFFF") Reset Queue Time
-                            
+                        
     .row
             center
-                h4 
+                h5 
                     .col.s12
                         a(class="waves-effect waves-light button raised" style="width: 30%; background-color:#F08080;") Freeze Queue
+    .row
+                    .col.s12
+                        center
+                            h5(style="margin-bottom:-10px") Queue Title
+                    .col.s8.m6
+                            h5
+                                input#inputQueueName(type='text', placeholder='15-122', style="width:32%; float:right;")
+                    .col.s8.m6
+                            h5
+                                a#btnChangeName(class="waves-effect waves-light button raised" style="width: 30%; float:left; background-color:#F08080;") Change
         
 
     script(src='/javascripts/index.js')

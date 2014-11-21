@@ -13,6 +13,7 @@ $(document).ready(function() {
         populateTable();
     });
     $('#name').html(get_name())
+    $('#btnChangeName').on('click', btnSetName);
 });
 
 function get_name() {
@@ -24,6 +25,13 @@ function get_name() {
     }).responseJSON.msg + "</a>"
 }
 
+function btnSetName(event)
+{
+    console.log("Set name");
+    set_name(
+        $('input#inputQueueName').val()
+    );
+}
 
 function set_name(name) {
     $.ajax({
