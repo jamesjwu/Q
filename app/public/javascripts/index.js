@@ -13,6 +13,14 @@ $(document).ready(function() {
     });
 });
 
+function get_name() {
+    return "<a href='#' class= 'brand-logo'>" + $.ajax( {
+        type: "GET",
+        url: "/getname",
+        dataType: 'JSON',
+        async: false,
+    }).responseJSON.msg + "</a>"
+}
 
 /* close_modal - Modal closer */
 function close_modal(modal_id){
