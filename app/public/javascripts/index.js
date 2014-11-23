@@ -128,13 +128,11 @@ function addUser(event) {
             'name': $('#addUser fieldset input#inputUserName').val(),
             'andrewId': $('#addUser fieldset input#inputUserAndrewId').val(),
             'problem': $('#addUser fieldset input#inputUserProblem').val(),
-            'timestamp': new Date().getTime()
         }
         /* Check the user hasn't added in the last 10 seconds since last call */ 
         for (var i = 0; i < userListData.length; i++) {
             if(localStorage.lastAdd) {
                     if(new Date().getTime() - localStorage.lastAdd < 10000) {
-                        console.log("enter");
                         toast("You can't add yourself so quickly since your last add", 750);
                         return;
                     }

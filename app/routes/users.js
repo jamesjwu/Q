@@ -59,9 +59,12 @@ router.post('/adduser', function(req, res) {
             return;
         }
         else {
+
+            var user = req.body
+            user.timestamp = new Date().getTime()
             // insert the data into our metrics database
-            db.collection('metrics').insert(req.body, function(err, result) {})
-            db.collection('userlist').insert(req.body, function(err, result) {
+            db.collection('metrics').insert(user, function(err, result) {})
+            db.collection('userlist').insert(user, function(err, result) {
                 res.send(
                     (err === null) ? {msg: ''} : {msg: err}
                     );
