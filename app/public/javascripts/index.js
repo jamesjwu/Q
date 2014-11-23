@@ -11,6 +11,10 @@ $(document).ready(function() {
     socket.on('update', function(data) {
         populateTable();
     });
+    socket.on('delete', function(data) {
+        console.log("called");
+        updateDelete(data);
+    });
 });
 
 function get_name() {
@@ -81,16 +85,18 @@ function setAverageHelpTime() {
 function deleteUser(event) {
     event.preventDefault();
     var time = $(this).attr('time')
+    var userId = $(this).attr('id');
     trackTime({time: getTimeHelped(time)})
     // Only consider cases when time took more than one minute 
     $.ajax({
         type: "DELETE",
-        url: "/users/deleteuser/"+$(this).attr('rel')
+        url: "/users/deleteuser/"+userId
     }).done(function(response) {
         if (response.msg === '') {
             //Update table
-            socket.emit('update', {command:'delete', user:$(this).attr('rel')});
-            updateTable({command:'delete', user:$(this).attr('rel')});
+            console.log(userId);
+            socket.emit('delete', {user:userId});
+            //updateTable({command:'delete', user:$(this).attr('id')});
         } else {
             toast(response.msg, 1000);
         }
@@ -164,13 +170,7 @@ function addUser(event) {
 
 
 
-function updateTable(update) {
-    if(update.command == 'delete') {
-        var tableContent = $('#userList').children()
-
-
-    }
-    else {
-        populateTable()
-    }
+function updateDelete(update) {
+        console.log(update.user);
+        $("#"+update.user).parent().parent().remove();
 }

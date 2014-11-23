@@ -18,7 +18,7 @@ function populateTable() {
             if(loggedin) {
                 tableContent += '<div class = "col s4">' + this.problem + '</div>';
 
-                tableContent += '<div class = "col s2"> <a href="#" class="linkdeleteuser" time='+ this.timestamp + ' rel="' + this._id + '">Done </a></div>';
+                tableContent += '<div class = "col s2"> <a href="#" class="linkdeleteuser" time='+ this.timestamp + ' id="' + this._id + '">Done </a></div>';
             }
             else {
                  tableContent += '<div class = "col s6">' + this.problem + '</div>';

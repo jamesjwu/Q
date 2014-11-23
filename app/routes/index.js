@@ -56,8 +56,6 @@ router.post('/authenticate', function(req, res) {
 });
 
 
-
-
 router.post('/logout', function(req, res) {
     req.session.loggedIn = false;
     res.send({msg: req.session.loggedIn})
@@ -75,7 +73,7 @@ router.get('/admin', function(req, res){
 
 
 /* POST to Add User Service */
-router.post('/adduser', function(req, res) {
+/*router.post('/adduser', function(req, res) {
 
     // Set our internal DB variable
     var db = req.db;
@@ -103,8 +101,11 @@ router.post('/adduser', function(req, res) {
             res.location("userlist");
             // And forward to success page
             res.redirect("userlist");
+
+            res.send(doc);
+            console.log(doc+"..........................");
         }
     });
-});
+});*/
 
 module.exports = router;

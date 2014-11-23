@@ -19,7 +19,8 @@ var app = express();
 // Socket IO for broadcasting update
 var server = require('http').Server(app);
 
-server.listen(1234);
+//server.listen(process.env.PORT);
+server.listen(8080);
 
 io = require('socket.io')(server);
 io.sockets.on('connection', function(socket) {
@@ -27,8 +28,11 @@ io.sockets.on('connection', function(socket) {
     socket.on('update', function (data) {
     // in our case, the information sent is not really important, the point is
     // to "wake up" all clients
-    io.sockets.emit('update', data);
-  });
+        io.sockets.emit('update', data);
+    });
+    socket.on('delete', function (data) {
+        io.sockets.emit('delete', data);
+    });
 });
 
 // view engine setup
