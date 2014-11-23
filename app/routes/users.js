@@ -75,7 +75,7 @@ router.post('/adduser', function(req, res) {
 
 router.get('/cleartimes', function(req, res) {
     
-    if(req.session.loggedIn === true) {
+    if(req.session.loggedIn) {
         var db = req.db
         db.collection('times').drop()
         res.send({msg:"Done"})
