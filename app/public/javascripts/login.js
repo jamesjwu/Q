@@ -1,8 +1,16 @@
 $(document).ready(function() {
     $('#btnLogin').on('click', login);
     $('input').on('change', resetInput);
+    $("input").bind("keypress", handleKeyPress);
     loginReady()
 });
+
+function handleKeyPress(e) {
+        console.log("enter");
+        if (e.keyCode === 13) {
+            login(e);
+        }
+}
 function loginReady() {
 
     if(isLoggedIn()) {
@@ -36,6 +44,7 @@ function close_modal(modal_id){
 
 function resetInput(event) {
     event.preventDefault();
+    console.log("hey");
     $(this).css("border-color", "initial")
 }
 
@@ -54,8 +63,8 @@ function logout(event) {
     });
 }
 
-function login(event) {
-    event.preventDefault();
+function login(e) {
+    e.preventDefault();
     var loginInfo = {'andrewId': $('input#inputTAAndrewId').val(),
                      'pass': $('input#inputCoursePassword').val()};
     // send request to the server
@@ -78,8 +87,6 @@ function login(event) {
             toast("Logged in!", 750);
             loginReady()
             populateTable()
-            
-
         }
     }); 
 }

@@ -9,6 +9,7 @@ $(document).ready(function() {
     $('#addUser input').on('change', resetInput);
     $('#userList').on('click', 'a.linkdeleteuser', deleteUser);  
     socket.on('add', function(data) {
+        console.log("socket");
         updateAdd(data);
     });
     socket.on('delete', function(data) {
@@ -161,7 +162,7 @@ function addUser(event) {
                 // by mongoDB
                 socket.emit('add', {user: response.user[0]}); 
                 //populateTable();
-                toast(response.msg, 750);
+                toast("Entered the queue!", 750);
             } else {
                 toast(response.msg, 750);
             }
@@ -183,19 +184,20 @@ function updateDelete(update) {
 function updateAdd(update) {
     console.log("called");
     console.log(update);
-    var loggedin = isLoggedIn();
+    //var loggedin = isLoggedIn();
     var content = '';
     content += '<div class="row">';
     content += '<div class = "col s2">' + update.user.name + '</div>';
     content += '<div class = "col s2">' + update.user.andrewId + '</div>';
-    if(loggedin) {
+    if(update.user._id === 0) {
+        console.log("case 2");
+        content += '<div class = "col s6">' + update.user.problem + '</div>';
+    } else {
+        console.log("case 1");
         content += '<div class = "col s4">' + update.user.problem + '</div>';
         content += '<div class = "col s2"> <a href="#" class="linkdeleteuser" time='+ update.user.timestamp + ' id="' + update.user._id + '">Done </a></div>';
-            }
-            else {
-                 content += '<div class = "col s6">' + update.user.problem + '</div>';
-            }
-            content += '</div><br>';
+    }
+    content += '</div><br>';
 
     $('#userList').append(content);
 }
