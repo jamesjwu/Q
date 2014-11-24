@@ -12,6 +12,7 @@ function populateTable() {
         var loggedin = isLoggedIn();
 
         $.each(data, function() { /* For each user in the list of users add rows to the table */
+
             tableContent += '<div class="row">';
             tableContent += '<div class = "col s2">' + this.name + '</div>';
             tableContent += '<div class = "col s2">' + this.andrewId + '</div>';

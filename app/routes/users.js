@@ -10,6 +10,10 @@ router.get('/', function(req, res) {
       res.send('respond with a resource');
 });
 
+function sanitizeString(str){
+    str = str.replace(/[^a-z0-9áéíóúñü_-\s\.,]/gim,"");
+    return str.trim();
+}
 
 
 router.get('/userlist', function(req, res) {
@@ -62,12 +66,27 @@ router.post('/adduser', function(req, res) {
 
             var user = req.body
             user.timestamp = new Date().getTime()
+            user.name = sanitizeString(req.body.name)
+            user.andrewId = sanitizeString(req.body.andrewId)
+            user.problem = sanitizeString(req.body.problem)
+
+
             // insert the data into our metrics database
             db.collection('metrics').insert(user, function(err, result) {})
             db.collection('userlist').insert(user, function(err, result) {
-                res.send(
-                    (err === null) ? {msg: ''} : {msg: err}
-                    );
+                if(err) {
+                    res.send({msg:err});
+                }
+                else {
+                    if(user.name != req.body.name 
+                        || user.andrewId != req.body.andrewId 
+                        || user.problem != req.body.problem) {
+                        res.send({msg:"Nice try."})
+                    }
+                    else {
+                        res.send({msg:''})
+                    }
+                }
             });
         }
     })
@@ -82,6 +101,10 @@ router.get('/cleartimes', function(req, res) {
         var db = req.db
         db.collection('times').drop()
         res.send({msg:"Done"})
+    }
+
+    else {
+        res.send({msg: "Nice Try"})
     }
 
 })

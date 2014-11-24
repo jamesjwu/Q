@@ -40,6 +40,8 @@ router.post('/setname', function(req, res) {
     }
 })
 
+
+
 router.post('/authenticate', function(req, res) {
     if ((TAs.indexOf(req.body.andrewId) >= 0)) {
         if(hash.MD5(req.body.pass) == coursePass) {
@@ -70,7 +72,12 @@ router.get('/check', function(req, res) {
 
 /* Route to /admin for the dashboard */
 router.get('/admin', function(req, res){
-    res.render('admin', {title:'CmuQ'});
+    if(req.session.loggedIn) {
+        res.render('admin', {title:'CmuQ'});
+    }
+    else {
+        res.render('index', {title: 'CmuQ'});
+    }
 });
 
 

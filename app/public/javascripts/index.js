@@ -128,6 +128,7 @@ function addUser(event) {
             'name': $('#addUser fieldset input#inputUserName').val(),
             'andrewId': $('#addUser fieldset input#inputUserAndrewId').val(),
             'problem': $('#addUser fieldset input#inputUserProblem').val(),
+
         }
         /* Check the user hasn't added in the last 10 seconds since last call */ 
         for (var i = 0; i < userListData.length; i++) {
@@ -151,7 +152,6 @@ function addUser(event) {
                 populateTable();
                 toast("Entered the queue!", 750);
             } else {
-                /* Tell user they have been added */
                 toast(response.msg, 750);
             }
             localStorage.lastAdd = new Date().getTime()
