@@ -66,7 +66,7 @@ router.post('/adduser', function(req, res) {
             db.collection('metrics').insert(user, function(err, result) {})
             db.collection('userlist').insert(user, function(err, result) {
                 res.send(
-                    (err === null) ? {msg: ''} : {msg: err}
+                    (err === null) ? {msg: '', user: result} : {msg: err}
                     );
             });
         }
