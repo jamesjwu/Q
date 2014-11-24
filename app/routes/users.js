@@ -84,7 +84,7 @@ router.post('/adduser', function(req, res) {
                         res.send({msg:"Nice try."})
                     }
                     else {
-                        res.send({msg:''})
+                        res.send({msg:'', user: result})
                     }
                 }
             });
