@@ -8,8 +8,11 @@ $(document).ready(function() {
     $('#btnAddUser').on('click', addUser);
     $('#addUser input').on('change', resetInput);
     $('#userList').on('click', 'a.linkdeleteuser', deleteUser);  
-    socket.on('update', function(data) {
-        populateTable();
+    socket.on('add', function(data) {
+        updateAdd(data);
+    });
+    socket.on('delete', function(data) {
+        updateDelete(data);
     });
 });
 
@@ -81,16 +84,18 @@ function setAverageHelpTime() {
 function deleteUser(event) {
     event.preventDefault();
     var time = $(this).attr('time')
+    var userId = $(this).attr('id');
     trackTime({time: getTimeHelped(time)})
     // Only consider cases when time took more than one minute 
     $.ajax({
         type: "DELETE",
-        url: "/users/deleteuser/"+$(this).attr('rel')
+        url: "/users/deleteuser/"+userId
     }).done(function(response) {
         if (response.msg === '') {
             //Update table
-            socket.emit('update', {command:'delete', user:$(this).attr('rel')});
-            updateTable({command:'delete', user:$(this).attr('rel')});
+            console.log(userId);
+            socket.emit('delete', {user:userId});
+            //updateTable({command:'delete', user:$(this).attr('id')});
         } else {
             toast(response.msg, 1000);
         }
@@ -146,10 +151,16 @@ function addUser(event) {
             url: '/users/adduser',
             dataType: 'JSON'
         }).done(function(response) {
+            console.log(response);
             if (response.msg === '') {
                 $('#addUser fieldset input#inputUserProblem').val('');
-                socket.emit('update', {command:'add', user: newUser});
-                populateTable();
+                //socket.emit('update', {command:'add', user: newUser});
+                //newUser
+                console.log("added");
+                // response the newUser plus the field id which is generated
+                // by mongoDB
+                socket.emit('add', {user: response.user[0]}); 
+                //populateTable();
                 toast("Entered the queue!", 750);
             } else {
                 toast(response.msg, 750);
@@ -164,13 +175,27 @@ function addUser(event) {
 
 
 
-function updateTable(update) {
-    if(update.command == 'delete') {
-        var tableContent = $('#userList').children()
+function updateDelete(update) {
+    $("#"+update.user).parent().parent().next('br').remove();
+    $("#"+update.user).parent().parent().remove();
+}
 
+function updateAdd(update) {
+    console.log("called");
+    console.log(update);
+    var loggedin = isLoggedIn();
+    var content = '';
+    content += '<div class="row">';
+    content += '<div class = "col s2">' + update.user.name + '</div>';
+    content += '<div class = "col s2">' + update.user.andrewId + '</div>';
+    if(loggedin) {
+        content += '<div class = "col s4">' + update.user.problem + '</div>';
+        content += '<div class = "col s2"> <a href="#" class="linkdeleteuser" time='+ update.user.timestamp + ' id="' + update.user._id + '">Done </a></div>';
+            }
+            else {
+                 content += '<div class = "col s6">' + update.user.problem + '</div>';
+            }
+            content += '</div><br>';
 
-    }
-    else {
-        populateTable()
-    }
+    $('#userList').append(content);
 }

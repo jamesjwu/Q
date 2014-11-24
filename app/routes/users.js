@@ -74,6 +74,7 @@ router.post('/adduser', function(req, res) {
             // insert the data into our metrics database
             db.collection('metrics').insert(user, function(err, result) {})
             db.collection('userlist').insert(user, function(err, result) {
+<<<<<<< HEAD
                 if(err) {
                     res.send({msg:err});
                 }
@@ -87,6 +88,11 @@ router.post('/adduser', function(req, res) {
                         res.send({msg:''})
                     }
                 }
+=======
+                res.send(
+                    (err === null) ? {msg: '', user: result} : {msg: err}
+                    );
+>>>>>>> 80a9fda7f1a841ed1003f924f7b8367fa6073d12
             });
         }
     })
@@ -100,6 +106,7 @@ router.get('/cleartimes', function(req, res) {
     if(req.session.loggedIn) {
         var db = req.db
         db.collection('times').drop()
+        db.collection('userlist').drop()
         res.send({msg:"Done"})
     }
 
