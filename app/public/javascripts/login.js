@@ -6,7 +6,6 @@ $(document).ready(function() {
 });
 
 function handleKeyPress(e) {
-        console.log("enter");
         if (e.keyCode === 13) {
             login(e);
         }
