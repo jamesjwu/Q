@@ -78,6 +78,9 @@ router.post('/adduser', function(req, res) {
                 }
                 else {
                     // if input had to be sanitized
+                    if(!req.session.loggedIn) {
+                        user._id = 0;
+                    }
                     res.send({msg:'Entered the queue!', success: true, user: result})
                 }
             });
