@@ -11,8 +11,7 @@ router.get('/', function(req, res) {
 });
 
 function sanitizeString(str){
-    str = str.replace(/[^a-z0-9áéíóúñü_-\s\.,]/gim,"");
-    return str.trim();
+    return str.replace(/[^a-z0-9áéíóúñü()'"_-\s\.,]/gim,"").trim();
 }
 
 
@@ -75,17 +74,11 @@ router.post('/adduser', function(req, res) {
             db.collection('metrics').insert(user, function(err, result) {})
             db.collection('userlist').insert(user, function(err, result) {
                 if(err) {
-                    res.send({msg:err});
+                    res.send({msg:err, success: false});
                 }
                 else {
-                    if(user.name != req.body.name 
-                        || user.andrewId != req.body.andrewId 
-                        || user.problem != req.body.problem) {
-                        res.send({msg:"Nice try."})
-                    }
-                    else {
-                        res.send({msg:'', user: result})
-                    }
+                    // if input had to be sanitized
+                    res.send({msg:'Entered the queue!', success: true, user: result})
                 }
             });
         }

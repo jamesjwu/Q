@@ -152,7 +152,7 @@ function addUser(event) {
             dataType: 'JSON'
         }).done(function(response) {
             console.log(response);
-            if (response.msg === '') {
+            if (response.success) {
                 $('#addUser fieldset input#inputUserProblem').val('');
                 //socket.emit('update', {command:'add', user: newUser});
                 //newUser
@@ -161,7 +161,7 @@ function addUser(event) {
                 // by mongoDB
                 socket.emit('add', {user: response.user[0]}); 
                 //populateTable();
-                toast("Entered the queue!", 750);
+                toast(response.msg, 750);
             } else {
                 toast(response.msg, 750);
             }

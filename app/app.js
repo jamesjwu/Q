@@ -19,7 +19,7 @@ var app = express();
 // Socket IO for broadcasting update
 var server = require('http').Server(app);
 
-server.listen(8080);
+server.listen(1234);
 
 io = require('socket.io')(server);
 io.sockets.on('connection', function(socket) {
