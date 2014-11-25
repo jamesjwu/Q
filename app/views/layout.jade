@@ -8,6 +8,7 @@ html
     script(src='/socket.io/socket.io.js')
     script(src='/javascripts/materialize.js')
     script(src='/javascripts/common.js')
+    script(src='/javascripts/login.js')
 
   body
     nav
@@ -45,7 +46,7 @@ html
                                 input#inputTAAndrewId(type='text', placeholder='Your AndrewId')
 
                             .row#loginInput
-                                input#inputCoursePassword(type='password',placeholder='Course Password')
+                                input#inputCoursePassword(type='password',placeholder='Course Password' onkeyup="handleKeyPress")
                             p
                             .row
 
@@ -53,7 +54,6 @@ html
                                                 i.icon-lock.icon-white
                                                 | Sign in
 
-        script(src='/javascripts/login.js')
 
 
 

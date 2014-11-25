@@ -182,20 +182,16 @@ function updateDelete(update) {
 }
 
 function updateAdd(update) {
-    console.log("called");
-    console.log(update);
-    //var loggedin = isLoggedIn();
+    var loggedin = isLoggedIn();
     var content = '';
     content += '<div class="row">';
     content += '<div class = "col s2">' + update.user.name + '</div>';
     content += '<div class = "col s2">' + update.user.andrewId + '</div>';
-    if(update.user._id === 0) {
-        console.log("case 2");
-        content += '<div class = "col s6">' + update.user.problem + '</div>';
-    } else {
-        console.log("case 1");
+    if(loggedin) {
         content += '<div class = "col s4">' + update.user.problem + '</div>';
         content += '<div class = "col s2"> <a href="#" class="linkdeleteuser" time='+ update.user.timestamp + ' id="' + update.user._id + '">Done </a></div>';
+    } else {
+        content += '<div class = "col s6">' + update.user.problem + '</div>';
     }
     content += '</div><br>';
 
