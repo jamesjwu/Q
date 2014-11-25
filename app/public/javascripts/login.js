@@ -1,15 +1,16 @@
 $(document).ready(function() {
     $('#btnLogin').on('click', login);
-    $('input').on('change', resetInput);
-    $("input").bind("keypress", handleKeyPress);
+    $('#inputTAAndrewId').on('change', resetInput);
+    $("#inputCoursePassword").bind("keypress", handleKeyPressInLogIn);
     loginReady()
 });
 
-function handleKeyPress(e) {
+function handleKeyPressInLogIn(e) {
         if (e.keyCode === 13) {
             login(e);
         }
 }
+
 function loginReady() {
 
     if(isLoggedIn()) {

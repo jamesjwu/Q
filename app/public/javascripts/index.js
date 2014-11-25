@@ -6,6 +6,12 @@ var socket = io();
 $(document).ready(function() {
     populateTable();
     $('#btnAddUser').on('click', addUser);
+
+    // Typing return can add someone to the queue
+    $('#inputUserName').bind("keypress", handleKeyPressInAdd);
+    $('#inputUserAndrewId').bind("keypress", handleKeyPressInAdd);
+    $('#inputUserProblem').bind("keypress", handleKeyPressInAdd);
+
     $('#addUser input').on('change', resetInput);
     $('#userList').on('click', 'a.linkdeleteuser', deleteUser);  
     socket.on('add', function(data) {
@@ -16,6 +22,12 @@ $(document).ready(function() {
         updateDelete(data);
     });
 });
+
+function handleKeyPressInAdd(e) {
+    if (e.keyCode === 13) {
+        addUser(e);
+    }
+}
 
 function get_name() {
     return "<a href='#' class= 'brand-logo'>" + $.ajax( {
