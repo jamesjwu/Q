@@ -3,6 +3,10 @@ body {
   margin: 0 0 0 0;
 }
 
+#courseBulletin h4 {
+  color: #FF0000 !important;
+}
+
 h2 {
     margin:0 0 .5em 0;
 }

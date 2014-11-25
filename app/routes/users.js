@@ -10,6 +10,7 @@ router.get('/', function(req, res) {
       res.send('respond with a resource');
 });
 
+
 function sanitizeString(str){
     return str.replace(/[^a-z0-9áéíóúñü()'"_-\s\.,]/gim,"").trim();
 }

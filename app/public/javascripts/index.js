@@ -11,7 +11,9 @@ $(document).ready(function() {
     $('#inputUserName').bind("keypress", handleKeyPressInAdd);
     $('#inputUserAndrewId').bind("keypress", handleKeyPressInAdd);
     $('#inputUserProblem').bind("keypress", handleKeyPressInAdd);
-
+    if(get_bulletin() != "") {
+        $('#courseBulletin').html('<div class = "row"> <center> <h4>' + get_bulletin() + ' </h4> </center> </div>')
+    }
     $('#addUser input').on('change', resetInput);
     $('#userList').on('click', 'a.linkdeleteuser', deleteUser);  
     socket.on('add', function(data) {
@@ -27,6 +29,17 @@ function handleKeyPressInAdd(e) {
     if (e.keyCode === 13) {
         addUser(e);
     }
+}
+
+
+
+function get_bulletin() {
+    return $.ajax({
+        type: "GET",
+        url: "/getbulletin",
+        dataType: "JSON",
+        async: false,
+    }).responseJSON.msg
 }
 
 function get_name() {

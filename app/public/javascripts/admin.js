@@ -18,6 +18,17 @@ function cleartimes() {
 }
 
 
+function set_bulletin(bulletin) {
+    $.ajax({
+        type: "POST",
+        url: "/setbulletin",
+        data: {'bulletin': bulletin},
+        dataType: 'JSON',
+    }).done(function(response) {
+        toast(response.msg, 1000)
+    });
+}
+
 function btnSetName(event)
 {
     console.log("Set name");
