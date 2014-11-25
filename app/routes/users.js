@@ -123,13 +123,18 @@ router.post('/tracktime', function(req, res) {
 });
 
 router.delete('/deleteuser/:id', function(req, res) {
-    // No need to check TA or anything here, because we only show "delete"
-    // buttton for qualified users
-    var db = req.db;
-    var userToDelete = req.params.id;
-    db.collection('userlist').removeById(userToDelete, function(err, result) {
-        res.send((result === 1) ? {msg: ''} : {msg:'error: ' + err});
-    });
+    // Check log in 
+    if(req.session.loggedIn) {
+        var db = req.db;
+        var userToDelete = req.params.id;
+        db.collection('userlist').removeById(userToDelete, function(err, result) {
+            res.send((result === 1) ? {msg: ''} : {msg:'error: ' + err});
+        });
+    }
+    else 
+    {
+        res.send({msg :'Nice try.'});
+    }
 });
 
 module.exports = router;
