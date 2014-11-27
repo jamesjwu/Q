@@ -4,6 +4,7 @@ html
     title= title
     link(rel='stylesheet', href='/stylesheets/materialize.css')
     link(rel='stylesheet', href='/stylesheets/style.css')
+    link(href='http://fonts.googleapis.com/css?family=Poiret+One', rel='stylesheet', type='text/css')
     script(src='http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js')
     script(src='/socket.io/socket.io.js')
     script(src='/javascripts/materialize.js')
@@ -12,22 +13,21 @@ html
 
   body
     nav
-        .col.s12
-            #name
-            
+        .container
+            .col.s12
+                #name
+                ul
+                    li
+                        a(href = "/") Queue
 
-            ul
-                li
-                    a(href = "/") Queue
-
-                li
-                    #admin
-                
-                li
-                    #metrics
-                li
-                    #LoginLogout
-                        
+                    li
+                        #admin
+                    
+                    li
+                        #metrics
+                    li
+                        #LoginLogout
+                            
 
 
 

@@ -2,22 +2,49 @@ extends layout
 
 block content
     script(src='/javascripts/loggedIn.js')
-    .row
-            center
-                h5 
-                    .col.s12
 
-                        a#btnFreezeQueue(class="waves-effect waves-light button raised" style="width: 30%; background-color:#F08080;") Freeze Queue
-                        a#btnResetQueue(class="waves-effect waves-light button raised" style="width: 30%; background-color:#F08080;") Clear Queue
     .row
-                    .col.s12
-                        center
-                            h5(style="margin-bottom: -1% ") Change Queue Title
-                    .col.s8.m6
-                            h5
-                                input#inputQueueName(type='text', placeholder='15-122', style="width:32%; float:right;")
-                    .col.s8.m6
-                            h5
-                                a#btnChangeName(class="waves-effect waves-light button raised" style="width: 30%; float:left; background-color:#F08080;") Change        
+        .col.s12
+            .container
+                #adminCol.clearfix
+                    .col.s6
+                        .row
+                            h5 Queue Management
+                                                
+                        .row
+                            .dbBtn.a#btnFreezeQueue(class="waves-effect waves-light button raised") Freeze
+                        .row
+                            .dbBtn.a#btnResetQueue(class="waves-effect waves-light button raised") Clear
+                    .col.s6
+                        .row
+                            h5 Settings
+                        .row
+                            input#inputQueueName(type='text', placeholder='15-122')
+                        .row
+                            .dbBtn.a#btnChangeName(class="waves-effect waves-light button raised") Change Title
+                        .row
+                            input#inputBulletin(type='text', placeholder='Yo')
+                        .row
+                            .dbBtn.a#btnInputBulletin(class="waves-effect waves-light button raised") Update Message
+    .row
+        .col.s12
+            .container
+                #adminCol.clearfix
+                    .col.s6
+                        .row
+                            h5 More Buttons Go Here Later
+                                                
+                        .row
+                            .dbBtn.a#btnFreezeQueue(class="waves-effect waves-light button raised") Freeze
+                        .row
+                            .dbBtn.a#btnResetQueue(class="waves-effect waves-light button raised") Clear
+                    .col.s6
+                        .row
+                            h5 I will Eventually Put These In
+                        .row
+                            .dbBtn.a#btnChangeName(class="waves-effect waves-light button raised") Change Title
+                        .row
+                            .dbBtn.a#btnChangeName(class="waves-effect waves-light button raised") Update Message
+
 
     script(src='/javascripts/admin.js')
