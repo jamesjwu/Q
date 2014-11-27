@@ -1,5 +1,6 @@
 $(document).ready(function() {
 	refreshTitle()
+    $('#')
 })
 
 function refreshTitle() {
@@ -22,7 +23,7 @@ function populateTable() {
             tableContent += '<div class = "col s2">' + this.name + '</div>';
             tableContent += '<div class = "col s2">' + this.andrewId + '</div>';
             if(loggedin) {
-                tableContent += '<div class = "col s4">' + this.problem + '</div>';
+                tableContent += '<div class = "col s6">' + this.problem + '</div>';
 
                 tableContent += '<div class = "col s2"> <a href="#" class="linkdeleteuser" time='+ this.timestamp + ' id="' + this._id + '">Done </a></div>';
             }

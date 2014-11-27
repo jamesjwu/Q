@@ -41,10 +41,15 @@ nav a {
     color: #E3DFDB !important;
 }
 
+nav ul li {
+    transition: none !important;
+}
 nav a:hover, nav a:active{
     color: #FFFFFF !important;
     background-color:#595556 !important;
+
 }
+
 
 nav .brand-logo {
     padding-left: 10px;
@@ -132,6 +137,7 @@ button {
 }
 fieldset input {
     margin: 1%;
+
     padding: 1%;
 
 }
@@ -142,13 +148,15 @@ fieldset input {
  }
 
 fieldset input#inputUserProblem {
-    width: 38%;
+    width: 47%;
 }
+
 
 
 #loginInput input{
     margin-bottom: 2%;
     margin-top: 2%;
+    margin-left: 0%;
     padding: 4%;
 }
 #top {
@@ -200,8 +208,11 @@ fieldset input#inputUserProblem {
         background:rgba(80,120,255,0.05);
     }
 
+#inputUserName, #inputUserAndrewId {
+    width: 12.25%;
+}
 fieldset {
     border:0;
     padding:0;
-    margin-left: -.5%;
+    margin-left: -1.2%;
 }
