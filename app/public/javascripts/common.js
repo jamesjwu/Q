@@ -1,6 +1,11 @@
 $(document).ready(function() {
-	$('#name').html(" <a href='/' class='brand-logo'>" + get_name() + "</a>")
+	refreshTitle()
 })
+
+function refreshTitle() {
+    $('#name').html(" <a href='/' class='brand-logo'>" + get_name() + "</a>")
+}
+
 
 /* populateTable - similar to updating table view */
 function populateTable() {

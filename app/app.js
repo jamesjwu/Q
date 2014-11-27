@@ -21,6 +21,8 @@ var server = require('http').Server(app);
 
 server.listen(1234);
 
+
+// TODO: HUGE security risk
 io = require('socket.io')(server);
 io.sockets.on('connection', function(socket) {
     // Once heard from any client of update, broadcast to all clients
@@ -32,6 +34,9 @@ io.sockets.on('connection', function(socket) {
     socket.on('delete', function (data) {
         io.sockets.emit('delete', data);
     });
+    socket.on('refresh', function(data) {
+        io.sockets.emit('refresh', data);
+    })
 });
 
 // view engine setup

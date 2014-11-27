@@ -5,7 +5,7 @@ $(document).ready(function() {
     $('#btnChangeName').on('click', btnSetName);
     $('#inputQueueName').attr('placeholder', get_name())
 })
-
+var socket = io();
 function cleartimes() {
     if(confirm("Really clear all average queue times?")){
         $.ajax({
@@ -26,6 +26,7 @@ function set_bulletin(bulletin) {
         dataType: 'JSON',
     }).done(function(response) {
         toast(response.msg, 1000)
+        socket.emit("refresh", {})
     });
 }
 
@@ -45,6 +46,7 @@ function freeze_queue() {
 		dataType: 'JSON',
 	}).done(function(response) {
 		toast(response.msg, 1000)
+
 	})
 }
 
@@ -58,5 +60,6 @@ function set_name(name) {
     }).done(function(response) {
         toast(response.msg, 1000)
         $('#name').html("<a href = '/' class='brand-logo'>" + get_name() + "</a>")
+        socket.emit("refresh", {})
     });
 }

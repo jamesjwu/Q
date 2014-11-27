@@ -6,22 +6,26 @@ var socket = io();
 $(document).ready(function() {
     populateTable();
     $('#btnAddUser').on('click', addUser);
-
+    refreshAnnouncements()
     // Typing return can add someone to the queue
     $('#inputUserName').bind("keypress", handleKeyPressInAdd);
     $('#inputUserAndrewId').bind("keypress", handleKeyPressInAdd);
     $('#inputUserProblem').bind("keypress", handleKeyPressInAdd);
-    if(get_bulletin() != "") {
-        $('#courseBulletin').html('<div class = "row"> <center> <h4>' + get_bulletin() + ' </h4> </center> </div>')
-    }
+    
     $('#addUser input').on('change', resetInput);
     $('#userList').on('click', 'a.linkdeleteuser', deleteUser);  
     socket.on('add', function(data) {
-        console.log("socket");
         updateAdd(data);
+        setAverageHelpTime()
     });
     socket.on('delete', function(data) {
         updateDelete(data);
+        setAverageHelpTime()
+    });
+    socket.on('refresh', function(data) {
+        refreshTitle()
+        refreshAnnouncements()
+        setAverageHelpTime()
     });
 });
 
@@ -31,6 +35,14 @@ function handleKeyPressInAdd(e) {
     }
 }
 
+function refreshAnnouncements () {
+    if(get_bulletin() != "") {
+        $('#courseBulletin').html('<div class = "row"> <center> <h4>' + get_bulletin() + ' </h4> </center> </div>')
+    }
+    else {
+        $('#courseBulletin').html("")
+    }
+}
 
 
 function get_bulletin() {
@@ -119,7 +131,6 @@ function deleteUser(event) {
     }).done(function(response) {
         if (response.msg === '') {
             //Update table
-            console.log(userId);
             socket.emit('delete', {user:userId});
             //updateTable({command:'delete', user:$(this).attr('id')});
         } else {
@@ -148,7 +159,7 @@ function addUser(event) {
 
     var errorCount = 0;
     $('#addUser input').each(function(index, val) {
-        if ($(this).val() === '') {
+        if ($(this).val().trim() === '') {
             $(this).css("border-color", "#ff5722")
             errorCount++
         };
@@ -159,8 +170,8 @@ function addUser(event) {
             'name': $('#addUser fieldset input#inputUserName').val(),
             'andrewId': $('#addUser fieldset input#inputUserAndrewId').val(),
             'problem': $('#addUser fieldset input#inputUserProblem').val(),
-
         }
+        
         /* Check the user hasn't added in the last 10 seconds since last call */ 
         for (var i = 0; i < userListData.length; i++) {
             if(localStorage.lastAdd) {
