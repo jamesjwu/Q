@@ -87,7 +87,7 @@ function setAverageHelpTime() {
         if(data.length == 0)
             time = 0
         
-        $('#averageHelpTime').html("<font color='black'> Average Help Time: </font>" + Math.round(time) + " minute(s)")
+        $('#averageHelpTime').html("<font color='gray'> Average Help Time: </font>" + Math.round(time) + " minute(s)")
 
         if(time > 30) {
             $('#averageHelpTime').css("color", "red")

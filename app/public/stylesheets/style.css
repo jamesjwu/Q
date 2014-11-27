@@ -1,12 +1,125 @@
+/* General container and layout styles */
+html{
+    height: 100%;
+}
 body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
   margin: 0 0 0 0;
+  background-color: #E3DFDB;
+  height:100%;
 }
 
+.clearfix:after {
+   content: " "; /* Older browser do not support empty content */
+   visibility: hidden;
+   display: block;
+   clear: both;
+   height: 100%;
+}
+
+
+.container {
+    height: 100%;
+    display: inline-block;
+    margin-left:10%;
+    margin-right:15%;
+}
+
+#frontQueue{
+    margin-top: 5px;
+    background-color: #FFFFFF;
+    padding-left:5%;
+    padding-right:5%;
+    height: 100%;
+}
+nav {
+    background-color: #595556;
+    z-index:1000;
+}
+
+nav a {
+    color: #E3DFDB !important;
+}
+
+nav a:hover, nav a:active{
+    color: #FFFFFF !important;
+    background-color:#595556 !important;
+}
+
+nav .brand-logo {
+    padding-left: 10px;
+    text-transform: uppercase;
+    font-size:2em;
+    /* font-family: 'Poiret One';*/
+}
+
+nav .brand-logo:hover {
+    background-color: #595556 !important;
+}
+
+/* Bulletin styling */
 #courseBulletin h4 {
-  color: #FF0000 !important;
+  font-size: 1.3em;
+  color: #FFFFFF !important;
+  margin-bottom: -2%;
+  padding: 0.5%;
+  background-color:#E8828F !important;
 }
 
+/* Setting Input Fields, i.e. in admin */
+#inputQueueName, #inputBulletin {
+    font-size: 1.3em;
+    margin-bottom: 5%;
+    width: 50%;
+    float: left;
+}
+
+#adminCol{
+    background-color: #FFFFFF;
+    padding: 2%;
+    margin-top: 5%;
+}
+/* Dashboard button styling */
+.dbBtn{
+    width: 40%;
+}
+#btnFreezeQueue {
+    background-color:#9E9B99 !important;
+}
+#btnResetQueue {
+    background-color:#9E9B99 !important;
+}
+#btnChangeName {
+    background-color: #9E9B99 !important;
+}
+#btnInputBulletin {
+    background-color: #9E9B99 !important;
+}
+
+/* Queue front inputs */
+#addUser{
+    margin-top: 1%;
+}
+
+#btnAddUser{
+    background-color:#595556;
+}
+#averageHelpTime{
+    font-size: 0.74em;
+}
+
+hr {
+    color: #D4D0CC;
+    border:none;
+    background-color:#D4D0CC;
+    height: 1pt;
+}
+
+h5 {
+    color: #94918F;
+    text-transform: uppercase;
+    font-size: 1em;
+}
 h2 {
     margin:0 0 .5em 0;
 }
@@ -49,6 +162,7 @@ fieldset input#inputUserProblem {
     position:relative;
 }
 
+/* Front page user table styling */
 #userList {
     margin:0 0 30px 0;
 }
@@ -78,6 +192,7 @@ fieldset input#inputUserProblem {
     width:250px;
     position:absolute;
     top:0; left:0;
+    background: #E3DFDB;
 }
     #userInfo p {
         padding:15px;

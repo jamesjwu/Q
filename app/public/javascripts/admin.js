@@ -3,7 +3,9 @@ $(document).ready(function() {
 	$('#btnFreezeQueue').on('click', freeze_queue)
 	$('#btnResetQueue').on('click', cleartimes);
     $('#btnChangeName').on('click', btnSetName);
-    $('#inputQueueName').attr('placeholder', get_name())
+    $('#btnInputBulletin').on('click', btnSetBulletin);
+    $('#inputQueueName').attr('placeholder', get_name());
+    $('#inputBulletin').attr('placeholder', "New Bulletin");
 })
 
 function cleartimes() {
@@ -27,6 +29,14 @@ function set_bulletin(bulletin) {
     }).done(function(response) {
         toast(response.msg, 1000)
     });
+}
+
+function btnSetBulletin(event)
+{
+    console.log("Set bulletin");
+    set_bulletin(
+        $('input#inputBulletin').val()
+    );
 }
 
 function btnSetName(event)

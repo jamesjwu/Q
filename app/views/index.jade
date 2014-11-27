@@ -1,38 +1,38 @@
 extends layout
 
 block content
-    .row
-        #courseBulletin
-    .row
-        .col.s12
-            center
-                h4 
-                    .col.s12
-                        #averageHelpTime
 
+    .container#frontQueue
+        .row
+            #courseBulletin
+        .row
+            .col.s12
+                center
+                    h4 
+                        .col.s12
+                            hr
+                            #averageHelpTime
+                            hr
+                    
+        .row
+
+                #addUser
+                    fieldset
+                        input#inputUserName(type='text', placeholder='Name')
+                        input#inputUserAndrewId(type='text', placeholder='AndrewId')
+                        input#inputUserProblem(type='text', placeholder='What would you like help with?') 
+                        a#btnAddUser(class="button floating") +
                 
-    .row
-
-
-        .col.s11.offset-s1
-
-            #addUser
-                fieldset
-                    input#inputUserName(type='text', placeholder='Name')
-                    input#inputUserAndrewId(type='text', placeholder='AndrewId')
-                    input#inputUserProblem(type='text', placeholder='What would you like help with?') 
-                    a#btnAddUser(class="button floating") +
-    .row
-        .col.s11.offset-s1
-            .row
-                .col.s2 
-                    h5 Name
-                .col.s2 
-                    h5 Andrewid
-                .col.s6 
-                    h5 Problem
-                
-            #userList
-                
+        .row
+                    .row
+                        .col.s2 
+                                h5 Name
+                        .col.s2 
+                                h5 Andrewid
+                        .col.s6 
+                                h5 Problem
+                        
+                    #userList
+                        
 
     script(src='/javascripts/index.js')
