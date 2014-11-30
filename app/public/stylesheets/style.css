@@ -30,7 +30,7 @@ body {
     background-color: #FFFFFF;
     padding-left:5%;
     padding-right:5%;
-    height: 100%;
+    height: auto;
 }
 nav {
     background-color: #595556;
@@ -53,7 +53,6 @@ nav a:hover, nav a:active{
 
 nav .brand-logo {
     padding-left: 10px;
-    text-transform: uppercase;
     font-size:2em;
     /* font-family: 'Poiret One';*/
 }
