@@ -56,11 +56,14 @@ function logout(event) {
         url: '/logout',
         dataType: 'JSON'
     }).done(function(response) {
-   
+        socket.emit("logout", {key: localStorage.sessionKey})
+        localStorage.clear()
         window.location.href = '/' /* Redirect to main queue */
         
         loginReady()
+
     });
+
 }
 
 function login(e) {
@@ -85,6 +88,9 @@ function login(e) {
             $('input#inputCoursePassword').val('');
             close_modal('#login')
             toast("Logged in!", 750);
+            // Store the current session key
+            localStorage.sessionKey = response.sessionKey
+            socket.emit("login", {user: loginInfo, key: response.sessionKey})
             loginReady()
             populateTable()
         }

@@ -120,23 +120,27 @@ function setAverageHelpTime() {
 
 /* deleteUser - Delete user, keep track of new average time */
 function deleteUser(event) {
-    event.preventDefault();
-    var time = $(this).attr('time')
-    var userId = $(this).attr('id');
-    trackTime({time: getTimeHelped(time)})
-    // Only consider cases when time took more than one minute 
-    $.ajax({
-        type: "DELETE",
-        url: "/users/deleteuser/"+userId
-    }).done(function(response) {
-        if (response.msg === '') {
-            //Update table
-            socket.emit('delete', {user:userId});
-            //updateTable({command:'delete', user:$(this).attr('id')});
-        } else {
-            toast(response.msg, 1000);
-        }
-    });
+    if(!localStorage.sessionKey) {
+        toast("Nice try")
+    }
+    else {
+        event.preventDefault();
+        var time = $(this).attr('time')
+        var userId = $(this).attr('id');
+        trackTime({time: getTimeHelped(time)})
+        // Only consider cases when time took more than one minute 
+        $.ajax({
+            type: "DELETE",
+            url: "/users/deleteuser/"+userId
+        }).done(function(response) {
+            if (response.msg === '') {
+                //Update table
+                socket.emit('delete', {key: localStorage.sessionKey, user:userId});
+            } else {
+                toast(response.msg, 1000);
+            }
+        });
+    }
 
 }
 

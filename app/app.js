@@ -2,11 +2,15 @@ var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
+var hash = require('object-hash');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var passport = require('passport');
 var session = require('express-session'); 
 var hash = require('object-hash');
+var fs = require('fs');
+var coursePass = fs.readFileSync('coursePass.txt').toString();
+var TAs = fs.readFileSync('TAAndrewIDs.txt').toString().split('\n');
 
 //Database
 var mongo = require('mongoskin');
@@ -19,10 +23,10 @@ var app = express();
 // Socket IO for broadcasting update
 var server = require('http').Server(app);
 
-server.listen(process.env.PORT);
+server.listen(1234);
 
+var keys = []
 
-// TODO: HUGE security risk
 io = require('socket.io')(server);
 io.sockets.on('connection', function(socket) {
     // Once heard from any client of update, broadcast to all clients
@@ -31,8 +35,26 @@ io.sockets.on('connection', function(socket) {
     // to "wake up" all clients
         io.sockets.emit('add', data);
     });
+    // Get a login request
+    socket.on('login', function(data) {
+        //Check andrewID and password
+        if ((TAs.indexOf(data.user.andrewId) >= 0)) {
+            if(hash.MD5(data.user.pass) == coursePass) {
+                // If its a valid user, we send the 
+                keys[keys.length] = data.key
+            }
+        }
+    })
+    socket.on('logout', function(data) {
+        var index = keys.indexOf(data.key)
+        if(index > -1) {
+            keys.splice(index, 1)
+        }
+    })
     socket.on('delete', function (data) {
-        io.sockets.emit('delete', data);
+        if(keys.indexOf(data.key) >= 0) {
+            io.sockets.emit('delete', data);
+        }
     });
     socket.on('refresh', function(data) {
         io.sockets.emit('refresh', data);

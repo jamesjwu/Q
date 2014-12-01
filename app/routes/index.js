@@ -57,7 +57,9 @@ router.post('/setname', function(req, res) {
 router.post('/authenticate', function(req, res) {
     if ((TAs.indexOf(req.body.andrewId) >= 0)) {
         if(hash.MD5(req.body.pass) == coursePass) {
-            res.send({msg: 'Welcome'});
+            var currDate = new Date().getTime() 
+            var secretHash = hash.MD5(currDate)
+            res.send({msg: 'Welcome', sessionKey: secretHash});
             req.session.loggedIn = true;
         } 
         else {
