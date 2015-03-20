@@ -32,13 +32,7 @@ function loginReady() {
 
 function close_modal(modal_id){
 
-    $("#lean_overlay").fadeOut(200);
-
-    $(modal_id).fadeOut(200, function() {
-        $(this).css('top', 0);
-    });
     
-    // $(modal_id).css({ 'display' : 'none' });
 
 }
 
@@ -86,7 +80,7 @@ function login(e) {
         else {
             $('input#inputTAAndrewId').val('');
             $('input#inputCoursePassword').val('');
-            close_modal('#login')
+            $('#login').closeModal();
             toast("Logged in!", 750);
             // Store the current session key
             localStorage.sessionKey = response.sessionKey

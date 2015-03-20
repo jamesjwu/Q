@@ -23,7 +23,7 @@ var app = express();
 // Socket IO for broadcasting update
 var server = require('http').Server(app);
 
-server.listen(1234);
+server.listen(process.env.PORT);
 
 var keys = []
 

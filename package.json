@@ -14,5 +14,8 @@
   "license": "BSD-2-Clause",
   "bugs": {
     "url": "https://github.com/mkc1993/Q/issues"
-  }
+  },
+  "homepage": "https://github.com/mkc1993/Q",
+  "dependencies": {},
+  "devDependencies": {}
 }

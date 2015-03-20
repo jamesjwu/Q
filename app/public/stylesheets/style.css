@@ -21,8 +21,7 @@ body {
 .container {
     height: 100%;
     display: inline-block;
-    margin-left:10%;
-    margin-right:15%;
+
 }
 
 #frontQueue{
@@ -37,29 +36,26 @@ nav {
     z-index:1000;
 }
 
-nav a {
-    color: #E3DFDB !important;
-}
+
 
 nav ul li {
     transition: none !important;
 }
 nav a:hover, nav a:active{
     color: #FFFFFF !important;
-    background-color:#595556 !important;
+    
 
 }
 
 
 nav .brand-logo {
     padding-left: 10px;
+    color: #FFFFFF !important;
     font-size:2em;
-    /* font-family: 'Poiret One';*/
+    font-family: 'Poiret One';
 }
 
-nav .brand-logo:hover {
-    background-color: #595556 !important;
-}
+
 
 /* Bulletin styling */
 #courseBulletin h4 {
@@ -73,7 +69,7 @@ nav .brand-logo:hover {
 /* Setting Input Fields, i.e. in admin */
 #inputQueueName, #inputBulletin {
     font-size: 1.3em;
-    margin-bottom: 5%;
+    margin-right: 5%;
     width: 50%;
     float: left;
 }
@@ -87,27 +83,18 @@ nav .brand-logo:hover {
 .dbBtn{
     width: 40%;
 }
-#btnFreezeQueue {
-    background-color:#9E9B99 !important;
-}
-#btnResetQueue {
-    background-color:#9E9B99 !important;
-}
-#btnChangeName {
-    background-color: #9E9B99 !important;
-}
-#btnInputBulletin {
-    background-color: #9E9B99 !important;
-}
 
+.modal#login {
+    padding: 1%;
+    width: 30%;
+    max-height: 100%;
+}
 /* Queue front inputs */
 #addUser{
     margin-top: 1%;
+    margin-bottom: -5%;
 }
 
-#btnAddUser{
-    background-color:#595556;
-}
 #averageHelpTime{
     font-size: 0.74em;
 }
@@ -123,6 +110,7 @@ h5 {
     color: #94918F;
     text-transform: uppercase;
     font-size: 1em;
+    text-align: left;
 }
 h2 {
     margin:0 0 .5em 0;
@@ -135,29 +123,22 @@ button {
     outline:none;
 }
 fieldset input {
-    margin: 1%;
+    margin-right: 2% !important;
 
-    padding: 1%;
+
 
 }
  fieldset a {
+
     display: inline-block !important;
     align: right;
 
  }
 
-fieldset input#inputUserProblem {
-    width: 47%;
-}
 
 
 
-#loginInput input{
-    margin-bottom: 2%;
-    margin-top: 2%;
-    margin-left: 0%;
-    padding: 4%;
-}
+
 #top {
     height: 50%;
     margin-top: -1.5%;
@@ -171,6 +152,7 @@ fieldset input#inputUserProblem {
 
 /* Front page user table styling */
 #userList {
+    text-align: left;
     margin:0 0 30px 0;
 }
     #userList table {
@@ -195,6 +177,9 @@ fieldset input#inputUserProblem {
                 text-align:center;
             }
 
+.linkdeleteuser {
+    margin-top: -2.5%;
+}
 #userInfo {
     width:250px;
     position:absolute;
@@ -207,11 +192,9 @@ fieldset input#inputUserProblem {
         background:rgba(80,120,255,0.05);
     }
 
-#inputUserName, #inputUserAndrewId {
-    width: 12.25%;
-}
+
 fieldset {
     border:0;
     padding:0;
-    margin-left: -1.2%;
+    margin-left: -4%;
 }

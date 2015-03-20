@@ -1,38 +1,49 @@
 extends layout
 
 block content
-
-    .container#frontQueue
-        .row
-            #courseBulletin
-        .row
-            .col.s12
+    center
+        .container#frontQueue
+            .row
+                #courseBulletin
+            .row
+      
                 center
-                    h4 
-                        .col.s12
-                            hr
+             
+                    .col.s12
+                        hr
+                        h4
                             #averageHelpTime
-                            hr
+                        hr
                     
-        .row
+            .row
 
-                #addUser
-                    fieldset
-                        input#inputUserName(type='text', placeholder='Name')
-                        input#inputUserAndrewId(type='text', placeholder='AndrewId')
-                        input#inputUserProblem(type='text', placeholder='What would you like help with?') 
-                        a#btnAddUser(class="button floating") +
-                
-        .row
-                    .row
-                        .col.s2 
-                                h5 Name
-                        .col.s2 
-                                h5 Andrewid
-                        .col.s8 
-                                h5 Problem
-                        
-                    #userList
+                    
+                    #addUser
+                        .row
+                            .col.s2
+                                input#inputUserName(type='text', placeholder='Name')
+                            .col.s2
+                                input#inputUserAndrewId(type='text', placeholder='AndrewId')
+                            .col.s8
+                                .row
+                                    .col.s11
+                                        input#inputUserProblem(type='text', placeholder='What would you like help with?') 
+                                    .col.s1
+                                        a#btnAddUser(class="btn-floating waves-effect waves-light gray") 
+                                            i(class="mdi-content-add")
+
+
+                    
+            .row
+                        .row
+                            .col.s2 
+                                    h5 Name
+                            .col.s2 
+                                    h5 Andrewid
+                            .col.s8 
+                                    h5 Problem
+                            
+                        #userList
                         
 
     script(src='/javascripts/index.js')

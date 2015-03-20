@@ -13,6 +13,7 @@ $(document).ready(function() {
     $('#inputUserProblem').bind("keypress", handleKeyPressInAdd);
     
     $('#addUser input').on('change', resetInput);
+    refreshHelpStudent()
     $('#userList').on('click', 'a.linkdeleteuser', deleteUser);  
     socket.on('add', function(data) {
         updateAdd(data);
@@ -27,6 +28,7 @@ $(document).ready(function() {
         refreshAnnouncements()
         setAverageHelpTime()
     });
+
 });
 
 function handleKeyPressInAdd(e) {
@@ -35,6 +37,14 @@ function handleKeyPressInAdd(e) {
     }
 }
 
+function refreshHelpStudent() {
+    if(isLoggedIn()) {
+        /*$('div#helpStudents').html("<center> <a class='waves-effect waves-light btn' id='btnHelpStudent'> Help next student </a> </center>") */
+    }
+    else {
+        $('div#helpStudents').html("")
+    }
+}
 function refreshAnnouncements () {
     if(get_bulletin() != "") {
         $('#courseBulletin').html('<div class = "row"> <center> <h4>' + get_bulletin() + ' </h4> </center> </div>')
@@ -63,13 +73,7 @@ function get_name() {
     }).responseJSON.msg + "</a>"
 }
 
-/* close_modal - Modal closer */
-function close_modal(modal_id){
-    $("#lean_overlay").fadeOut(200);
-    $(modal_id).fadeOut(200, function() {
-        $(this).css('top', 0);
-    });
-}
+
 
 /* resetInput - Makes input box color change back to neutral */
 function resetInput(event) {
@@ -92,13 +96,16 @@ function setAverageHelpTime() {
     return $.getJSON('/users/gettimes', function(data) {
         var sum = 0.0
         for(var i = 0; i < data.length; i++) {
+            console.log(data[i])
             sum += parseFloat(data[i].time)
         }
         // Average help time = average time per entry * (number of entries + 1)
         var time = (sum/data.length)
+
         if(data.length == 0)
             time = 0
-        
+
+        console.log(time)
         $('#averageHelpTime').html("<font color='gray'> Average Help Time: </font>" + Math.round(time) + " minute(s)")
 
         if(time > 30) {
@@ -126,7 +133,9 @@ function deleteUser(event) {
     else {
         event.preventDefault();
         var time = $(this).attr('time')
+        console.log("Time is " + time)
         var userId = $(this).attr('id');
+        console.log(getTimeHelped(time))
         trackTime({time: getTimeHelped(time)})
         // Only consider cases when time took more than one minute 
         $.ajax({
@@ -146,6 +155,7 @@ function deleteUser(event) {
 
 /* trackTime- Tell the server the new time */
 function trackTime(newTime) {
+    console.log(newTime)
     $.ajax({
             type: "POST",
             data: newTime,
@@ -171,9 +181,9 @@ function addUser(event) {
 
     if (errorCount === 0) {
         var newUser = {
-            'name': $('#addUser fieldset input#inputUserName').val(),
-            'andrewId': $('#addUser fieldset input#inputUserAndrewId').val(),
-            'problem': $('#addUser fieldset input#inputUserProblem').val(),
+            'name': $('input#inputUserName').val(),
+            'andrewId': $('input#inputUserAndrewId').val(),
+            'problem': $('input#inputUserProblem').val(),
         }
         
         /* Check the user hasn't added in the last 10 seconds since last call */ 
@@ -194,7 +204,7 @@ function addUser(event) {
         }).done(function(response) {
             console.log(response);
             if (response.success) {
-                $('#addUser fieldset input#inputUserProblem').val('');
+                $('input#inputUserProblem').val('');
                 //socket.emit('update', {command:'add', user: newUser});
                 //newUser
                 console.log("added");
@@ -228,12 +238,13 @@ function updateAdd(update) {
     content += '<div class = "col s2">' + update.user.name + '</div>';
     content += '<div class = "col s2">' + update.user.andrewId + '</div>';
     if(loggedin) {
-        content += '<div class = "col s4">' + update.user.problem + '</div>';
-        content += '<div class = "col s2"> <a href="#" class="linkdeleteuser" time='+ update.user.timestamp + ' id="' + update.user._id + '">Done </a></div>';
+        content += '<div class = "col s6">' + update.user.problem + '</div>';
+        content += '<div class = "col s2"> <a href="#" class="waves-effect waves-light btn linkdeleteuser" time='+ update.user.timestamp + ' id="' + update.user._id + '">Help </a></div>';
+        
     } else {
         content += '<div class = "col s6">' + update.user.problem + '</div>';
     }
-    content += '</div><br>';
+    content += '</div>';
 
     $('#userList').append(content);
 }

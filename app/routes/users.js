@@ -3,6 +3,7 @@ var router = express.Router();
 var fs = require('fs');
 var students = fs.readFileSync('studentIDs.txt').toString().split('\n')
 var queueFrozen = false
+var entryCount = 0
 
 
 /* GET users listing. */
@@ -34,6 +35,7 @@ router.post('/freezequeue', function(req, res) {
             res.send({msg: 'Queue frozen'})
         }
         else {
+
             res.send({msg: 'Queue unfrozen'})
         }
     }
@@ -57,6 +59,7 @@ router.post('/adduser', function(req, res) {
         res.send({msg: "Your andrewID isn't associated with 15122!"})
         return
     }
+    
     var cursor = db.collection('userlist').find({"andrewId" : andrewId}).toArray(function (err, items) {
         if(items.length > 0) {
             res.send({msg: "You can't add yourself twice in a row to the queue!"});
@@ -95,6 +98,7 @@ router.get('/cleartimes', function(req, res) {
         var db = req.db
         db.collection('times').drop()
         db.collection('userlist').drop()
+
         res.send({msg:"Done"})
     }
 
@@ -115,9 +119,10 @@ router.get('/gettimes', function(req, res) {
 router.post('/tracktime', function(req, res) {
     var db = req.db;
     db.collection('archive').insert(req.body, function(err, result){});
+    
     db.collection('times').insert(req.body, function(err, result) {
         res.send(
-            (err === null) ? {msg: ''} : {msg: err}
+            (err === null) ? {msg: "req.body is " + req.body} : {msg: err}
             );
     });
     

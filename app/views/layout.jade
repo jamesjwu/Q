@@ -12,47 +12,36 @@ html
     script(src='/javascripts/login.js')
 
   body
-    nav
-        .container
-            .col.s12
-                #name
-                ul
-                    li
-                        a(href = "/") Queue
+    nav.green
+        .col.s12
+            #name
+            ul#nav-mobile(class="right hide-on-med-and-down")
+                li
+                    a(href = "/") Queue
 
-                    li
-                        #admin
-                    
-                    li
-                        #metrics
-                    li
-                        #LoginLogout
+                li
+                    #admin
+                
+                li
+                    #metrics
+                li
+                    #LoginLogout
                             
 
 
 
     .modal#login
-        .row
-            .col.s12
-                center
-                    h4 Log in as a TA
+        center
+            h4 Login as TA
 
-        .row
-            .col.s12
-                    fieldset
-                        center
-                            p
-                            .row#loginInput
-                                input#inputTAAndrewId(type='text', placeholder='Your AndrewId')
-
-                            .row#loginInput
-                                input#inputCoursePassword(type='password',placeholder='Course Password' onkeyup="handleKeyPress")
-                            p
-                            .row
-
-                                button(type="submit" class = "waves-effect waves-light button raised")#btnLogin
-                                                i.icon-lock.icon-white
-                                                | Sign in
+        .modal-content
+           
+            input#inputTAAndrewId(type='text', placeholder='Your AndrewId')
+            input#inputCoursePassword(type='password',placeholder='Course Password')
+        .modal-footer
+            a(type="submit" class = "waves-effect waves-light btn modal-action modal-close")#btnLogin
+                            i.icon-lock.icon-white
+                            | Sign in
 
 
 
