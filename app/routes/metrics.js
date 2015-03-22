@@ -12,10 +12,5 @@ router.get('/getmetrics', function (req, res) {
 	db.collection('metrics').find({"timestamp": {$gt : req.body.startTime, $lt : req.body.endTime}}).toArray(function (err, items) {
         res.json(items);
     });
-
-
-
     
-
-
 })

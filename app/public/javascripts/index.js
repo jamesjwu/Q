@@ -1,6 +1,3 @@
-// TODO: Fix global variables later if possible
-var userListData = []; 
-var socket = io();
 
 /* Initialize and bind targets to buttons */
 $(document).ready(function() {
@@ -12,7 +9,7 @@ $(document).ready(function() {
     $('#inputUserAndrewId').bind("keypress", handleKeyPressInAdd);
     $('#inputUserProblem').bind("keypress", handleKeyPressInAdd);
     
-    $('#addUser input').on('change', resetInput);
+    $('#addUser input').on('click', resetInput);
     refreshHelpStudent()
     $('#userList').on('click', 'a.linkdeleteuser', deleteUser);  
     socket.on('add', function(data) {
@@ -39,7 +36,7 @@ function handleKeyPressInAdd(e) {
 
 function refreshHelpStudent() {
     if(isLoggedIn()) {
-        /*$('div#helpStudents').html("<center> <a class='waves-effect waves-light btn' id='btnHelpStudent'> Help next student </a> </center>") */
+        $('div#helpStudents').html("<center> <a class='waves-effect waves-light btn' id='btnHelpStudent'> Help next student </a> </center>") 
     }
     else {
         $('div#helpStudents').html("")

@@ -1,3 +1,19 @@
 extends layout
 
 block content
+
+    center
+        .container#frontQueue
+            .row
+                h5 Number of students at office hours(last 2 weeks)
+
+                canvas#weekChart(width=800, height="400")
+            .row
+            .row
+                h5 Most common people at office hours
+                #mostCommonIds
+
+
+    script(src='/javascripts/Chart.min.js')
+    script(src='/javascripts/fuse.min.js')
+    script(src='/javascripts/metrics.js')

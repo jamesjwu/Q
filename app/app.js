@@ -18,12 +18,13 @@ var db = mongo.db("mongodb://root:15122@proximus.modulusmongo.net:27017/aranut7I
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
+var metrics = require('./routes/metrics');
 
 var app = express();
 // Socket IO for broadcasting update
 var server = require('http').Server(app);
 
-server.listen(process.env.PORT);
+server.listen(1234);
 
 var keys = []
 
@@ -86,6 +87,7 @@ app.use(function(req, res, next) {
 });
 app.use('/', routes);
 app.use('/users', users);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

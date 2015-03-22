@@ -1,3 +1,7 @@
+// TODO: Fix global variables later if possible
+var userListData = []; 
+var socket = io();
+
 $(document).ready(function() {
     $('#btnLogin').on('click', login);
     $('#inputTAAndrewId').on('change', resetInput);
@@ -17,7 +21,7 @@ function loginReady() {
         $('#LoginLogout').html("<a href='#'> Logout </a>");
         $('#LoginLogout').on('click', logout);
         $("#admin").html("<a href = '/admin'> Admin </a>");
-        $('#metrics').html("<a href = '#'> Metrics </a>");
+        $('#metrics').html("<a href = '/metrics'> Metrics </a>");
     }
     else {
         $('#LoginLogout').html("<a href='#login' class='modal-trigger'> TA Login </a>");
@@ -30,11 +34,6 @@ function loginReady() {
 }
 
 
-function close_modal(modal_id){
-
-    
-
-}
 
 function resetInput(event) {
     event.preventDefault();
