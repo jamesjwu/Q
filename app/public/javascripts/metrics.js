@@ -10,7 +10,7 @@ function getMetrics(start, end) {
 	}).responseJSON
 }
 function notStopWord(word) {
-	stopWords = ["task", "help", "test", "debugging", "assignment", "asdasd", "idea"]
+	stopWords = ["task", "help", "test", "debugging", "assignment", "asdasd", "idea", "more", "ropes", "rope", "out"]
 	
 	if(stopWords.indexOf(word) >= 0) {
 		return false
@@ -20,6 +20,53 @@ function notStopWord(word) {
 	}
 	return true
 } 
+
+function loadPerWeekChart(data) {
+	
+	assignments =  {1 :"Scavhunt", 2: "Pixels",  3: "Images",  4: "Doslingos", 
+					5: "Clac", 6: "Clac",  7: "Clac", 8: "Editor", 9: "Editor",
+					10: "Ropes", 
+					11: "Strbuf", 12: "Strbuf",
+					13: "Lightsout", 14 : "C0VM (checkpoint)", 15:"C0VM"}
+
+	// TODO: This is harder coded than a 112 project
+	startTime = new Date(2015, 0, 10)
+	weeks = {}
+	var oneweek = 7 * 24 * 60 * 60 * 1000
+	for (var student in data) {
+		var date = data[student].timestamp
+		
+		var diff = date- startTime.getTime() 
+		var week = Math.floor(diff / oneweek)
+		if(weeks[assignments[week]] === undefined) {
+			weeks[assignments[week]] = 0
+		}
+		weeks[assignments[week]] += 1
+	}
+	console.log(weeks)
+
+	var ctx = $("#assignmentChart").get(0).getContext("2d");
+	var myNewChart = new Chart(ctx);
+	var dataPoints = {
+    labels: Object.keys(weeks),
+    datasets: [
+        {
+            label: "Assignments",
+            fillColor: "rgba(98,214,107,0.2)",
+            strokeColor: "rgba(98,214,107,1)",
+            pointColor: "rgba(98,214,107,1)",
+            pointStrokeColor: "#fff",
+            pointHighlightFill: "rgba(98,214,107, 1)",
+            pointHighlightStroke: "rgba(98,214,107, 1)",
+            data: weeks
+        },
+        
+        ],
+
+    };
+    myNewChart.Bar(dataPoints)	
+}
+
 function weekDayChart(data) {
 	var ctx = $("#weekChart").get(0).getContext("2d");
 	// This will get the first returned node in the jQuery collection.
@@ -31,8 +78,8 @@ function weekDayChart(data) {
 		if(data[i].andrewId !="jingzew") {
 			date = new Date(data[i].timestamp)
 			var timediff =today.getTime() - date.getTime()
-			var oneweek = 7 *24 * 60 * 60 * 1000
-			if(timediff < 100 * oneweek) {
+			var oneweek = 7 * 24 * 60 * 60 * 1000
+			if(timediff <= 2 * oneweek) {
 				lastweek[date.getDay()] += 1
 			}			
 		}
@@ -58,12 +105,7 @@ function weekDayChart(data) {
 
 
 }
-
-$(document).ready(function() {
-	endTime = new Date()
-	startTime = new Date(2015, 0, 1)
-	
-	data = getMetrics(startTime.getTime(), endTime.getTime())
+function mostCommonIds(data) {
 	dataByAndrewId = {}
 	var problems = []
 	var words = {}
@@ -81,18 +123,18 @@ $(document).ready(function() {
 			date = new Date(data[i].timestamp)
 			var timediff =today.getTime() - date.getTime()
 			var oneweek = 7 *24 * 60 * 60 * 1000
-			if(timediff < 2 * oneweek) {
-				problems.push({word: data[i].problem})
-				problemWords = data[i].problem.trim().toLowerCase().split(' ')
-				for (var word in problemWords) {
-					if(notStopWord(problemWords[word])) {
-						if(words[problemWords[word]] === undefined) {
-								words[problemWords[word]] = 0
-						}
-						words[problemWords[word]] += 1
+		
+			problems.push({word: data[i].problem})
+			problemWords = data[i].problem.trim().toLowerCase().split(' ')
+			for (var word in problemWords) {
+				if(notStopWord(problemWords[word])) {
+					if(words[problemWords[word]] === undefined) {
+							words[problemWords[word]] = 0
 					}
+					words[problemWords[word]] += 1
 				}
 			}
+		
 		}
 	}
 
@@ -107,7 +149,6 @@ $(document).ready(function() {
     	sortable.push([student, dataByAndrewId[student]])
     sortable.sort(function(a, b) {return b[1] - a[1]})
 
-    console.log(sortableWords)
     
     commonIds = ' <ul class="collection"> '
 	
@@ -130,8 +171,6 @@ $(document).ready(function() {
 	
 	for(var i = 0; i < 10; i++) {
 		var len = f.search(sortableWords[i][0]).length
-		if(notStopWord(sortableWords[i][0]))
-			console.log("good")
 		if(len > 3) {
 			commonIds += "<li class='collection-item'>"
 			commonIds += sortableWords[i][0]
@@ -142,6 +181,16 @@ $(document).ready(function() {
 	}
 	commonIds += "</ul>"
 	$("#mostCommonIds").html(commonIds)
+
+}
+$(document).ready(function() {
+
+	endTime = new Date()
+	startTime = new Date(2015, 0, 12)
+	
+	data = getMetrics(startTime.getTime(), endTime.getTime())
+	mostCommonIds(data)
+	loadPerWeekChart(data)
 
 	weekDayChart(data)
 	

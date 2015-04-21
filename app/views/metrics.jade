@@ -9,11 +9,13 @@ block content
 
                 canvas#weekChart(width=800, height="400")
             .row
+                canvas#assignmentChart(width=800, height=400)
             .row
                 h5 Most common people at office hours
                 #mostCommonIds
 
 
-    script(src='/javascripts/Chart.min.js')
+
+    script(src='/javascripts/Chart.js')
     script(src='/javascripts/fuse.min.js')
     script(src='/javascripts/metrics.js')
