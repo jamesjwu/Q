@@ -158,7 +158,7 @@ function mostCommonIds(data) {
     var f = new Fuse(problems, options)
 
 	for(var i = 0; i < 7; i++) {
-		commonIds += "<li class='collection-item'>"
+		commonIds += "<li class='collection-item'>";
 		commonIds += sortable[i][0]
 		commonIds += '<span class="badge">'
 		commonIds += sortable[i][1]
