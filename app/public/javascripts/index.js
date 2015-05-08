@@ -44,10 +44,10 @@ function refreshHelpStudent() {
 }
 function refreshAnnouncements () {
     if(get_bulletin() != "") {
-        $('#courseBulletin').html('<div class = "row"> <center> <h4>' + get_bulletin() + ' </h4> </center> </div>')
+        $('#courseBulletin').html('<div class = "row"> <center> <h4>' + get_bulletin() + ' </h4> </center> </div>');
     }
     else {
-        $('#courseBulletin').html("")
+        $('#courseBulletin').html("");
     }
 }
 
@@ -58,7 +58,7 @@ function get_bulletin() {
         url: "/getbulletin",
         dataType: "JSON",
         async: false,
-    }).responseJSON.msg
+    }).responseJSON.msg;
 }
 
 function get_name() {
@@ -67,7 +67,7 @@ function get_name() {
         url: "/getname",
         dataType: 'JSON',
         async: false,
-    }).responseJSON.msg + "</a>"
+    }).responseJSON.msg + "</a>";
 }
 
 
@@ -75,7 +75,7 @@ function get_name() {
 /* resetInput - Makes input box color change back to neutral */
 function resetInput(event) {
     event.preventDefault();
-    $(this).css("border-color", "initial")
+    $(this).css("border-color", "initial");
 }
 
 /* getTimeHelped - Takes time boject, calculates the amount of time 

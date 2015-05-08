@@ -188,7 +188,7 @@ router.get('/gettimes', function(req, res) {
         }
 
         if(emailAlerts) {
-            threshold = 0;
+            threshold = 40;
             // if it's longer than 100
             // it's clearly not an actual help time, but perhaps something leftover.
             if (time > threshold && time < 100 && !queueFrozen) {
