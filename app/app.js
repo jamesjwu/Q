@@ -26,7 +26,7 @@ var server = require('http').Server(app);
 
 server.listen(1234);
 
-var keys = []
+var keys = [];
 
 io = require('socket.io')(server);
 io.sockets.on('connection', function(socket) {
@@ -42,16 +42,16 @@ io.sockets.on('connection', function(socket) {
         if ((TAs.indexOf(data.user.andrewId) >= 0)) {
             if(hash.MD5(data.user.pass) == coursePass) {
                 // If its a valid user, we send the 
-                keys[keys.length] = data.key
+                keys[keys.length] = data.key;
             }
         }
-    })
+    });
     socket.on('logout', function(data) {
-        var index = keys.indexOf(data.key)
+        var index = keys.indexOf(data.key);
         if(index > -1) {
-            keys.splice(index, 1)
+            keys.splice(index, 1);
         }
-    })
+    });
     socket.on('delete', function (data) {
         if(keys.indexOf(data.key) >= 0) {
             io.sockets.emit('delete', data);
@@ -59,7 +59,7 @@ io.sockets.on('connection', function(socket) {
     });
     socket.on('refresh', function(data) {
         io.sockets.emit('refresh', data);
-    })
+    });
 });
 
 // view engine setup
@@ -87,7 +87,6 @@ app.use(function(req, res, next) {
 });
 app.use('/', routes);
 app.use('/users', users);
-
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

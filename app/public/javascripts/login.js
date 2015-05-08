@@ -1,4 +1,3 @@
-// TODO: Fix global variables later if possible
 var userListData = []; 
 var socket = io();
 
@@ -6,7 +5,7 @@ $(document).ready(function() {
     $('#btnLogin').on('click', login);
     $('#inputTAAndrewId').on('change', resetInput);
     $("#inputCoursePassword").bind("keypress", handleKeyPressInLogIn);
-    loginReady()
+    loginReady();
 });
 
 function handleKeyPressInLogIn(e) {
@@ -38,7 +37,7 @@ function loginReady() {
 function resetInput(event) {
     event.preventDefault();
     console.log("hey");
-    $(this).css("border-color", "initial")
+    $(this).css("border-color", "initial");
 }
 
 

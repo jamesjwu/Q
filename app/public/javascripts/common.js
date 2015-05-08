@@ -1,6 +1,6 @@
 $(document).ready(function() {
-	refreshTitle()
-    $('#')
+	refreshTitle();
+    $('#');
 })
 
 function refreshTitle() {

@@ -91,17 +91,7 @@ function getTimeHelped(time) {
 function setAverageHelpTime() {
     // Get all the help times by JSON call
     return $.getJSON('/users/gettimes', function(data) {
-        var sum = 0.0
-        for(var i = 0; i < data.length; i++) {
-            console.log(data[i])
-            sum += parseFloat(data[i].time)
-        }
-        // Average help time = average time per entry * (number of entries + 1)
-        var time = (sum/data.length)
-
-        if(data.length == 0)
-            time = 0
-
+        var time = data.help
         console.log(time)
         $('#averageHelpTime').html("<font color='gray'> Average Help Time: </font>" + Math.round(time) + " minute(s)")
 

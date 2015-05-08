@@ -1,3 +1,3 @@
 if(!isLoggedIn()) {
-        window.location.href = '/'
+        window.location.href = '/';
 }
