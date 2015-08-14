@@ -42,6 +42,7 @@ function refreshHelpStudent() {
         $('div#helpStudents').html('');
     }
 }
+
 function refreshAnnouncements() {
     if (get_bulletin() != '') {
         $('#courseBulletin').html('<div class = "row"> <center> <h4>' + get_bulletin() + ' </h4> </center> </div>');

@@ -28,7 +28,6 @@ function notStopWord(word) {
 }
 
 function loadPerWeekChart(data) {
-
 	assignments = {1 : 'Scavhunt', 2: 'Pixels', 3: 'Images', 4: 'Doslingos',
 					5: 'Clac', 6: 'Clac', 7: 'Clac', 8: 'Editor', 9: 'Editor',
 					10: 'Ropes',
@@ -110,6 +109,7 @@ function weekDayChart(data) {
 
 
 }
+
 function mostCommonIds(data) {
 	dataByAndrewId = {};
 	var problems = [];
@@ -189,7 +189,8 @@ function mostCommonIds(data) {
 
 }
 $(document).ready(function() {
-
+    
+    lastChecked = localStorage.metricsTimeStamp;
 	endTime = CONSTANTS.semesterEnd;
 	startTime = CONSTANTS.semesterStart;
 
