@@ -1,5 +1,5 @@
 # CMUQ
-A office hours queue web app for 15-122. Under perpetual development...
+An office hours queue web app for 15-122. Under perpetual development...
 
 Built on [node.js](http://nodejs.org), and assorted black magic.
 
@@ -8,7 +8,7 @@ Built on [node.js](http://nodejs.org), and assorted black magic.
 - Install npm.
 
 ## How to run
-- `git clone https://github.com/cocokechun/Q.git`
+- `git clone https://github.com/jamesjwu/Q.git`
 - `cd Q/app`
 - `npm install`
 - `npm start`
