@@ -7,7 +7,8 @@ $(document).ready(function() {
     $('#inputQueueName').attr('placeholder', get_name());
     $('#inputBulletin').attr('placeholder', "New Bulletin");
 })
-var socket = io();
+
+var socket = io.connect("http://localhost:1234");
 function cleartimes() {
     if(confirm("Really clear all average queue times?")){
         $.ajax({
@@ -34,7 +35,6 @@ function set_bulletin(bulletin) {
 
 function btnSetBulletin(event)
 {
-    console.log("Set bulletin");
     set_bulletin(
         $('input#inputBulletin').val()
     );

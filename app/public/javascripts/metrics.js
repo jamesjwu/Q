@@ -1,5 +1,3 @@
-
-
 function getMetrics(start, end) {
 	return $.ajax({
 		type: "POST",
@@ -9,6 +7,7 @@ function getMetrics(start, end) {
 		async:false
 	}).responseJSON
 }
+
 function notStopWord(word) {
 	stopWords = ["task", "help", "test", "debugging", "assignment", "asdasd", "idea", "more", "ropes", "rope", "out"]
 	

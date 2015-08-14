@@ -1,6 +1,6 @@
 // TODO: Fix global variables later if possible
 var userListData = []; 
-var socket = io();
+var socket = io.connect("http://localhost:1234");
 
 $(document).ready(function() {
     $('#btnLogin').on('click', login);
@@ -37,7 +37,6 @@ function loginReady() {
 
 function resetInput(event) {
     event.preventDefault();
-    console.log("hey");
     $(this).css("border-color", "initial")
 }
 

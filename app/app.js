@@ -22,13 +22,11 @@ var metrics = require('./routes/metrics');
 
 var app = express();
 // Socket IO for broadcasting update
-var server = require('http').Server(app);
 
-server.listen(1234);
 
-var keys = []
+var io =require('socket.io')(1234);
 
-io = require('socket.io')(server);
+var keys = [];
 io.sockets.on('connection', function(socket) {
     // Once heard from any client of update, broadcast to all clients
     socket.on('add', function (data) {
@@ -121,5 +119,6 @@ app.use(function(err, req, res, next) {
         error: {}
     });
 });
+
 
 module.exports = app;

@@ -93,7 +93,6 @@ function setAverageHelpTime() {
     return $.getJSON('/users/gettimes', function(data) {
         var sum = 0.0
         for(var i = 0; i < data.length; i++) {
-            console.log(data[i])
             sum += parseFloat(data[i].time)
         }
         // Average help time = average time per entry * (number of entries + 1)
@@ -102,7 +101,6 @@ function setAverageHelpTime() {
         if(data.length == 0)
             time = 0
 
-        console.log(time)
         $('#averageHelpTime').html("<font color='gray'> Average Help Time: </font>" + Math.round(time) + " minute(s)")
 
         if(time > 30) {
@@ -130,9 +128,7 @@ function deleteUser(event) {
     else {
         event.preventDefault();
         var time = $(this).attr('time')
-        console.log("Time is " + time)
         var userId = $(this).attr('id');
-        console.log(getTimeHelped(time))
         trackTime({time: getTimeHelped(time)})
         // Only consider cases when time took more than one minute 
         $.ajax({
@@ -152,14 +148,12 @@ function deleteUser(event) {
 
 /* trackTime- Tell the server the new time */
 function trackTime(newTime) {
-    console.log(newTime)
     $.ajax({
             type: "POST",
             data: newTime,
             url: '/users/tracktime',
             dataType: 'JSON'
         }).done(function(response) {
-            console.log(response.msg)
         });
 }
 
@@ -199,12 +193,10 @@ function addUser(event) {
             url: '/users/adduser',
             dataType: 'JSON'
         }).done(function(response) {
-            console.log(response);
             if (response.success) {
                 $('input#inputUserProblem').val('');
                 //socket.emit('update', {command:'add', user: newUser});
                 //newUser
-                console.log("added");
                 // response the newUser plus the field id which is generated
                 // by mongoDB
                 socket.emit('add', {user: response.user[0]}); 
