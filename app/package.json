@@ -21,6 +21,7 @@
     "mongoskin": "*",
     "express-session": "~1.0.0",
     "object-hash": "0.3.0",
+    "nodemailer": "^1.0",
     "socket.io": "*"
   },
   "description": "Initial version",
