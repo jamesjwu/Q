@@ -1,3 +1,9 @@
+var CONSTANTS = {
+    semesterStart: new Date("2015-01-01"),
+    semesterEnd: new Date("2015-08-23")
+};
+
+
 function getMetrics(start, end) {
 	return $.ajax({
 		type: "POST",
@@ -9,7 +15,8 @@ function getMetrics(start, end) {
 }
 
 function notStopWord(word) {
-	stopWords = ["task", "help", "test", "debugging", "assignment", "asdasd", "idea", "more", "ropes", "rope", "out"]
+	stopWords = ["task", "help", "test", "debugging", "assignment", 
+                 "asdasd", "idea", "more", "ropes", "rope", "out"]
 	
 	if(stopWords.indexOf(word) >= 0) {
 		return false
@@ -29,7 +36,7 @@ function loadPerWeekChart(data) {
 					13: "Lightsout", 14 : "C0VM (checkpoint)", 15:"C0VM"}
 
 	// TODO: This is harder coded than a 112 project
-	startTime = new Date(2015, 0, 10)
+	startTime = CONSTANTS.semesterStart
 	weeks = {}
 	var oneweek = 7 * 24 * 60 * 60 * 1000
 	for (var student in data) {
@@ -42,7 +49,6 @@ function loadPerWeekChart(data) {
 		}
 		weeks[assignments[week]] += 1
 	}
-	console.log(weeks)
 
 	var ctx = $("#assignmentChart").get(0).getContext("2d");
 	var myNewChart = new Chart(ctx);
@@ -71,7 +77,7 @@ function weekDayChart(data) {
 	// This will get the first returned node in the jQuery collection.
 	var myNewChart = new Chart(ctx);
 	var weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
-	var today = new Date()
+	var today = new Date();
 	var lastweek = [0,0,0,0,0,0,0]
 	for (var i = 0; i < data.length; i++) {
 		if(data[i].andrewId !="jingzew") {
@@ -158,10 +164,10 @@ function mostCommonIds(data) {
 
 	for(var i = 0; i < 7; i++) {
 		commonIds += "<li class='collection-item'>";
-		commonIds += sortable[i][0]
-		commonIds += '<span class="badge">'
-		commonIds += sortable[i][1]
-		commonIds += '</span></li>'
+		commonIds += sortable[i][0];
+		commonIds += '<span class="badge">';
+		commonIds += sortable[i][1];
+		commonIds += '</span></li>';
 	}
 	commonIds += "</ul>"
 
@@ -171,11 +177,11 @@ function mostCommonIds(data) {
 	for(var i = 0; i < 10; i++) {
 		var len = f.search(sortableWords[i][0]).length
 		if(len > 3) {
-			commonIds += "<li class='collection-item'>"
-			commonIds += sortableWords[i][0]
-			commonIds += '<span class="badge">'
-			commonIds +=  len
-			commonIds += '</span></li>'
+			commonIds += "<li class='collection-item'>";
+			commonIds += sortableWords[i][0];
+			commonIds += '<span class="badge">';
+			commonIds +=  len;
+			commonIds += '</span></li>';
 		}
 	}
 	commonIds += "</ul>"
@@ -184,13 +190,14 @@ function mostCommonIds(data) {
 }
 $(document).ready(function() {
 
-	endTime = new Date()
-	startTime = new Date(2015, 0, 12)
-	
-	data = getMetrics(startTime.getTime(), endTime.getTime())
-	mostCommonIds(data)
-	loadPerWeekChart(data)
+	endTime = CONSTANTS.semesterEnd;
+	startTime = CONSTANTS.semesterStart;
 
-	weekDayChart(data)
-	
+	data = getMetrics(startTime.getTime(), endTime.getTime());
+    if (data.length > 0) {
+    	mostCommonIds(data);
+    	loadPerWeekChart(data);
+    	weekDayChart(data);
+    }
+
  });
