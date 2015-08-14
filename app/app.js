@@ -6,7 +6,7 @@ var hash = require('object-hash');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var passport = require('passport');
-var session = require('express-session'); 
+var session = require('express-session');
 var hash = require('object-hash');
 var fs = require('fs');
 var coursePass = fs.readFileSync('coursePass.txt').toString();
@@ -14,7 +14,7 @@ var TAs = fs.readFileSync('TAAndrewIDs.txt').toString().split('\n');
 
 //Database
 var mongo = require('mongoskin');
-var db = mongo.db("mongodb://root:15122@proximus.modulusmongo.net:27017/aranut7I", {native_parser:true});
+var db = mongo.db('mongodb://root:15122@proximus.modulusmongo.net:27017/aranut7I', {native_parser: true});
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
@@ -24,12 +24,12 @@ var app = express();
 // Socket IO for broadcasting update
 
 
-var io =require('socket.io')(1234);
+var io = require('socket.io')(1234);
 
 var keys = [];
 io.sockets.on('connection', function(socket) {
     // Once heard from any client of update, broadcast to all clients
-    socket.on('add', function (data) {
+    socket.on('add', function(data) {
     // in our case, the information sent is not really important, the point is
     // to "wake up" all clients
         io.sockets.emit('add', data);
@@ -38,26 +38,26 @@ io.sockets.on('connection', function(socket) {
     socket.on('login', function(data) {
         //Check andrewID and password
         if ((TAs.indexOf(data.user.andrewId) >= 0)) {
-            if(hash.MD5(data.user.pass) == coursePass) {
-                // If its a valid user, we send the 
-                keys[keys.length] = data.key
+            if (hash.MD5(data.user.pass) == coursePass) {
+                // If its a valid user, we send the
+                keys[keys.length] = data.key;
             }
         }
-    })
+    });
     socket.on('logout', function(data) {
-        var index = keys.indexOf(data.key)
-        if(index > -1) {
-            keys.splice(index, 1)
+        var index = keys.indexOf(data.key);
+        if (index > -1) {
+            keys.splice(index, 1);
         }
-    })
-    socket.on('delete', function (data) {
-        if(keys.indexOf(data.key) >= 0) {
+    });
+    socket.on('delete', function(data) {
+        if (keys.indexOf(data.key) >= 0) {
             io.sockets.emit('delete', data);
         }
     });
     socket.on('refresh', function(data) {
         io.sockets.emit('refresh', data);
-    })
+    });
 });
 
 // view engine setup
