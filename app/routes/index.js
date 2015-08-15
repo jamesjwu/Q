@@ -61,6 +61,10 @@ router.post('/getmetrics', function(req, res) {
 
 });
 
+function sanitizeString(str) {
+    return str.replace(/</gim, "&lt;").replace(/>/gim, "&gt;").trim();
+}
+
 router.get('/getname', function(req, res) {
 
     res.send({
@@ -82,7 +86,7 @@ router.get('/getbulletin', function(req, res) {
 
 router.post('/setbulletin', function(req, res) {
     if (req.session.loggedIn) {
-        courseBulletin = req.body.bulletin;
+        courseBulletin = sanitizeString(req.body.bulletin);
         res.send({
             msg: 'Announcement changed'
         });
@@ -96,7 +100,7 @@ router.post('/setbulletin', function(req, res) {
 
 router.post('/setname', function(req, res) {
     if (req.session.loggedIn) {
-        courseTitle = req.body.name;
+        courseTitle = sanitizeString(req.body.name);
         res.send({
             msg: 'Name changed!'
         });

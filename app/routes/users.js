@@ -10,6 +10,7 @@ var emailAlerts = true;
 var nodemailer = require('nodemailer');
 var emailPass = fs.readFileSync('emailPass.txt').toString();
 
+
 // email transporter
 var transporter = nodemailer.createTransport({
     service: 'Gmail',
@@ -209,7 +210,7 @@ router.get('/gettimes', function(req, res) {
         }
 
 
-        res.json({help:time});
+        res.json({time:time});
     });
 });
 
