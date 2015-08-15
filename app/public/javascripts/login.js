@@ -1,6 +1,6 @@
 // TODO: Fix global variables later if possible
 var userListData = [];
-var socket = io.connect('http://localhost:1234');
+var socket = io();
 
 $(document).ready(function() {
     $('#btnLogin').on('click', login);

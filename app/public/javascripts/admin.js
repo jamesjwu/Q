@@ -1,14 +1,8 @@
 var on = false;
 $(document).ready(function() {
-<<<<<<< HEAD
-
-	$('#btnFreezeQueue').on('click', freeze_queue);
-	$('#btnResetQueue').on('click', cleartimes);
-=======
     getEmailAlertSetting();
     $('#btnFreezeQueue').on('click', freeze_queue);
     $('#btnResetQueue').on('click', cleartimes);
->>>>>>> master
     $('#btnChangeName').on('click', btnSetName);
     $('#emailAlertSwitch').on('change', toggleEmails);
     $('#btnInputBulletin').on('click', btnSetBulletin);
@@ -16,14 +10,6 @@ $(document).ready(function() {
     
 
     $('#inputQueueName').attr('placeholder', get_name());
-<<<<<<< HEAD
-    $('#inputBulletin').attr('placeholder', 'New Bulletin');
-});
-
-var socket = io.connect('http://localhost:1234');
-function cleartimes() {
-    if (confirm('Really clear all average queue times?')) {
-=======
     $('#inputBulletin').attr('placeholder', "New Bulletin");
 
 });
@@ -31,7 +17,6 @@ var socket = io();
 
 function cleartimes() {
     if (confirm("Really clear all average queue times?")) {
->>>>>>> master
         $.ajax({
             type: 'GET',
             url: '/users/cleartimes',
@@ -44,20 +29,6 @@ function cleartimes() {
 
 function set_bulletin(bulletin) {
     $.ajax({
-<<<<<<< HEAD
-        type: 'POST',
-        url: '/setbulletin',
-        data: {'bulletin': bulletin},
-        dataType: 'JSON',
-    }).done(function(response) {
-        toast(response.msg, 1000);
-        socket.emit('refresh', {});
-    });
-}
-
-function btnSetBulletin(event)
-{
-=======
         type: "POST",
         url: "/setbulletin",
         data: {
@@ -72,17 +43,12 @@ function btnSetBulletin(event)
 
 function btnSetBulletin(event) {
     console.log("Set bulletin");
->>>>>>> master
     set_bulletin(
         $('input#inputBulletin').val()
     );
 }
 
-<<<<<<< HEAD
-function btnSetName(event)
-{
-    console.log('Set name');
-=======
+
 function getEmailAlertSetting() {
     $.ajax({
         type: "GET",
@@ -117,7 +83,6 @@ function toggleEmails() {
 
 function btnSetName(event) {
     console.log("Set name");
->>>>>>> master
     set_name(
         $('input#inputQueueName').val()
     );
@@ -125,16 +90,7 @@ function btnSetName(event) {
 
 
 function freeze_queue() {
-<<<<<<< HEAD
-	$.ajax({
-		type: 'POST',
-		url: '/users/freezequeue',
-		dataType: 'JSON',
-	}).done(function(response) {
-		toast(response.msg, 1000);
 
-	});
-=======
     $.ajax({
         type: "POST",
         url: "/users/freezequeue",
@@ -143,22 +99,11 @@ function freeze_queue() {
         toast(response.msg, 1000);
 
     });
->>>>>>> master
 }
 
 
 function set_name(name) {
     $.ajax({
-<<<<<<< HEAD
-        type: 'POST',
-        url: '/setname',
-        data: {'name': name},
-        dataType: 'JSON',
-    }).done(function(response) {
-        toast(response.msg, 1000);
-        $('#name').html("<a href = '/' class='brand-logo'>" + get_name() + '</a>');
-        socket.emit('refresh', {});
-=======
         type: "POST",
         url: "/setname",
         data: {
@@ -169,6 +114,5 @@ function set_name(name) {
         toast(response.msg, 1000);
         $('#name').html("<a href = '/' class='brand-logo'>" + get_name() + "</a>");
         socket.emit("refresh", {});
->>>>>>> master
     });
 }
