@@ -1,0 +1,14 @@
+.shortColumn {
+    width: 20%;
+    display: inline-block;
+    font-size: 100%;
+}
+
+.longColumn {
+    width: 60%;
+    display: inline-block;
+}
+
+.container .row {
+    width: 100vw;
+}

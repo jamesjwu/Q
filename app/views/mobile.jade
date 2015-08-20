@@ -1,0 +1,47 @@
+doctype html
+html
+    head
+        title= title
+        link(rel='stylesheet', href='/stylesheets/materialize.css')
+
+        link(rel='stylesheet', href='/stylesheets/style.css')
+
+        link(rel='stylesheet', href='/stylesheets/mobile-style.css')
+        link(href='http://fonts.googleapis.com/css?family=Poiret+One', rel='stylesheet', type='text/css')
+        script(src='http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js')
+        script(src='/socket.io/socket.io.js')
+        script(src='/javascripts/materialize.js')
+        script(src='/javascripts/common.js')
+        script(src='/javascripts/login.js')
+    body.white
+        nav.cyan(style="height: 20%; width: 100vw")
+            .col.s12
+                #name
+                ul#nav-mobile(class="right")
+                    li
+                        #LoginLogout
+                                
+       
+        .container
+            .row
+                #courseBulletin     
+            .row
+  
+                center
+             
+                    .col.s12
+                        hr
+                        h4
+                            #averageHelpTime
+                        hr
+                    
+            .row
+                div(style="width: 3vw")
+            table(style="font-size: 30px; width: 100vw")
+                thead
+                    tr
+                        th Name
+                        th Problem
+                tbody#userList
+
+        script(src='/javascripts/mobile.js')

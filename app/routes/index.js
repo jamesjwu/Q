@@ -47,7 +47,6 @@ router.post('/getmetrics', function(req, res) {
         return;
     }
     var db = req.db;
-    console.log("Getting metrics");
     db.collection('metrics').find({
         timestamp: {
             $gt: parseInt(req.body.startTime),
@@ -78,9 +77,7 @@ router.get('/getbulletin', function(req, res) {
     res.send({
         msg: courseBulletin
     });
-
 });
-
 
 
 
@@ -154,6 +151,18 @@ router.get('/check', function(req, res) {
 router.get('/admin', function(req, res) {
     if (req.session.loggedIn) {
         res.render('admin', {
+            title: 'CmuQ'
+        });
+    } else {
+        res.render('index', {
+            title: 'CmuQ'
+        });
+    }
+});
+
+router.get('/mobile', function(req, res) {
+    if (req.session.loggedIn) {
+        res.render('mobile', {
             title: 'CmuQ'
         });
     } else {

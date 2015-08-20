@@ -1,4 +1,7 @@
-var on = false;
+/* Admin.js: Controls the admin panel */
+
+var emailAlerts = false;
+
 $(document).ready(function() {
     getEmailAlertSetting();
     $('#btnFreezeQueue').on('click', freeze_queue);
@@ -15,6 +18,8 @@ $(document).ready(function() {
 });
 var socket = io();
 
+
+/* Deletes all average queue information */
 function cleartimes() {
     if (confirm("Really clear all average queue times?")) {
         $.ajax({
@@ -26,7 +31,7 @@ function cleartimes() {
     }
 }
 
-
+/* Make the bulletin */
 function set_bulletin(bulletin) {
     $.ajax({
         type: "POST",
@@ -41,14 +46,14 @@ function set_bulletin(bulletin) {
     });
 }
 
+/* The button that sets the bulletin */
 function btnSetBulletin(event) {
-    console.log("Set bulletin");
     set_bulletin(
         $('input#inputBulletin').val()
     );
 }
 
-
+/* obtain email alert settings */
 function getEmailAlertSetting() {
     $.ajax({
         type: "GET",
@@ -64,9 +69,10 @@ function getEmailAlertSetting() {
     });
 }
 
+/* switch email alerts on/off */
 function toggleEmails() {
-    on = !on;
-    $('#emailAlertSwitchLabel').html(on ? "On" : "Off");
+    emailAlerts = !emailAlerts;
+    $('#emailAlertSwitchLabel').html(emailAlerts ? "On" : "Off");
 
     $.ajax({
         type: "POST",
@@ -81,6 +87,7 @@ function toggleEmails() {
 
 }
 
+/* set the name */
 function btnSetName(event) {
     console.log("Set name");
     set_name(
@@ -88,9 +95,8 @@ function btnSetName(event) {
     );
 }
 
-
+/* stop people from signing up on the queue */
 function freeze_queue() {
-
     $.ajax({
         type: "POST",
         url: "/users/freezequeue",
@@ -101,7 +107,7 @@ function freeze_queue() {
     });
 }
 
-
+/* set the name of the queue */
 function set_name(name) {
     $.ajax({
         type: "POST",

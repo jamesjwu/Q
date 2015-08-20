@@ -29,7 +29,6 @@ function loginReady() {
         $('#LoginLogout').off('click');
         $('#admin').html('');
         $('#metrics').html('');
-
     }
 }
 

@@ -4,37 +4,37 @@ block content
     script(src='/javascripts/loggedIn.js')
 
     .row
-        .col.s12
-            .container
-                #adminCol.clearfix
-                    .col.s6
-                        .row
-                            h5 Queue Management
-                                                
-                        .row
-                            .dbBtn.a#btnFreezeQueue(class="waves-effect waves-light btn") Freeze
-                        .row
-                            .dbBtn.a#btnResetQueue(class="waves-effect waves-light btn") Clear
-                        .row
-                            h5 Email Alerts
-                            .switch#emailAlertSwitch
+        center
+            .col.s12
+                .container
+                    #adminCol.clearfix
 
-                                label 
-                                    span#emailAlertSwitchLabel On
-                                    input#emailAlertCheck(type="checkbox")
-                                    span(class="lever") 
+                        .col.s6(style="text-align: left")
+                            .row
+                                h5 Queue Management                                            
+                            .row
+                                .dbBtn.a#btnFreezeQueue(class="waves-effect waves-light btn cyan tooltipped", data-position="right",data-delay="50",data-tooltip="Prevent new queue signups") Freeze
+                            .row
+                                .dbBtn.a#btnResetQueue(class="waves-effect waves-light btn cyan tooltipped", data-position="right",data-delay="50",data-tooltip="Reset queue and queue times") Clear
+                            .row
+                                h5 Email Alerts
+                                .switch#emailAlertSwitch
+                                    label 
+                                        span#emailAlertSwitchLabel On
+                                        input#emailAlertCheck(type="checkbox")
+                                        span(class="lever tooltipped", data-position="right",data-delay="50",data-tooltip="Have the queue send emails on long queue times") 
 
-                                
+                                    
 
-                    .col.s6
-                        .row
-                            h5 Settings
-                        .row
-                            input#inputQueueName(type='text', placeholder='15-122')
-                            .dbBtn.a#btnChangeName(class="waves-effect waves-light btn") Change Title
-                        .row
-                            input#inputBulletin(type='text', placeholder='Yo')
-                            .dbBtn.a#btnInputBulletin(class="waves-effect waves-light btn") Update Message
+                        .col.s6
+                            .row
+                                h5 Settings
+                            .row
+                                input#inputQueueName(type='text', placeholder='Change Title')
+                                .dbBtn.a#btnChangeName(class="waves-effect waves-light btn cyan") Update
+                            .row
+                                input#inputBulletin(type='text', placeholder='Change Bulletin')
+                                .dbBtn.a#btnInputBulletin(class="waves-effect waves-light btn cyan") Update 
 
 
 
