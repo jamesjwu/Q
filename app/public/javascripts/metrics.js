@@ -1,6 +1,6 @@
 var CONSTANTS = {
-    semesterStart: new Date('2015-01-01'),
-    semesterEnd: new Date('2015-08-23')
+    semesterStart: new Date('2015-08-21'),
+    semesterEnd: new Date()
 };
 
 
@@ -28,13 +28,12 @@ function notStopWord(word) {
 }
 
 function loadPerWeekChart(data) {
-	assignments = {1 : 'Scavhunt', 2: 'Pixels', 3: 'Images', 4: 'Doslingos',
-					5: 'Clac', 6: 'Clac', 7: 'Clac', 8: 'Editor', 9: 'Editor',
+	assignments = {1: 'Scavhunt', 2 : 'Scavhunt', 3: 'Pixels', 4: 'Images', 5: 'Doslingos',
+					6: 'Clac', 7: 'Clac', 8: 'Editor', 9: 'Editor',
 					10: 'Ropes',
 					11: 'Strbuf', 12: 'Strbuf',
 					13: 'Lightsout', 14 : 'C0VM (checkpoint)', 15: 'C0VM'};
 
-	// TODO: This is harder coded than a 112 project
 	startTime = CONSTANTS.semesterStart;
 	weeks = {};
 	var oneweek = 7 * 24 * 60 * 60 * 1000;

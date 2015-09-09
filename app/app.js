@@ -9,8 +9,9 @@ var passport = require('passport');
 var session = require('express-session'); 
 var hash = require('object-hash');
 var fs = require('fs');
-var coursePass = fs.readFileSync('coursePass.txt').toString();
+var coursePass = fs.readFileSync('coursePass.txt').toString().trim();
 var TAs = fs.readFileSync('TAAndrewIDs.txt').toString().split('\n');
+console.log(TAs)
 
 //Database
 var mongo = require('mongoskin');
@@ -39,7 +40,7 @@ io.sockets.on('connection', function(socket) {
     // Get a login request
     socket.on('login', function(data) {
         //Check andrewID and password
-        if ((TAs.indexOf(data.user.andrewId) >= 0)) {
+        if ((TAs.indexOf(data.user.andrewId.trim()) >= 0)) {
             if(hash.MD5(data.user.pass) == coursePass) {
                 // If its a valid user, we send the 
                 keys[keys.length] = data.key;
