@@ -83,7 +83,7 @@ router.post('/adduser', function(req, res) {
     var db = req.db;
     var andrewId = req.body.andrewId;
 
-    if (students.indexOf(andrewId) < 0) {
+    if (students.indexOf(andrewId.toLowerCase()) < 0) {
         res.send({
             msg: "Your andrewID isn't associated with 15122!"
         });
