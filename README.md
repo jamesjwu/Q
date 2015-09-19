@@ -19,7 +19,7 @@ Built on [node.js](http://nodejs.org), and assorted black magic.
 - Create Q/app/emailPass.txt containing the password to the email used in
   Q/app/routes/users.js.
 - `npm start`
-- Go to [http://localhost:1234](http://localhost:1234)
+- Go to [http://localhost:3000](http://localhost:3000)
 
 Of course, these instructions are kinda useless, since currently everything is
 hardwired up to our production server (please don't tell), but that's how it
