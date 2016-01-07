@@ -27,7 +27,6 @@ $(document).ready(function() {
         setAverageHelpTime();
     });
     setAverageHelpTime();
-    $('input#inputUserProblem').characterCounter();
 
 });
 

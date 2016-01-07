@@ -6,10 +6,11 @@ var queueFrozen = false;
 var entryCount = 0;
 var lastEmail = -1;
 var emailAlerts = true;
+var currTime = 0;
 
 var nodemailer = require('nodemailer');
 var emailPass = fs.readFileSync('emailPass.txt').toString();
-
+var Slack = require('slack-node');
 
 // email transporter
 var transporter = nodemailer.createTransport({
@@ -29,11 +30,21 @@ var mailOptions = {
 
 
 
+
+webhookUri = "https://hooks.slack.com/services/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";
+slack = new Slack();
+slack.setWebhook(webhookUri);
+
+
 /* GET users listing. */
 router.get('/', function(req, res) {
     res.send('respond with a resource');
 });
 
+router.post('/qtimes', function(req, res) {
+    
+    res.send("Average queue time: " + Math.round(currTime) + " minutes");
+});
 
 function sanitizeString(str) {
     return str.replace(/</gim, "&lt;").replace(/>/gim, "&gt;").trim();
@@ -187,6 +198,7 @@ router.get('/gettimes', function(req, res) {
         if (data.length == 0) {
             time = 0;
         }
+        currTime = time;
 
         if(emailAlerts) {
             threshold = 40;
@@ -196,6 +208,14 @@ router.get('/gettimes', function(req, res) {
                 // only send one email per day
                 if (new Date().getDay() != lastEmail) {
                     console.log("Sending email");
+                    slack.webhook({
+                      channel: "#office-hours",
+                      username: "15-122 Queue",
+                      text: "The queue is getting awfully long.. average wait time is at " + time + " minutes.\n" +
+                            "Please come help if you can!!"
+                    }, function(err, response) {
+                      console.log(response);
+                    });
                     lastEmail = new Date().getDay();
                     // send mail with defined transport object
                     transporter.sendMail(mailOptions, function(error, info) {

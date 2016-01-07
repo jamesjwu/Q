@@ -1,21 +1,27 @@
 var CONSTANTS = {
-    semesterStart: new Date('2015-08-21'),
+    semesterStart: new Date('2016-01-01'),
     semesterEnd: new Date()
 };
 
-
+/* Ajax to get the data */
 function getMetrics(start, end) {
 	return $.ajax({
 		type: 'POST',
 		url: '/getmetrics',
 		data: {startTime: start, endTime: end},
 		dataType: 'JSON',
-		async: false
-	}).responseJSON;
+	}).done(function(data) {
+        if (data.length > 0) {
+            mostCommonIds(data);
+            loadPerWeekChart(data);
+            weekDayChart(data, 2); // load weekday data for the last 2 weeks
+        }
+    });
 }
 
+/* Gets rid of useless words for most common problems */
 function notStopWord(word) {
-	stopWords = ['task', 'help', 'test', 'debugging', 'assignment',
+	stopWords = ['task', 'help', 'the', 'test', 'debugging', 'assignment',
                  'asdasd', 'idea', 'more', 'ropes', 'rope', 'out'];
 
 	if (stopWords.indexOf(word) >= 0) {
@@ -27,6 +33,7 @@ function notStopWord(word) {
 	return true;
 }
 
+/* Load number of requests per assignment */
 function loadPerWeekChart(data) {
 	assignments = {1: 'Scavhunt', 2 : 'Scavhunt', 3: 'Pixels', 4: 'Images', 5: 'Doslingos',
 					6: 'Clac', 7: 'Clac', 8: 'Editor', 9: 'Editor',
@@ -70,7 +77,8 @@ function loadPerWeekChart(data) {
     myNewChart.Bar(dataPoints);
 }
 
-function weekDayChart(data) {
+/* Load number of requests per day in last n weeks */
+function weekDayChart(data, weeks) {
 	var ctx = $('#weekChart').get(0).getContext('2d');
 	// This will get the first returned node in the jQuery collection.
 	var myNewChart = new Chart(ctx);
@@ -82,7 +90,7 @@ function weekDayChart(data) {
 			date = new Date(data[i].timestamp);
 			var timediff = today.getTime() - date.getTime();
 			var oneweek = 7 * 24 * 60 * 60 * 1000;
-			if (timediff <= 2 * oneweek) {
+			if (timediff <= weeks * oneweek) {
 				lastweek[date.getDay()] += 1;
 			}
 		}
@@ -109,6 +117,7 @@ function weekDayChart(data) {
 
 }
 
+/* Get most common office hour users */
 function mostCommonIds(data) {
 	dataByAndrewId = {};
 	var problems = [];
@@ -159,9 +168,11 @@ function mostCommonIds(data) {
     var options = {
     	keys: ['word']
     };
+
+    // fuzzy search
     var f = new Fuse(problems, options);
 
-	for (var i = 0; i < 7; i++) {
+	for (var i = 0; i < Math.min(7, sortable.length); i++) {
 		commonIds += "<li class='collection-item'>";
 		commonIds += sortable[i][0];
 		commonIds += '<span class="badge">';
@@ -172,8 +183,7 @@ function mostCommonIds(data) {
 
 
    	commonIds += '<h5> The most common words in the corpus are</h5> <ul class="collection"> ';
-
-	for (var i = 0; i < 10; i++) {
+	for (var i = 0; i < Math.min(10, sortable.length); i++) {
 		var len = f.search(sortableWords[i][0]).length;
 		if (len > 3) {
 			commonIds += "<li class='collection-item'>";
@@ -188,16 +198,8 @@ function mostCommonIds(data) {
 
 }
 $(document).ready(function() {
-    
     lastChecked = localStorage.metricsTimeStamp;
 	endTime = CONSTANTS.semesterEnd;
 	startTime = CONSTANTS.semesterStart;
-
-	data = getMetrics(startTime.getTime(), endTime.getTime());
-    if (data.length > 0) {
-    	mostCommonIds(data);
-    	loadPerWeekChart(data);
-    	weekDayChart(data);
-    }
-
+    getMetrics(startTime.getTime(), endTime.getTime());
  });

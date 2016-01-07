@@ -4,13 +4,14 @@ var emailAlerts = false;
 
 $(document).ready(function() {
     getEmailAlertSetting();
+    // turn on all button settings
     $('#btnFreezeQueue').on('click', freeze_queue);
     $('#btnResetQueue').on('click', cleartimes);
     $('#btnChangeName').on('click', btnSetName);
     $('#emailAlertSwitch').on('change', toggleEmails);
     $('#btnInputBulletin').on('click', btnSetBulletin);
     $('#emailAlertSwitchLabel').html(on ? "On" : "Off");
-    
+
 
     $('#inputQueueName').attr('placeholder', get_name());
     $('#inputBulletin').attr('placeholder', "New Bulletin");
@@ -27,6 +28,7 @@ function cleartimes() {
             url: '/users/cleartimes',
             dataType: 'JSON'
         });
+
         toast('Cleared Times', 750);
     }
 }
@@ -58,7 +60,7 @@ function getEmailAlertSetting() {
     $.ajax({
         type: "GET",
         url: "/users/getEmailAlerts",
-        
+
         dataType: 'JSON',
     }).done(function(response) {
         on = response.msg;

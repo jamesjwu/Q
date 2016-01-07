@@ -11,7 +11,6 @@ var hash = require('object-hash');
 var fs = require('fs');
 var coursePass = fs.readFileSync('coursePass.txt').toString().trim();
 var TAs = fs.readFileSync('TAAndrewIDs.txt').toString().split('\n');
-console.log(TAs)
 
 //Database
 var mongo = require('mongoskin');

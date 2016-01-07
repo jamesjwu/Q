@@ -7,13 +7,14 @@ var fs = require('fs');
 var coursePass = fs.readFileSync('coursePass.txt').toString();
 var TAs = fs.readFileSync('TAAndrewIDs.txt').toString().split('\n');
 var students = fs.readFileSync('studentIDs.txt').toString().split('\n');
+var tokens = fs.readFileSync('slack.txt').toString().trim().split('\n');
 
 var courseTitle = "CMUQ";
 var courseBulletin = "";
 var latestMetrics = [];
 var latestDay = null;
 
-
+var labCodes = {};
 
 /* GET home page. */
 router.get('/', function(req, res) {
@@ -21,6 +22,39 @@ router.get('/', function(req, res) {
         title: 'CmuQ'
     });
 });
+
+router.post('/sps', function(req, res) {
+    if(req.body.token == tokens[0]) {
+        labCodes[req.body.text.toLowerCase().charAt(0)] = req.body.text;
+        res.send("Lab code registered for section " + req.body.text.charAt(0));
+    }
+    else {
+        res.send({error:"No"});
+    }
+});
+
+
+router.post('/ps', function(req, res) {
+    if(req.body.token == tokens[1]) {
+        res.send("Code for lab " + req.body.text.toUpperCase().charAt(0) 
+            + ": " + labCodes[req.body.text.toLowerCase().charAt(0)]);
+    }
+    else {
+        res.send({error:"No"});
+    }
+});
+
+router.post('/qtimes', function(req, res) {
+    if(req.body.token == tokens[1]) {
+
+        res.send({});
+    }
+    else {
+        res.send({error:"No"});
+    }
+});
+
+
 router.get('/metrics', function(req, res) {
     if (req.session.loggedIn) {
         res.render('metrics', {
