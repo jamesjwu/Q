@@ -70,9 +70,10 @@ routes/
 
 ### Miscellaneous
 These files aren't included in the git repo, but are required for production:
+```
 coursePass.txt - md5 hashed course password
 emailPass.txt - plaintext file with email password for email alerts
 studentIDs.txt - plaintext list of student IDs in the course
 TAAndrewIDs.txt - plaintext list of TA IDs in the course
-
+```
 These should be stored securely server side, with no way to access them publicly.
