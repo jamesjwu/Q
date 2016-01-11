@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var fs = require('fs');
 var students = fs.readFileSync('studentIDs.txt').toString().split('\n');
+var webhookUri = fs.readFileSync('webhookURI.txt').toString();
 var queueFrozen = false;
 var entryCount = 0;
 var lastEmail = -1;
@@ -31,7 +32,6 @@ var mailOptions = {
 
 
 
-webhookUri = "https://hooks.slack.com/services/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";
 slack = new Slack();
 slack.setWebhook(webhookUri);
 
@@ -42,7 +42,7 @@ router.get('/', function(req, res) {
 });
 
 router.post('/qtimes', function(req, res) {
-    
+
     res.send("Average queue time: " + Math.round(currTime) + " minutes");
 });
 
@@ -252,7 +252,7 @@ router.post('/tracktime', function(req, res) {
 });
 
 router.delete('/deleteuser/:id', function(req, res) {
-    // Check log in 
+    // Check log in
     if (req.session.loggedIn) {
         var db = req.db;
         var userToDelete = req.params.id;
