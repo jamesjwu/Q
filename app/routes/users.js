@@ -1,8 +1,15 @@
 var express = require('express');
 var router = express.Router();
 var fs = require('fs');
+
 var students = fs.readFileSync('studentIDs.txt').toString().split('\n');
-var webhookUri = fs.readFileSync('webhookURI.txt').toString();
+try {
+    var webhookUri = fs.readFileSync('webhookURI.txt').toString();
+}
+catch(err) {
+    console.log("No slack file detected. Skipping");
+    var webhookUri = null;
+}
 var queueFrozen = false;
 var entryCount = 0;
 var lastEmail = -1;
@@ -10,7 +17,15 @@ var emailAlerts = true;
 var currTime = 0;
 
 var nodemailer = require('nodemailer');
-var emailPass = fs.readFileSync('emailPass.txt').toString();
+
+try {
+    var emailPass = fs.readFileSync('emailPass.txt').toString();
+}
+catch(err) {
+    console.log("No email file detected. Skipping");
+    var emailPass = null;
+}
+
 var Slack = require('slack-node');
 
 // email transporter
@@ -31,7 +46,6 @@ var mailOptions = {
 
 
 
-
 slack = new Slack();
 slack.setWebhook(webhookUri);
 
@@ -42,7 +56,6 @@ router.get('/', function(req, res) {
 });
 
 router.post('/qtimes', function(req, res) {
-
     res.send("Average queue time: " + Math.round(currTime) + " minutes");
 });
 
@@ -208,23 +221,27 @@ router.get('/gettimes', function(req, res) {
                 // only send one email per day
                 if (new Date().getDay() != lastEmail) {
                     console.log("Sending email");
-                    slack.webhook({
-                      channel: "#office-hours",
-                      username: "15-122 Queue",
-                      text: "The queue is getting awfully long.. average wait time is at " + time + " minutes.\n" +
-                            "Please come help if you can!!"
-                    }, function(err, response) {
-                      console.log(response);
-                    });
-                    lastEmail = new Date().getDay();
-                    // send mail with defined transport object
-                    transporter.sendMail(mailOptions, function(error, info) {
-                        if (error) {
-                            console.log(error);
-                        } else {
-                            console.log('Message sent: ' + info.response);
-                        }
-                    });
+                    if(webhookUri !== null) {
+                        slack.webhook({
+                          channel: "#office-hours",
+                          username: "15-122 Queue",
+                          text: "The queue is getting awfully long.. average wait time is at " + time + " minutes.\n" +
+                                "Please come help if you can!!"
+                        }, function(err, response) {
+                          console.log(response);
+                        });
+                    }
+                    if(emailPass !== null) {
+                        lastEmail = new Date().getDay();
+                        // send mail with defined transport object
+                        transporter.sendMail(mailOptions, function(error, info) {
+                            if (error) {
+                                console.log(error);
+                            } else {
+                                console.log('Message sent: ' + info.response);
+                            }
+                        });
+                    }
                 }
             }
         }

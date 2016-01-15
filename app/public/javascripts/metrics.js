@@ -183,7 +183,7 @@ function mostCommonIds(data) {
 
 
    	commonIds += '<h5> The most common words in the corpus are</h5> <ul class="collection"> ';
-	for (var i = 0; i < Math.min(10, sortable.length); i++) {
+	for (var i = 0; i < Math.min(10, sortableWords.length); i++) {
 		var len = f.search(sortableWords[i][0]).length;
 		if (len > 3) {
 			commonIds += "<li class='collection-item'>";
@@ -193,8 +193,10 @@ function mostCommonIds(data) {
 			commonIds += '</span></li>';
 		}
 	}
+
 	commonIds += '</ul>';
 	$('#mostCommonIds').html(commonIds);
+
 
 }
 $(document).ready(function() {
