@@ -1,6 +1,7 @@
 /* Admin.js: Controls the admin panel */
 
 var emailAlerts = false;
+var queueFrozen = false;
 
 $(document).ready(function() {
     getEmailAlertSetting();
@@ -98,11 +99,13 @@ function btnSetName(event) {
 
 /* stop people from signing up on the queue */
 function freeze_queue() {
+    queueFrozen = !queueFrozen;
     $.ajax({
         type: "POST",
         url: "/users/freezequeue",
         dataType: 'JSON',
     }).done(function(response) {
+        $('#btnFreezeQueue').html(queueFrozen ? "Unfreeze" : "Freeze");
         toast(response.msg, 1000);
 
     });
