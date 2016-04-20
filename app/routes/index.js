@@ -36,7 +36,7 @@ router.post('/sps', function(req, res) {
 
 router.post('/ps', function(req, res) {
     if(req.body.token == tokens[1]) {
-        res.send("Code for lab " + req.body.text.toUpperCase().charAt(0) 
+        res.send("Code for lab " + req.body.text.toUpperCase().charAt(0)
             + ": " + labCodes[req.body.text.toLowerCase().charAt(0)]);
     }
     else {
