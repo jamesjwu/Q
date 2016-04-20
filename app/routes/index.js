@@ -9,6 +9,7 @@ var TAs = fs.readFileSync('TAAndrewIDs.txt').toString().split('\n');
 var students = fs.readFileSync('studentIDs.txt').toString().split('\n');
 var tokens = fs.readFileSync('slack.txt').toString().trim().split('\n');
 
+
 var courseTitle = "CMUQ";
 var courseBulletin = "";
 var latestMetrics = [];
@@ -36,7 +37,7 @@ router.post('/sps', function(req, res) {
 
 router.post('/ps', function(req, res) {
     if(req.body.token == tokens[1]) {
-        res.send("Code for lab " + req.body.text.toUpperCase().charAt(0) 
+        res.send("Code for lab " + req.body.text.toUpperCase().charAt(0)
             + ": " + labCodes[req.body.text.toLowerCase().charAt(0)]);
     }
     else {

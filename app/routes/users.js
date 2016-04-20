@@ -115,7 +115,7 @@ router.post('/adduser', function(req, res) {
     }
 
     var cursor = db.collection('userlist').find({
-        "andrewId": andrewId
+        "andrewId": andrewId.toLowerCase()
     }).toArray(function(err, items) {
         if (items.length > 0) {
             res.send({
@@ -126,7 +126,7 @@ router.post('/adduser', function(req, res) {
 
             var user = req.body;
             user.timestamp = new Date().getTime();
-            user.name = sanitizeString(req.body.name);
+            user.name = sanitizeString(req.body.name).toLowerCase();
             user.andrewId = sanitizeString(req.body.andrewId);
             user.problem = sanitizeString(req.body.problem);
 

@@ -28,7 +28,6 @@ function cleartimes() {
             url: '/users/cleartimes',
             dataType: 'JSON'
         });
-
         toast('Cleared Times', 750);
     }
 }

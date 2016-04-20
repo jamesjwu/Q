@@ -4,8 +4,8 @@ html
     title= title
     link(rel='stylesheet', href='/stylesheets/materialize.css')
     link(rel='stylesheet', href='/stylesheets/style.css')
-    link(href='http://fonts.googleapis.com/css?family=Poiret+One', rel='stylesheet', type='text/css')
-    script(src='http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js')
+    link(href='https://fonts.googleapis.com/css?family=Poiret+One', rel='stylesheet', type='text/css')
+    script(src='https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js')
     script(src='/socket.io/socket.io.js')
     script(src='/javascripts/materialize.js')
     script(src='/javascripts/common.js')
@@ -19,21 +19,21 @@ html
                 li
                     a(href = "/") Queue
                 li
-                    #admin 
+                    #admin
                 li
-                    #metrics  
+                    #metrics
                 li
-                    #LoginLogout 
-                            
+                    #LoginLogout
 
 
-    
+
+
     .modal#login
         center
             h4 Login as TA
 
         .modal-content
-           
+
             input#inputTAAndrewId(type='text', placeholder='Your AndrewId')
             input#inputCoursePassword(type='password',placeholder='Course Password')
         .modal-footer
