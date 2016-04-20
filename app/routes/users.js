@@ -96,7 +96,6 @@ router.post('/freezequeue', function(req, res) {
 });
 
 
-
 router.post('/adduser', function(req, res) {
     if (queueFrozen) {
         res.send({
