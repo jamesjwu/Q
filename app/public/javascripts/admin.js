@@ -10,8 +10,6 @@ $(document).ready(function() {
     $('#btnChangeName').on('click', btnSetName);
     $('#emailAlertSwitch').on('change', toggleEmails);
     $('#btnInputBulletin').on('click', btnSetBulletin);
-    $('#emailAlertSwitchLabel').html(on ? "On" : "Off");
-
 
     $('#inputQueueName').attr('placeholder', get_name());
     $('#inputBulletin').attr('placeholder', "New Bulletin");
@@ -60,11 +58,11 @@ function getEmailAlertSetting() {
         url: "/users/getEmailAlerts",
         dataType: 'JSON',
     }).done(function(response) {
-        on = response.msg;
-        $('#emailAlertSwitchLabel').html(on ? "On" : "Off");
-        if(on) {
-        $('#emailAlertCheck').attr('checked', "true");
-    }
+        emailAlerts = response.msg;
+        $('#emailAlertSwitchLabel').html(emailAlerts ? "On" : "Off");
+        if(emailAlerts) {
+            $('#emailAlertCheck').attr('checked', "true");
+        }
     });
 }
 
