@@ -95,6 +95,17 @@ router.post('/freezequeue', function(req, res) {
     }
 });
 
+router.get('/getqueuefrozen', function(req, res) {
+    if (req.session.loggedIn) {
+        res.send({
+            msg: queueFrozen
+        });
+    } else {
+        res.send({
+            msg: "Nice Try"
+        });
+    }
+});
 
 router.post('/adduser', function(req, res) {
     if (queueFrozen) {
