@@ -19,7 +19,6 @@ $(document).ready(function() {
 });
 var socket = io();
 
-
 /* Deletes all average queue information */
 function cleartimes() {
     if (confirm("Really clear all average queue times?")) {
@@ -59,7 +58,6 @@ function getEmailAlertSetting() {
     $.ajax({
         type: "GET",
         url: "/users/getEmailAlerts",
-
         dataType: 'JSON',
     }).done(function(response) {
         on = response.msg;
