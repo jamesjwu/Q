@@ -1,9 +1,11 @@
 /* Admin.js: Controls the admin panel */
 
 var emailAlerts = false;
+var queueFrozen = false;
 
 $(document).ready(function() {
     getEmailAlertSetting();
+    getQueueFrozenStatus();
     // turn on all button settings
     $('#btnFreezeQueue').on('click', freeze_queue);
     $('#btnResetQueue').on('click', cleartimes);
@@ -66,6 +68,18 @@ function getEmailAlertSetting() {
     });
 }
 
+/* obtain queue frozen status */
+function getQueueFrozenStatus() {
+  $.ajax({
+      type: "GET",
+      url: "/users/getqueuefrozen",
+      dataType: 'JSON',
+  }).done(function(response) {
+      queueFrozen = response.msg;
+      $('#btnFreezeQueue').html(queueFrozen ? "Unfreeze" : "Freeze");
+  });
+}
+
 /* switch email alerts on/off */
 function toggleEmails() {
     emailAlerts = !emailAlerts;
@@ -94,6 +108,9 @@ function btnSetName(event) {
 
 /* stop people from signing up on the queue */
 function freeze_queue() {
+    queueFrozen = !queueFrozen;
+    $('#btnFreezeQueue').html(queueFrozen ? "Unfreeze" : "Freeze");
+
     $.ajax({
         type: "POST",
         url: "/users/freezequeue",
