@@ -127,12 +127,12 @@ function get_bulletin() {
 }
 
 function get_name() {
-    return "<a href='#' class= 'brand-logo'>" + $.ajax({
+    return $.ajax({
         type: 'GET',
         url: '/getname',
         dataType: 'JSON',
         async: false,
-    }).responseJSON.msg + '</a>';
+    }).responseJSON.msg;
 }
 
 
