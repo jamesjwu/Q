@@ -43,7 +43,6 @@ function setAverageHelpTime() {
     // Get all the help times by JSON call
     return $.getJSON('/users/gettimes', function(data) {
         var time = data.time;
-
         $('#averageHelpTime').html("<font color='gray'> Average Help Time: </font>" + Math.round(time) + ' minute(s)');
 
         if (time > 30) {
