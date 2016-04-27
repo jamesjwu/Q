@@ -1,13 +1,12 @@
 /* Common functions for all frontend stuff */
 $(document).ready(function() {
-	refreshTitle();
+    refreshTitle();
     $('#');
 });
 
 function refreshTitle() {
     $('#name').html(" <a href='/' class='brand-logo'>" + get_name() + '</a>');
 }
-
 
 /* populateTable - similar to updating table view */
 function populateTable() {
@@ -35,8 +34,6 @@ function populateTable() {
             tableContent += '</div>';
         });
 
-        
-
         $('#userList').html(tableContent);
     });
 }
@@ -46,7 +43,6 @@ function setAverageHelpTime() {
     // Get all the help times by JSON call
     return $.getJSON('/users/gettimes', function(data) {
         var time = data.time;
-    
         $('#averageHelpTime').html("<font color='gray'> Average Help Time: </font>" + Math.round(time) + ' minute(s)');
 
         if (time > 30) {
@@ -107,10 +103,7 @@ function deleteUser(event) {
             }
         });
     }
-
 }
-
-
 
 /* what do you think this does */
 function isLoggedIn() {
@@ -133,12 +126,12 @@ function get_bulletin() {
 }
 
 function get_name() {
-    return "<a href='#' class= 'brand-logo'>" + $.ajax({
+    return $.ajax({
         type: 'GET',
         url: '/getname',
         dataType: 'JSON',
         async: false,
-    }).responseJSON.msg + '</a>';
+    }).responseJSON.msg;
 }
 
 
